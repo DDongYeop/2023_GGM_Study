@@ -18,7 +18,7 @@
     <ClCompile Include="20201_경동엽_숫자다루기문제.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="소스1.cpp">
+    <ClCompile Include="20201_경동엽_케잌자르기.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="20201_경동엽_숫자다루기문제.cpp" />
-    <ClCompile Include="소스1.cpp" />
+    <ClCompile Include="20201_경동엽_케잌자르기.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
