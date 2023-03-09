@@ -27,5 +27,8 @@
     <ClCompile Include="산술 문제 자동 출제 .cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Swap함수 만들기.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
