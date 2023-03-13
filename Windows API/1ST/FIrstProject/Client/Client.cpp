@@ -30,6 +30,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 전역 문자열을 초기화합니다.
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
+
+    //
     MyRegisterClass(hInstance);
 
     // 애플리케이션 초기화를 수행합니다:
@@ -121,6 +123,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+
+POINT g_ptObjPos = { 500, 300 };
+POINT g_ptObjScale = { 100, 100 };
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -142,13 +148,60 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
-    case WM_PAINT:
+    case WM_PAINT: //무효화 처리 (다시 그려야할떄)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+            HPEN hPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
+            HPEN oldPen = (HPEN)SelectObject(hdc, hPen);
+
+            HBRUSH hBrush = CreateSolidBrush(RGB(0, 0, 255));
+            HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, hBrush);
+
+            Rectangle(hdc, g_ptObjPos.x - g_ptObjScale.x / 2,
+                           g_ptObjPos.y - g_ptObjScale.y / 2,
+                           g_ptObjPos.x + g_ptObjScale.x / 2,
+                           g_ptObjPos.y + g_ptObjScale.y / 2);
+
+            SelectObject(hdc, oldPen);
+            SelectObject(hdc, oldBrush);
+            DeleteObject(hPen);
+            DeleteObject(hBrush);
+            //Rectangle(hdc, 210, 210, 310, 310);
+
             EndPaint(hWnd, &ps);
         }
+        break;
+    case WM_KEYDOWN:
+    {
+        switch (wParam)
+        {
+        case VK_UP:
+        {
+            g_ptObjPos.y -= 10;
+            InvalidateRect(hWnd, nullptr, true);
+            break;
+        }
+        case VK_DOWN:
+        {
+            g_ptObjPos.y += 10;
+            InvalidateRect(hWnd, nullptr, true);
+            break;
+        }
+        case VK_LEFT:
+        {
+            g_ptObjPos.x -= 10;
+            InvalidateRect(hWnd, nullptr, true);
+            break;
+        }
+        case VK_RIGHT:
+        {
+            g_ptObjPos.x += 10;
+            InvalidateRect(hWnd, nullptr, true);
+            break;
+        }
+        }
+    }
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
