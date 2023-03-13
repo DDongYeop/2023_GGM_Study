@@ -4,33 +4,34 @@ using UnityEngine;
 
 public class NormalState : CommonState
 {
-    protected AgentMovement _agentMovment;
-    protected AgentInput _agentInput;
-    
+    protected AgentMovement _agentMovement;
+
     public override void OnEnterState()
     {
-        _agentMovment?.StopImmediately();
+        _agentMovement?.StopImmediately();
         _agentInput.OnMovementKeyPress += OnMovementHandle;
     }
 
     public override void OnExitState()
     {
-        _agentMovment?.StopImmediately();
+        _agentMovement?.StopImmediately();
         _agentInput.OnMovementKeyPress -= OnMovementHandle;
     }
 
     private void OnMovementHandle(Vector3 obj)
     {
-        _agentMovment?.SetMovementVelocity(obj);
+        _agentMovement?.SetMovementVelocity(obj);
     }
 
     public override void SetUp(Transform agentRoot)
     {
         base.SetUp(agentRoot);
-        _agentMovment = agentRoot.GetComponent<AgentMovement>();
+        _agentMovement = agentRoot.GetComponent<AgentMovement>();
     }
 
     public override void UpdateState()
     {
+        
     }
+
 }
