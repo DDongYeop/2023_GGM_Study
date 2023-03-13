@@ -126,6 +126,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 POINT g_ptObjPos = { 500, 300 };
 POINT g_ptObjScale = { 100, 100 };
+int g_Left = 0;
+int g_Top = 0;
+int g_Right = 0;
+int g_Bottom = 0;
+RECT g_rcEllipse = { 200, 200, 300, 300};
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -169,6 +174,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             DeleteObject(hBrush);
             //Rectangle(hdc, 210, 210, 310, 310);
 
+            //Rectangle(hdc, g_Left, g_Top, g_Right, g_Bottom);
+
+            Ellipse(hdc, g_rcEllipse.left, g_rcEllipse.top, g_rcEllipse.right, g_rcEllipse.bottom);
+
+            MoveToEx(hdc, 20, 20, nullptr);
+            LineTo(hdc, 200, 100);
+
+            TextOut(hdc, 400, 400, _T("GGM"), 3);
+
             EndPaint(hWnd, &ps);
         }
         break;
@@ -201,8 +215,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
         }
         }
-    }
-        break;
+    }break;
+    case WM_LBUTTONDOWN:
+    {
+        MessageBox(hWnd, _T("Click Mouse Left Button"), _T("Message Box!!"), MB_OK);
+
+        /*g_Left = LOWORD(lParam);
+        g_Top = HIWORD(lParam);*/
+    }break;
+    case WM_MOUSEMOVE:
+    {
+        /*g_Right = LOWORD(lParam);
+        g_Bottom = HIWORD(lParam);
+        InvalidateRect(hWnd, nullptr, true);*/
+    }break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
