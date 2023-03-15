@@ -7,7 +7,11 @@ public class AgentAnimator : MonoBehaviour
 {
     private readonly int _speedHash = Animator.StringToHash("speed");
     private readonly int _isAirboneHash = Animator.StringToHash("is_airbone");
+    private readonly int _attackHash = Animator.StringToHash("attack");
+    private readonly int _isAttackHash = Animator.StringToHash("is_attack");
 
+    public event Action OnAnimationEndTrigger = null;
+    
     private Animator _animator;
     public Animator Animator => _animator;
 
@@ -24,5 +28,23 @@ public class AgentAnimator : MonoBehaviour
     public void SetAirbone(bool value)
     {
         _animator.SetBool(_isAirboneHash, value);
+    }
+
+    public void SetAttackState(bool value)
+    {
+        _animator.SetBool(_isAttackHash, value);
+    }
+
+    public void SetAttackTrigger(bool value)
+    {
+        if (value)
+            _animator.SetTrigger(_attackHash);
+        else
+            _animator.ResetTrigger(_attackHash);
+    }
+
+    private void OnAnimationEnd()
+    {
+        OnAnimationEndTrigger?.Invoke();
     }
 }

@@ -4,13 +4,21 @@ using UnityEngine;
 public class AgentInput : MonoBehaviour
 {
     public event Action<Vector3> OnMovementKeyPress = null;
-
+    public event Action OnAttackKeyPress = null;
+    
     private void Update()
     {
-        UPdateMoveInput();
+        UpdateMoveInput();
+        UpdateAttackInput();
     }
 
-    private void UPdateMoveInput()
+    private void UpdateAttackInput()
+    {
+        if (Input.GetMouseButtonDown(0))
+            OnAttackKeyPress?.Invoke();
+    }
+
+    private void UpdateMoveInput()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");

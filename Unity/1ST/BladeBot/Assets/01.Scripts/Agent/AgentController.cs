@@ -31,7 +31,7 @@ public class AgentController : MonoBehaviour
         ChangeState(StateType.Normal);
     }
 
-    private void ChangeState(StateType type)
+    public void ChangeState(StateType type)
     {
         _currentState?.OnExitState(); //현재 상태 나가고
         _currentState = _stateDictionary[type];
