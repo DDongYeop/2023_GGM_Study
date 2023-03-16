@@ -2,37 +2,23 @@
 
 using namespace std;
 
-void Tic(int *array[3][4], char ch);
-
 int main()
 {
-	int *array[3][4] = { {false} };
-
-	while (true)
-	{
-		Tic(array, 'O');
-		Tic(array, 'X');
-	}
-}
-
-void Tic(int* array[3][4], char ch)
-{
+	char array[3][3] {{' '}};
 	int x, y;
-	cout << "(x, y) ÁÂÇ¥ : ";
-	cin >> x >> y;
-	
-	cout << "---|---|---";
-	for (int i = 0; i < 3; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			if (array[i][j])
-				cout << ' ' << 'O' << ' ';
-			else
-				cout << "   ";
-			if (j < 2)
-				cout << '|';
-		}
-	}
 
+	for (int k = 0; k < 9; k++)
+	{
+		cout << "(x, y) ÁÂÇ¥: ";
+		cin >> x >> y;
+		if (k % 2 == 0)
+			array[x][y] = 'O';
+		else
+			array[x][y] = 'X';
+		for (int i = 0; i < 3; i++) {
+			cout << "---|---|---" << endl;
+			cout << ' ' << array[i][0] << " | " << array[i][1] << "  |  " << array[i][2] << endl;
+		}
+		cout << "---|---|---" << endl;
+	}
 }
