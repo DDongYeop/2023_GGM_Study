@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="야구게임.cpp">
+    <ClCompile Include="20201_경동엽_야구게임.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="숫자기억.cpp">
+    <ClCompile Include="20201_경동엽_숫자기억.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
