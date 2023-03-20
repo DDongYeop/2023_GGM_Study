@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class NormalState : CommonState
 {
-    protected AgentMovement _agentMovement;
-
     public override void OnEnterState()
     {
         _agentMovement?.StopImmediately();
         _agentInput.OnMovementKeyPress += OnMovementHandle;
         _agentInput.OnAttackKeyPress += OnAttackKeyHandle;
+        _agentInput.OnRollingKeyPress += OnRollingHandle;
     }
 
     public override void OnExitState()
@@ -19,6 +18,12 @@ public class NormalState : CommonState
         _agentMovement?.StopImmediately();
         _agentInput.OnMovementKeyPress -= OnMovementHandle;
         _agentInput.OnAttackKeyPress -= OnAttackKeyHandle;
+        _agentInput.OnRollingKeyPress += OnRollingHandle;
+    }
+
+    private void OnRollingHandle()
+    {
+        _agentController.ChangeState(StateType.Rolling);
     }
 
     private void OnAttackKeyHandle()
@@ -33,11 +38,11 @@ public class NormalState : CommonState
         _agentMovement?.SetMovementVelocity(obj);
     }
 
-    public override void SetUp(Transform agentRoot)
+    /*public override void SetUp(Transform agentRoot)
     {
         base.SetUp(agentRoot);
         _agentMovement = agentRoot.GetComponent<AgentMovement>();
-    }
+    }*/ 
 
     public override void UpdateState()
     {

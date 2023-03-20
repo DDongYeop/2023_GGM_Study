@@ -11,12 +11,13 @@ public abstract class CommonState : MonoBehaviour, IState
     protected AgentAnimator _animator;
     protected AgentInput _agentInput;
     protected AgentController _agentController;
-
+    protected AgentMovement _agentMovement;
     public virtual void SetUp(Transform agentRoot)
     {
         _animator = agentRoot.Find("Visual").GetComponent<AgentAnimator>();
         _agentInput = agentRoot.GetComponent<AgentInput>();
         _agentController = agentRoot.GetComponent<AgentController>();
+        _agentMovement = agentRoot.GetComponent<AgentMovement>();
     }
 
     //피격처리시 사용할 것

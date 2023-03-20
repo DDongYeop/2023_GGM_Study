@@ -7,6 +7,7 @@ public class AgentInput : MonoBehaviour
 {
     public event Action<Vector3> OnMovementKeyPress = null;
     public event Action OnAttackKeyPress = null;
+    public event Action OnRollingKeyPress = null; //롤링키 눌렸을떄 
 
     [SerializeField] private LayerMask _whatIsGround;
     
@@ -14,6 +15,15 @@ public class AgentInput : MonoBehaviour
     {
         UpdateMoveInput();
         UpdateAttackInput();
+        UpdateRollingInput();
+    }
+
+    private void UpdateRollingInput()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            OnRollingKeyPress?.Invoke();
+        }
     }
 
     private void UpdateAttackInput()
