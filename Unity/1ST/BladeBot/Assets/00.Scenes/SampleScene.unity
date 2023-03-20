@@ -1455,6 +1455,7 @@ GameObject:
   - component: {fileID: 1535044568}
   - component: {fileID: 1535044569}
   - component: {fileID: 1535044570}
+  - component: {fileID: 1535044571}
   m_Layer: 0
   m_Name: States
   m_TagString: Untagged
@@ -1504,6 +1505,19 @@ MonoBehaviour:
   _keyDelay: 0.5
   _attackSlideDuration: 0.2
   _attackSlideSpeed: 0.1
+--- !u!114 &1535044571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535044567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092787be53223274fbd21e89bb07593f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rollingSpeed: 0.4
 --- !u!4 &1610177954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -23179724915631221, guid: c8896d83481fca741b2a75c5b0715041, type: 3}
