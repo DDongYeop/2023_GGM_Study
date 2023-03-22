@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RollingState : CommonState
 {
-    [SerializeField] private float _rollingSpeed = 0.4f;
+    [SerializeField] private float _rollingSpeed = 0.4f, _animationThreshold = 0.1f;
+    private float _timer = 0;
     
     public override void OnEnterState()
     {
         //마우스 보고 
         /*_animator.OnAnimationEndTrigger += RollingEndHandle;
-        _agentMovement.IsActiveMove = false;
         _animator.SetRollingState(true);
+        _agentMovement.IsActiveMove = false;
         //어느 방향을 보고 회전시킬지 결정해야함, 마우스 보도록 
         Vector3 mousePos = _agentInput.GetMouseWorldPosition();
         Vector3 dir = mousePos - _agentController.transform.position;
@@ -21,10 +20,15 @@ public class RollingState : CommonState
         
         //키보드 사용 
         _animator.OnAnimationEndTrigger += RollingEndHandle;
-        _agentMovement.IsActiveMove = false; 
         _animator.SetRollingState(true);
-        _agentMovement.StopImmediately();
-        _agentMovement.SetMovementVelocity(transform.forward * _rollingSpeed);
+        _agentMovement.IsActiveMove = false;
+        Vector3 keyDir = _agentInput.GetCurrentInputDirection();
+        // 바라보는 방향으로 
+        if (keyDir.magnitude < .1f)
+            keyDir = _agentController.transform.forward;
+        _agentMovement.SetMovementVelocity(keyDir + _agentController.transform.position);
+        _agentMovement.SetMovementVelocity(keyDir.normalized * _rollingSpeed);
+        _timer = 0;
     }
 
     public override void OnExitState()
@@ -42,6 +46,6 @@ public class RollingState : CommonState
     
     public override void UpdateState()
     {
-        //do nothing
+        _timer += Time.deltaTime;
     }
 }
