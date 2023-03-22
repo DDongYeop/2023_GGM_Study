@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Core;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class AttackState : CommonState
 {
+    public event Action<int> OnAttackStart = null;
+    public event Action OnAttackEnd = null;
     [SerializeField] private float _keyDelay = 0.5f;
     
     private int _currentCombo = 1; //현재 콤보가 몇인지
@@ -40,6 +43,8 @@ public class AttackState : CommonState
         _animator.SetAttackTrigger(false);
         
         _agentMovement.IsActiveMove = true; //키보드 이동을 풀어주고 
+        
+        OnAttackEnd?.Invoke();
     }
 
     private void OnRollingHandle()
@@ -61,6 +66,7 @@ public class AttackState : CommonState
             _canAttack = false;
             _currentCombo++;
             _animator.SetAttackTrigger(true);
+            OnAttackStart?.Invoke(_currentCombo); //현재 콤보 수치 발행
         }
     }
 
