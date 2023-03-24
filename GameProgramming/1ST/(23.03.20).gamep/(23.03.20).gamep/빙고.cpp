@@ -11,7 +11,6 @@ enum class AI_MODE
 void Init(int* _pNumber)
 {
 	//초기화: 셔플, 
-	srand((unsigned int)time(NULL));
 	for (int i = 0; i < 25; i++)
 		_pNumber[i] = i + 1;
 
@@ -29,10 +28,6 @@ void Init(int* _pNumber)
 
 void RenderNumber(int* _pNumber, int _iBingo)
 {
-	cout << "===============" << endl;
-	cout << " | 빙고 게임 | " << endl;
-	cout << "===============" << endl;
-	cout << "빙고줄이 5줄 이상이 되면 게임에서 승리합니다." << endl;
 	for (int i = 0; i < 5; i++)
 	{
 		for (int j = 0; j < 5; j++)
@@ -96,19 +91,90 @@ int BingoCount(int* _pNumber)
 	return iBingo;
 }
 
+AI_MODE SelectAiMode()
+{
+	cout << "===============" << endl;
+	cout << " | 빙고 게임 | " << endl;
+	cout << "===============" << endl;
+	cout << "빙고줄이 5줄 이상이 되면 게임에서 승리합니다." << endl;
+	cout << "1.EASY\n2.NORMAL\nAI모드를 선택하세요. \n";
+	int iAimode;
+	cin >> iAimode;
+	//예외
+
+	if (iAimode < static_cast<int>(AI_MODE::EASY) || iAimode > static_cast<int>(AI_MODE::NORMAL))
+	{
+		cout << "잘못 입력했습니다.\n";
+		Sleep(500);
+		system("cls");
+		return SelectAiMode();
+	}
+	return static_cast<AI_MODE>(iAimode);
+}
+
+int SelectAiNumber(int *_pNumber, AI_MODE _eMode)
+{
+	int iNoneSelect[25] = {};
+	int iNoneSelectCnt = 0;
+	switch (_eMode)
+	{
+	case AI_MODE::EASY:
+	{
+		for (int i = 0; i < 25; ++i)
+		{
+			iNoneSelectCnt = 0;
+			//숫자다
+			if (_pNumber[i] != INT_MAX)
+			{
+				iNoneSelect[iNoneSelectCnt] = _pNumber[i];
+				++iNoneSelectCnt;
+			}
+		}
+		return iNoneSelect[rand() % iNoneSelectCnt];
+	}
+		break;
+	case AI_MODE::NORMAL:
+		break;
+	default:
+		break;
+	}
+	return 1;
+}
+
 int main()
 {
+	srand((unsigned int)time(NULL));
 	int iNumber[25] = {};
-	int iBingo = 0;
+	int iAiNumber[25] = {};
+	int iBingo = 0, iAiBingo = 0;
 	int iInput;
 	Init(iNumber);
+	Init(iAiNumber);
+	AI_MODE eMode = SelectAiMode();
 	while (true)
 	{
 		system("cls");
+		cout << "======================== Player ========================\n";
 		RenderNumber(iNumber, iBingo);
+		cout << "========================   AI   ========================\n";
+		switch (eMode)
+		{
+		case AI_MODE::EASY:
+			cout << "AIMODE: EASY\n";
+			break;
+		case AI_MODE::NORMAL:
+			cout << "AIMODE: NORMAL\n";
+			break;
+		}
+		RenderNumber(iAiNumber, iAiBingo);
 		if (iBingo >= 5)
 		{
 			cout << "게임에서 승리 하였습니다. " << endl;
+			break;
+		}
+		else if (iAiBingo >= 5)
+		{
+			cout << "AI가 게임에서 승리 하였습니다. " << endl;
 			break;
 		}
 		cout << "숫자를 입력하세요. (0: 종료)  ";
@@ -126,7 +192,17 @@ int main()
 		}
 		// 입력된 숫자를 별로 바꾸기 
 		BingoCheck(iNumber, iInput);
+		BingoCheck(iAiNumber, iInput);
+
+		//AI turn
+		iInput = SelectAiNumber(iAiNumber, eMode);
+
+		// 입력된 숫자를 별로 바꾸기 
+		BingoCheck(iNumber, iInput);
+		BingoCheck(iAiNumber, iInput);
+
 		// 줄 체크해서 아이빙고를 늘린다 
 		iBingo = BingoCount(iNumber);
+		iBingo = BingoCount(iAiNumber);
 	}
 }
