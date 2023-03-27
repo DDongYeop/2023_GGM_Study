@@ -8,6 +8,13 @@ enum class AI_MODE
 	NORMAL
 };
 
+enum class LINE_NUMBER
+{
+	LN_H1, LN_H2, LN_H3, LN_H4, LN_H5,
+	LN_V1, LN_V2, LN_V3, LN_V4, LN_V5,
+	LN_LT, LN_RT
+};
+
 void Init(int* _pNumber)
 {
 	//초기화: 셔플, 
@@ -134,11 +141,105 @@ int SelectAiNumber(int *_pNumber, AI_MODE _eMode)
 	}
 		break;
 	case AI_MODE::NORMAL:
-		break;
-	default:
+	{
+		int iLine = 0;
+		int iStarcnt = 0;
+		int iSavecnt = 0;
+		//가로줄 체크
+		for (int i = 0; i < 5; ++i)
+		{
+			iStarcnt = 0;
+			for (int j = 0; j < 5; ++j)
+			{
+				if (_pNumber[i * 5 + j] == INT_MAX)
+					++iStarcnt;
+			}
+			//가로줄 체크 완료 
+			if (iStarcnt < 5 && iStarcnt > iSavecnt)
+			{
+				iLine = i;
+				iSavecnt = iStarcnt;
+			}
+		}
+		//세로줄 체크
+		for (int i = 0; i < 5; ++i)
+		{
+			iStarcnt = 0;
+			for (int j = 0; j < 5; ++j)
+			{
+				if (_pNumber[j * 5 + i] == INT_MAX)
+					++iStarcnt;
+			}
+			//가로줄 체크 완료 
+			if (iStarcnt < 5 && iStarcnt > iSavecnt)
+			{
+				iLine = i+5;
+				iSavecnt = iStarcnt;
+			}
+		}
+		//LT대각선
+		iStarcnt = 0;
+		for (int i = 0; i < 25; i += 6)
+		{
+			if (_pNumber[i] == INT_MAX)
+				++iStarcnt;
+		}
+		if (iStarcnt < 5 && iStarcnt > iSavecnt)
+		{
+			iLine = (int)LINE_NUMBER::LN_LT;
+			iSavecnt = iStarcnt;
+		}
+		//RT대각선
+		iStarcnt = 0;
+		for (int i = 4; i < 25; i += 4)
+		{
+			if (_pNumber[i] == INT_MAX)
+				++iStarcnt;
+		}
+		if (iStarcnt < 5 && iStarcnt > iSavecnt)
+		{
+			iLine = (int)LINE_NUMBER::LN_RT;
+			iSavecnt = iStarcnt;
+		}
+
+		//가장 높은 iLine을 알게 되었다
+		if (iLine <= (int)LINE_NUMBER::LN_H5)
+		{
+			for (int i = 0; i < 5; ++i)
+			{
+				if (_pNumber[iLine*5+i] != INT_MAX)
+				{
+					return _pNumber[iLine * 5 + i];
+				}
+			}
+		}
+		if (iLine <= (int)LINE_NUMBER::LN_V5)
+		{
+			for (int i = 0; i < 5; ++i)
+			{
+				if (_pNumber[i*5 + (iLine - 5)] != INT_MAX)
+				{
+					return _pNumber[i * 5 + (iLine - 5)];
+				}
+			}
+		}
+		//LT
+		else if (iLine == (int)LINE_NUMBER::LN_RT)
+		{
+			for (int i = 0; i < 25; i += 6)
+				if (_pNumber[i] != INT_MAX)
+					return _pNumber[i];
+		}
+		else if (iLine == (int)LINE_NUMBER::LN_LT)
+		{
+			for (int i = 4; i < 20; i += 4)
+				if (_pNumber[i] != INT_MAX)
+					return _pNumber[i];
+		}
+	}
 		break;
 	}
-	return 1;
+	return -1;
 }
 
 int main()
@@ -196,6 +297,8 @@ int main()
 
 		//AI turn
 		iInput = SelectAiNumber(iAiNumber, eMode);
+		cout << "AI가 선택한 숫자는 " << iInput << "입니다. " << endl;
+		Sleep(1000);
 
 		// 입력된 숫자를 별로 바꾸기 
 		BingoCheck(iNumber, iInput);
