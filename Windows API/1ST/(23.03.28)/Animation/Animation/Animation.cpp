@@ -122,7 +122,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
-#define ANI_COUNT 3
+#define ANI_COUNT 4
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -132,6 +132,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     static int nRender = 0;
     static int nSizeX, nSizeY, nMapX, nMapY;
     static int nPosX, nPosY;
+    static int nAniCnt = 0;
     static RECT rcBack;
 
     switch (message)
@@ -145,14 +146,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             hOldBackBitmap = (HBITMAP)SelectObject(hBackDC, hBackBitmap);
             ReleaseDC(hWnd, hdc);
 
-            hPlayerBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1));
+            hPlayerBitmap = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP3));
             hMapBitmap= LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP2));
             nRender = 0;
 
             BITMAP bit;
             GetObject(hPlayerBitmap, sizeof(BITMAP), &bit);
             nSizeX = bit.bmWidth / ANI_COUNT;
-            nSizeY = bit.bmHeight;
+            nSizeY = bit.bmHeight/ ANI_COUNT;
 
             GetObject(hMapBitmap, sizeof(BITMAP), &bit);
             nMapX = bit.bmWidth;
@@ -171,15 +172,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             {
             case VK_DOWN:
                 nPosY += 8;
+                nAniCnt = 0;
                 break;
             case VK_UP:
                 nPosY -= 8;
+                nAniCnt = 3;
                 break;
             case VK_RIGHT:
                 nPosX += 8;
+                nAniCnt = 2;
                 break;
             case VK_LEFT:
                 nPosX -= 8;
+                nAniCnt = 1;
                 break;
             }
             nRender = ++nRender % ANI_COUNT;
@@ -191,13 +196,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             HDC hMemDC = CreateCompatibleDC(hdc);
 
-            FillRect(hBackDC, &rcBack, GetSysColorBrush(COLOR_WINDOW));
+            //FillRect(hBackDC, &rcBack, GetSysColorBrush(COLOR_WINDOW));
+            FillRect(hBackDC, &rcBack, (HBRUSH)GetStockObject(WHITE_BRUSH));
 
             HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, hMapBitmap);
             BitBlt(hBackDC, 0, 0, nMapX, nMapY, hMemDC, 0, 0, SRCCOPY);
 
             SelectObject(hMemDC, hPlayerBitmap);
-            GdiTransparentBlt(hBackDC, nPosX, nPosY, nSizeX, nSizeY, hMemDC, nSizeX * nRender, 0, nSizeX, nSizeY, RGB(255, 0, 255));
+            GdiTransparentBlt(hBackDC, nPosX, nPosY, nSizeX, nSizeY, hMemDC, nSizeX * nRender, nSizeY * nAniCnt, nSizeX, nSizeY, RGB(255, 0, 255));
 
             SelectObject(hMemDC, hOldBitmap);
             DeleteDC(hMemDC);

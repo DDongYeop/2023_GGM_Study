@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Animation.ico" />
+    <Image Include="Data\Hero.bmp" />
     <Image Include="Data\Map.bmp" />
     <Image Include="Data\pikachu_Run.bmp" />
     <Image Include="small.ico" />
