@@ -1,0 +1,61 @@
+.chat {
+    flex-basis: 120px;
+    left: -100%;
+    transition-property: left;
+    transition-duration: 0.5s;
+    padding-bottom: 20px;
+    flex-direction: row;
+}
+
+.chat > #Profile {
+    width: 120px;
+    height: 120px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.chat > #Dialog {
+    margin-left: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgb(70, 70, 70);
+    flex-grow: 1;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.chat #MsgLabel {
+    font-size: 27px;
+    color: rgba(255, 255, 255, 255);
+}
+
+.chat.right {
+    flex-direction: row-reverse;
+    transition-duration: 0.5s;
+    left: 100%;
+}
+
+.chat.right > #Dialog {
+    margin-right: 20px;
+    background-color: rgba(188, 188, 188, 255);
+}
+
+.chat.right #MsgLabel {
+    color: rgba(0, 0, 0, 255);
+}
+
+.chat.on {
+    left: 0.001%;
+    right: 0.001%;
+}
+
+.font20 {
+    font-size: 20px;
+}

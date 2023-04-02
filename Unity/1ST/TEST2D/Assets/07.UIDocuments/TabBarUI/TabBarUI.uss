@@ -1,0 +1,29 @@
+#ButtonBar > Button {
+    flex-basis: 33.33%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: rgba(255, 255, 255, 255);
+    color: rgba(0, 0, 0, 255);
+    font-size: 20px;
+}
+
+.tab {
+    width: 500px;
+    height: 100%;
+}

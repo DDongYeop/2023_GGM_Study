@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="ChatMsg" class="chat">
+        <ui:VisualElement name="Profile" style="background-image: url(&apos;project://database/Assets/02.Sprites/Profile.png?fileID=21300000&amp;guid=5cd1972a48d9d9b4bbd46372b4d294eb&amp;type=3#Profile&apos;);" />
+        <ui:VisualElement name="Dialog">
+            <ui:Label text="Hello I&apos;m Park Buseong! Game planner!" display-tooltip-when-elided="true" name="MsgLabel" enable-rich-text="false" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
