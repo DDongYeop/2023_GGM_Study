@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="절대음감 게임 만들기.cpp">
+    <ClCompile Include="20201_경동엽_절대음감 게임.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="한 줄만 새로 쓰기.cpp">
