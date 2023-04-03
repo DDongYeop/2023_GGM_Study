@@ -17,11 +17,17 @@ public class ChaseNavAgent : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetMouseButtonDown(0))
         {
-            Vector3 pos = _targetTrm.position;
+            /*Vector3 pos = _targetTrm.position;
             pos.y = transform.position.y;
-            _agent.SetDestination(pos);
+            _agent.SetDestination(pos);*/
+
+            Vector3 pos;
+            if (GameManager.Instance.GetMouseWorldPosition(out pos))
+            {
+                _agent.SetDestination(pos);
+            }
         }
     }
 }

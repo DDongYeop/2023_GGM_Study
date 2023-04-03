@@ -10,10 +10,10 @@ NavMeshProjectSettings:
   - name: Not Walkable
     cost: 1
   - name: Jump
-    cost: 2
-  - name: Water
     cost: 1
-  - name: 
+  - name: Water
+    cost: 10
+  - name: Climb
     cost: 1
   - name: 
     cost: 1
