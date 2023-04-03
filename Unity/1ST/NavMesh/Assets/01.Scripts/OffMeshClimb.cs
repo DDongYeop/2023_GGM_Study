@@ -31,7 +31,21 @@ public class OffMeshClimb : MonoBehaviour
         OffMeshLinkData linkData = _navAgent.currentOffMeshLinkData;
         Vector3 start = linkData.startPos;
         Vector3 end = linkData.endPos;
-        yield return null;
+
+        float climbTime = Mathf.Abs(end.y - start.y) / _climbSpeed;
+        float currentTime = 0;
+        float percent = 0;
+
+        while (percent < 1)
+        {
+            currentTime += Time.deltaTime;
+            percent = currentTime / climbTime;
+
+            transform.position = Vector3.Lerp(start, end, percent);
+            yield return null;
+        }
+        _navAgent.CompleteOffMeshLink(); //오프메시링크를 다 끝냄 
+        _navAgent.isStopped = false; //알아서 이동해라 
     }
 
     private bool IsOnClimb()
