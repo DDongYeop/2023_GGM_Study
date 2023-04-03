@@ -8,7 +8,7 @@
 
 // 테트리스 정보 
 #define B_WIDTH     12
-#define B_HEIGHT    12
+#define B_HEIGHT    22
 #define B_SIZE      24
 
 // 점수 정보
@@ -68,6 +68,10 @@ int g_brickNum;
 
 // 테트리스 비트맵 
 HBITMAP g_hBitmap[EMPTY + 1];
+
+// 게임 상태 변수
+enum tag_Status { GAMEOVER, RUNNING, GAMEPAUSE };
+tag_Status g_gameStatus;
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -192,12 +196,55 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CREATE:
+    {
+        hWndMain = hWnd;
+
+        RECT rt;
+        SetRect(&rt, 0, 0, (NEXTB_X + NEXTB_XCNT) * B_SIZE, (B_HEIGHT)*B_SIZE);
+        AdjustWindowRect(&rt, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, TRUE);
+        SetWindowPos(hWndMain, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, SWP_NOMOVE | SWP_NOZORDER);
+
+        srand((unsigned int)GetTickCount64());
+        g_gameStatus = GAMEOVER;
+
+        for (int i = 0; i <= EMPTY; ++i)
+            g_hBitmap[i] = LoadBitmap(hInst, MAKEINTRESOURCE(IDB_BITMAP1 + i));
+
+        for (int x = 0; x < B_WIDTH; ++x)
+        {
+            for (int y = 0; y < B_HEIGHT; ++y)
+            {
+                g_board[x][y] = (y == 0 || y == B_HEIGHT - 1 || x == 0 || x == B_WIDTH - 1) ? WALL : EMPTY;
+            }
+        }
+    }break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
             // 메뉴 선택을 구문 분석합니다:
             switch (wmId)
             {
+            case IDM_START:
+                if (g_gameStatus != GAMEOVER)
+                    break;
+                for (int x = 0; x < B_WIDTH; ++x)
+                    for (int y = 0; y < B_HEIGHT; ++y)
+                        g_board[x][y] = (y == 0 || y == B_HEIGHT - 1 || x == 0 || x == B_WIDTH - 1) ? WALL : EMPTY;
+                g_score = 0;
+                g_brickNum = 0;
+                g_gameStatus = RUNNING;
+                break;
+            case IDM_PAUSE:
+                if (g_gameStatus == RUNNING)
+                {
+                    g_gameStatus = GAMEPAUSE;
+                }
+                else if (g_gameStatus == GAMEPAUSE)
+                {
+                    g_gameStatus = RUNNING;
+                }
+                break;
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
@@ -213,11 +260,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
+            DrawScreen(hdc);;
+
             EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
+        for (int i = 0; i < EMPTY + 1; ++i)
+            DeleteObject(g_hBitmap[i]);
         PostQuitMessage(0);
         break;
     default:
@@ -248,8 +299,51 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 void DrawScreen(HDC hdc)
 {
+    // 테트리스 보드 출력 
+    for (int x = 0; x < B_WIDTH; ++x)
+    {
+        for (int y = 0; y < B_HEIGHT; ++y)
+        {
+            PrintTitle(hdc, x, y, g_board[x][y]);
+        }
+    }
+
+    // 현재 이동 중인 블럭 
+
+    // 다음 생성 블록 영역 그리기 
+    for (int x = NEXTB_X; x < NEXTB_X + NEXTB_XCNT; ++x)
+    {
+        for (int y = NEXTB_Y; y < NEXTB_Y + NEXTB_YCNT; ++y)
+        {
+            if (x == NEXTB_X || x == NEXTB_X + NEXTB_XCNT - 1 || y == NEXTB_Y || y == NEXTB_Y + NEXTB_YCNT - 1)
+                PrintTitle(hdc, x, y, WALL);
+            else
+                PrintTitle(hdc, x, y, EMPTY);
+        }
+    }
+
+    // 다음 생성 블록 
+
+    //점수판 출력 
+    TCHAR str[128];
+    lstrcpy(str, _T("▣ tetris ▣"));
+    TextOut(hdc, SCORE_X * B_SIZE, SCORE_Y * B_SIZE, str, lstrlen(str));
+    wsprintf(str, _T("Score : %5d"), g_score);
+    TextOut(hdc, SCORE_X * B_SIZE, (SCORE_Y + 1) * B_SIZE, str, lstrlen(str));
+    wsprintf(str, _T("Score : %5d"), g_score);
+    TextOut(hdc, SCORE_X * B_SIZE, (SCORE_Y + 2) * B_SIZE, str, lstrlen(str));
+
 }
 
 void PrintTitle(HDC hdc, int x, int y, int color)
 {
+    HDC hMemDC;
+    HBITMAP OldBitMap;
+
+    hMemDC = CreateCompatibleDC(hdc);
+    OldBitMap = (HBITMAP)SelectObject(hMemDC, g_hBitmap[color]);
+
+    BitBlt(hdc, x * B_SIZE, y * B_SIZE, B_SIZE, B_SIZE, hMemDC, 0, 0, SRCCOPY);
+    SelectObject(hMemDC, OldBitMap);
+    DeleteDC(hMemDC);
 }
