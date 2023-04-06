@@ -1,7 +1,2 @@
-﻿  절대음감 게임 만들기.cpp
-D:\GAME_DEVELOPMENT\GitHub\2023_GGM_Study\GameProgramming\1ST\(23.03.31).gamep\(23.03.31).gamep\절대음감 게임 만들기.cpp(65,7): warning C4551: 함수 호출에 인수 목록이 없습니다.
-D:\GAME_DEVELOPMENT\GitHub\2023_GGM_Study\GameProgramming\1ST\(23.03.31).gamep\(23.03.31).gamep\절대음감 게임 만들기.cpp(78,16): warning C4244: '인수': 'const float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\GAME_DEVELOPMENT\GitHub\2023_GGM_Study\GameProgramming\1ST\(23.03.31).gamep\(23.03.31).gamep\절대음감 게임 만들기.cpp(119,25): warning C4244: '인수': 'const float'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\GAME_DEVELOPMENT\GitHub\2023_GGM_Study\GameProgramming\1ST\(23.03.31).gamep\(23.03.31).gamep\절대음감 게임 만들기.cpp(122,7): warning C4551: 함수 호출에 인수 목록이 없습니다.
-D:\GAME_DEVELOPMENT\GitHub\2023_GGM_Study\GameProgramming\1ST\(23.03.31).gamep\(23.03.31).gamep\절대음감 게임 만들기.cpp(131,10): warning C4551: 함수 호출에 인수 목록이 없습니다.
+﻿  한 줄만 새로 쓰기.cpp
   (23.03.31).gamep.vcxproj -> D:\GAME_DEVELOPMENT\GitHub\2023_GGM_Study\GameProgramming\1ST\(23.03.31).gamep\x64\Debug\(23.03.31).gamep.exe
