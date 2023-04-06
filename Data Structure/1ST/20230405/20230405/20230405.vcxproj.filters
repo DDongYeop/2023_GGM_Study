@@ -27,5 +27,8 @@
     <ClCompile Include="++연산자를 중복해보자.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="==연산자를 붕복해보자.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
