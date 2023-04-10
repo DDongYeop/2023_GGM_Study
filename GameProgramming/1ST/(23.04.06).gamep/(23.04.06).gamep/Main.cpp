@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <Windows.h>
 #include <mmsystem.h>
+#include <time.h>
 #include "console.h"
 using namespace std;
 
@@ -54,70 +55,71 @@ int main()
 		}*/
 	}
 	
-	int test;
-	int x = 0, y = 0;
-	int beforex = 0, beforey = 0;
-	
-	// 스크린 조절 못 하게 윈11 안됨
-	HWND console = GetConsoleWindow();
-	SetWindowLong(console, GWL_STYLE, GetWindowLong(console, GWL_STYLE) & WS_SIZEBOX);
-	RECT rt;
-	GetWindowRect(console, &rt);
-	while (false)
 	{
-		//if (_kbhit())
-		//{
-		//	test = _getch();
-		//	if (test == 224)
-		//	{
-		//		test = _getch();
-		//		switch (test)
-		//		{
-		//		case 72:
-		//			//cout << "위쪽" << endl;
-		//			y--;
-		//			break;
-		//		case 75:
-		//			//cout << "왼쪽" << endl;
-		//			x--;
-		//			break;
-		//		case 77:
-		//			//cout << "오른쪽" << endl;
-		//			x++;
-		//			break;
-		//		case 80:
-		//			//cout << "아래쪽" << endl;
-		//			y++;
-		//			break;
-		//		}
-		//	}
-		//	GotoxyPlayer(x, y);
-		//	_putch('a');
-		//}
-
-		if (GetAsyncKeyState(VK_UP)	   & 0x8000) y--;
-		if (GetAsyncKeyState(VK_DOWN)  & 0x8000) y++;
-		if (GetAsyncKeyState(VK_LEFT)  & 0x8000) x--;
-		if (GetAsyncKeyState(VK_RIGHT) & 0x8000) x++;
-		Sleep(50);
-		BOOL result = GotoxyTest(x, y);
-		if (result == FALSE)
+		int test;
+		int x = 0, y = 0;
+		int beforex = 0, beforey = 0;
+	
+		// 스크린 조절 못 하게 윈11 안됨
+		HWND console = GetConsoleWindow();
+		SetWindowLong(console, GWL_STYLE, GetWindowLong(console, GWL_STYLE) & WS_SIZEBOX);
+		RECT rt;
+		GetWindowRect(console, &rt);
+		while (false)
 		{
-			x = beforex;
-			y = beforey;
-			continue;
-		}
-		else
-		{
-			beforex = x;
-			beforey = y;
-		}
-		GotoxyPlayer(x, y);
-		_putch('a');
-	}
+			//if (_kbhit())
+			//{
+			//	test = _getch();
+			//	if (test == 224)
+			//	{
+			//		test = _getch();
+			//		switch (test)
+			//		{
+			//		case 72:
+			//			//cout << "위쪽" << endl;
+			//			y--;
+			//			break;
+			//		case 75:
+			//			//cout << "왼쪽" << endl;
+			//			x--;
+			//			break;
+			//		case 77:
+			//			//cout << "오른쪽" << endl;
+			//			x++;
+			//			break;
+			//		case 80:
+			//			//cout << "아래쪽" << endl;
+			//			y++;
+			//			break;
+			//		}
+			//	}
+			//	GotoxyPlayer(x, y);
+			//	_putch('a');
+			//}
 
-	int a;
-	while (true)
+			if (GetAsyncKeyState(VK_UP)	   & 0x8000) y--;
+			if (GetAsyncKeyState(VK_DOWN)  & 0x8000) y++;
+			if (GetAsyncKeyState(VK_LEFT)  & 0x8000) x--;
+			if (GetAsyncKeyState(VK_RIGHT) & 0x8000) x++;
+			Sleep(50);
+			BOOL result = GotoxyTest(x, y);
+			if (result == FALSE)
+			{
+				x = beforex;
+				y = beforey;
+				continue;
+			}
+			else
+			{
+				beforex = x;
+				beforey = y;
+			}
+			GotoxyPlayer(x, y);
+			_putch('a');
+		}
+
+		int a;
+		while (0)
 	{
 		cout << "숫자만 입력하세요. " << endl;
 		cin >> a;
@@ -130,6 +132,17 @@ int main()
 		}
 		cout << a << endl;
 	}
+	}
 
-	_getch();
+	clock_t Oldtime, Curtime;
+	Oldtime = clock();
+	while (true)
+	{
+		Curtime = clock();
+		if (Curtime - Oldtime > 1000)
+		{
+			cout << "1초가 지났다. " << endl;
+			Oldtime = Curtime;
+		}
+	}
 }
