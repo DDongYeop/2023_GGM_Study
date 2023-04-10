@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 136979630}
   - component: {fileID: 136979632}
   - component: {fileID: 136979631}
+  - component: {fileID: 136979633}
   m_Layer: 0
   m_Name: TransitionIdle
   m_TagString: Untagged
@@ -185,7 +186,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Decisions:
   - {fileID: 136979631}
+  - {fileID: 136979633}
   NextState: {fileID: 426908606}
+--- !u!114 &136979633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136979629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a015578b72169e44bbf25b0d965e0e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsReverse: 0
 --- !u!1 &426908604
 GameObject:
   m_ObjectHideFlags: 0
@@ -6223,6 +6238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1317807996}
   - component: {fileID: 1317807997}
+  - component: {fileID: 1317807999}
   - component: {fileID: 1317807998}
   m_Layer: 0
   m_Name: HammerEnemy
@@ -6283,6 +6299,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1317807999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317807995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7844eceb47f8eed48a60b6f1df6252e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1432341135
 GameObject:
   m_ObjectHideFlags: 0
@@ -6833,6 +6861,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1684292379 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d0f0da05664b6844fa725f733e465f43, type: 3}
+  m_PrefabInstance: {fileID: 2042289503}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1684292381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684292379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25dce0505bca53146a46e869ae260e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1727020306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6985,8 +7030,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d0f0da05664b6844fa725f733e465f43, type: 3}
       propertyPath: m_Name
-      value: NPC_01
+      value: Visual
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d0f0da05664b6844fa725f733e465f43, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d73ccc4564e4e2f46bc9329e64642821, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0f0da05664b6844fa725f733e465f43, type: 3}
 --- !u!1001 &4068128772911880215

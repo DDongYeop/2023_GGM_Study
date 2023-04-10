@@ -13,6 +13,8 @@ public class AgentMovement : MonoBehaviour
     private float _verticalVelocity; //중력속도
 
     private AgentAnimator _animator;
+
+    private Vector3 _inputValocity;
     
     private void Awake()
     {
@@ -22,17 +24,18 @@ public class AgentMovement : MonoBehaviour
 
     public void SetMovementVelocity(Vector3 value)
     {
+        _inputValocity = value;
         _movementVelocity = value;
     }
 
     private void CalculatePlayerMovement()
     {
         //여기가 핵심이다 
-        _animator?.SetSpeed(_movementVelocity.sqrMagnitude); //추가됨
+        _animator?.SetSpeed(_inputValocity.sqrMagnitude); //추가됨
         
-        _movementVelocity.Normalize(); //스택메모리와 힙메모리의 차이를 알아둬야한다. 
+        _inputValocity.Normalize(); //스택메모리와 힙메모리의 차이를 알아둬야한다. 
 
-        _movementVelocity *= _moveSpeed * Time.fixedDeltaTime;
+        _movementVelocity = _inputValocity * (_moveSpeed * Time.fixedDeltaTime);
         _movementVelocity = Quaternion.Euler(0, -45f, 0) * _movementVelocity;
         
         if (_movementVelocity.sqrMagnitude > 0)

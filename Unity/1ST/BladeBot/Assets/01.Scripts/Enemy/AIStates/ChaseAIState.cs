@@ -16,6 +16,9 @@ public class ChaseAIState : CommonAIState
 
     public override void UpdateState()
     {
+        _enemyController.NavMovement.MoveToTarget(_aiActionData.LastSpotPoint);
+        _aiActionData.IsArrived = _enemyController.NavMovement.CheckIsArrived(); //도착을 기록한다 
+        
         base.UpdateState();
     }
 }

@@ -20,7 +20,7 @@ public class AITransition : MonoBehaviour
             result = decision.MakeDecision();
             if (decision.IsReverse)
                 result = !result;
-            if (result = false)
+            if (result == false)
                 break;
         }
         return result;

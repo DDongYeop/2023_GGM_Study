@@ -25,7 +25,7 @@ public abstract class CommonAIState : MonoBehaviour, IState
     {
         foreach (AITransition t in _transitions)
         {
-            bool result = false;
+            
             if (t.CheckTransition())
             {
                 _enemyController.ChangeState(t.NextState);
