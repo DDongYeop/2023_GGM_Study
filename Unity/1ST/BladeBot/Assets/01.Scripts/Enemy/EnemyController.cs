@@ -15,9 +15,14 @@ public class EnemyController : MonoBehaviour
 
     private AgentAnimator _agentAnimator;
     public AgentAnimator AgentAnimator => _agentAnimator;
+
+    private EnemyVFXManager _vfxManager;
+    public EnemyVFXManager VfxManager => _vfxManager;
+    
     
     protected virtual void Awake()
     {
+        _vfxManager = GetComponent<EnemyVFXManager>();
         _navMovement = GetComponent<NavAgentMovement>();
         _agentAnimator = transform.Find("Visual").GetComponent<AgentAnimator>();
         
