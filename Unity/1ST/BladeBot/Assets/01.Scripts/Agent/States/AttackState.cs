@@ -25,6 +25,7 @@ public class AttackState : CommonState
         _agentInput.OnRollingKeyPress += OnRollingHandle;
         _currentCombo = 0;
         _canAttack = true;
+        print(2);
         _animator.SetAttackState(true);
 
         _agentMovement.IsActiveMove = false; // 키보드 입력을 잡그고

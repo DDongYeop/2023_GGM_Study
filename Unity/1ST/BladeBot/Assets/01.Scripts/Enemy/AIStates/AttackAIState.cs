@@ -45,12 +45,23 @@ public class AttackAIState : CommonAIState
         if (_aiActionData.IsAttacking == false)
         {
             SetTarget(); //타겟을 향하도록 벡터를 만들고
-            Quaternion rot = Quaternion.LookRotation(_targetVector);
-            transform.rotation = rot;
 
-            _aiActionData.IsAttacking = true;
-            _enemyController.AgentAnimator.SetAttackState(true);
-            _enemyController.AgentAnimator.SetAttackTrigger(true); //공격모션 재생 
+            Vector3 currentFrontVector = transform.forward; //캐릭터 전방으로
+            float angle = Vector3.Angle(currentFrontVector, _targetVector);
+
+            if (angle >= 10f)
+            {
+                Vector3 result = Vector3.Cross(currentFrontVector, _targetVector);
+
+                float sign = result.y > 0 ? 1 : -1;
+                _enemyController.transform.rotation = Quaternion.Euler(0, sign *_rotateSpeed * Time.deltaTime, 0) * _enemyController.transform.rotation;
+            }
+            else
+            {
+                _aiActionData.IsAttacking = true;
+                _enemyController.AgentAnimator.SetAttackState(true);
+                _enemyController.AgentAnimator.SetAttackTrigger(true); //공격모션 재생 
+            }
         }
     }
 
