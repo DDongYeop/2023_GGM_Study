@@ -18,5 +18,8 @@
     <ClCompile Include="정적멤버와 프렌드 복습.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="클래스 활용.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
