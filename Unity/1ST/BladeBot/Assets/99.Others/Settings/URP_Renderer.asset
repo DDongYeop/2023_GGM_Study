@@ -15,12 +15,12 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: RenderObjects
-    Event: 450
+    Event: 300
     filterSettings:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 4096
+        m_Bits: 384
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
@@ -54,17 +54,17 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: RenderObjects
-    Event: 400
+    Event: 300
     filterSettings:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 4096
+        m_Bits: 384
       PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: b80fe78f7fa8b374eb4c9b9b25959e76, type: 2}
+    overrideMaterial: {fileID: 2100000, guid: f912735e8e47ecc4bb479673cd31dc57, type: 2}
     overrideMaterialPassIndex: 0
     overrideDepthState: 1
-    depthCompareFunction: 4
+    depthCompareFunction: 5
     enableWrite: 0
     stencilSettings:
       overrideStencilState: 0
