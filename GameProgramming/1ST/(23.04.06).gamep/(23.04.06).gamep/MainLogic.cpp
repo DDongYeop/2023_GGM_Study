@@ -10,8 +10,8 @@ void Init(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, PPOS _pStartPos, PPO
 	Cursorset(false, 1);
 	_pStartPos->x = 0;
 	_pStartPos->y = 0;
-	_pEndPos->x = 19;
-	_pEndPos->y = 13;
+	_pEndPos->x = 18;
+	_pEndPos->y = 18;
 	_pPlayer->tPos = *_pStartPos;
 	_pPlayer->iBombPower = 1;
 	_pPlayer->bTrans = false;
@@ -38,6 +38,41 @@ void Init(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, PPOS _pStartPos, PPO
 	strcpy_s(_cMaze[19], "00000000000000000000");
 }
 
+void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer)
+{
+	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+	{
+		system("cls");
+		exit(0);
+	}
+	_pPlayer->tNewPos = _pPlayer->tPos;
+	if (GetAsyncKeyState(VK_UP) & 0x8000)
+	{
+		--_pPlayer->tNewPos.y;
+		Sleep(100);
+	}
+	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	{
+		++_pPlayer->tNewPos.y;
+		Sleep(100);
+	}
+	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	{
+		--_pPlayer->tNewPos.x;
+		Sleep(100);
+	}
+	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	{
+		++_pPlayer->tNewPos.x;
+		Sleep(100);
+	}
+	if (_cMaze[_pPlayer->tNewPos.y][_pPlayer->tNewPos.x] != '0') //벽이 아니면 갱신
+	{
+		_pPlayer->tPos = _pPlayer->tNewPos;
+	}
+
+}
+
 void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer)
 {
 	for (int i = 0; i < VERTICAL; i++)
@@ -46,10 +81,18 @@ void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer)
 		{
 			//플레이어
 			//벽
+			if (_pPlayer->tPos.x == j && _pPlayer->tPos.y == i)
+				cout << "§";
 			if (_cMaze[i][j] == '0')
-				cout << '■';
+				cout << "■";
 			else if (_cMaze[i][j] == '1')
-				cout << "   ";
+				cout << " ";
+			else if (_cMaze[i][j] == '2')
+				cout << "®";
+			else if (_cMaze[i][j] == '3')
+				cout << "♨";
+				
 		}
+		cout << '\n';
 	}
 }

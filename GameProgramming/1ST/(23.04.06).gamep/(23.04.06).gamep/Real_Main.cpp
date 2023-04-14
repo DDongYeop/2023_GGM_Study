@@ -1,7 +1,10 @@
 #include <iostream>
 #include <Windows.h>
+#include <mmsystem.h>
+#include "console.h"
 #include "MainLogic.h"
 #include "StartScene.h"
+#pragma comment(lib, "winmm.lib")
 using namespace std;
 
 int main()
@@ -31,7 +34,18 @@ int main()
 			return 0;
 		}
 	}
+	system("cls");
 	//게임 로직 시작 
-	//Update();
-	Render(cMaze, &tPlayer);
+	while (true)
+	{
+		Gotoxy(0, 0);
+		Update(cMaze, &tPlayer);
+		Render(cMaze, &tPlayer);
+		if (tPlayer.tPos.x == tEndPos.x && tPlayer.tPos.y == tEndPos.y)
+		{
+			PlaySound(TEXT("pickupCoin.wav"), 0, SND_FILENAME | SND_ASYNC);
+			Sleep(1000);
+			break;
+		}
+	}
 }

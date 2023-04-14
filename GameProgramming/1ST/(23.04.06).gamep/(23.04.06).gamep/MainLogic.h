@@ -11,6 +11,7 @@ typedef struct _tagpos
 typedef struct _tagplayer
 {
 	POS tPos;		// 플레이어 위치
+	POS tNewPos;	// 플레이어의 새 위치
 	int iBombCount;	// 폭탄 개수
 	int iBombPower;	// 폭탄 파워
 	bool bWallPush;	// 벽 밀기
@@ -25,4 +26,5 @@ typedef struct _tagboom
 	int life;
 }BOOM, *PBOOM;
 void Init(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, PPOS _pStartPos, PPOS _pEndPos);
+void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer);
 void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer);
