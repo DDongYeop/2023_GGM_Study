@@ -145,7 +145,11 @@
     <ClCompile Include="예외처리와 템플릿.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="클래스 템플릿 응용.cpp" />
+    <ClCompile Include="클래스 상속 복습1.cpp" />
+    <ClCompile Include="클래스 상속 복습2.cpp" />
+    <ClCompile Include="클래스 템플릿 응용.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="함수템플릿으로 swap함수 만들기.cpp">
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

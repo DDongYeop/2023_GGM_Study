@@ -27,5 +27,11 @@
     <ClCompile Include="클래스 템플릿 응용.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="클래스 상속 복습1.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="클래스 상속 복습2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
