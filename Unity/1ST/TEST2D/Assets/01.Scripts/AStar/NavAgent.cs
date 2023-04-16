@@ -12,6 +12,8 @@ public class NavAgent : MonoBehaviour
     private Vector3 _nextPos;
     private int _moveIndex = 0;
     private bool _isMoving = false; //이동중인지 
+
+    public bool IsArrived = false;
     
     private LineRenderer _lineRenderer;
 
@@ -33,8 +35,10 @@ public class NavAgent : MonoBehaviour
             _destination = value;
             _isMoving = CalcRoute();
             _moveIndex = 0;
-            _nextPos = TileMapManager.Instance.GetWorldPos(_routePath[0]);
+            if (_routePath.Count > 0)
+                _nextPos = TileMapManager.Instance.GetWorldPos(_routePath[0]);
             DrawRoutePath();
+            IsArrived = false;
         }
     }
 
@@ -51,11 +55,12 @@ public class NavAgent : MonoBehaviour
         if (_isMoving)
         {
             Vector2 dir = (_nextPos - transform.position).normalized;
-            transform.Translate(dir * (_speed * Time.deltaTime));
+            transform.Translate(dir * (_speed * Time.deltaTime), Space.World);
             if (Vector2.Distance(_nextPos, transform.position) < 0.1f)
             {
                 if (GetNextTarget() == false) // 도착 
                 {
+                    IsArrived = true; //도착했을을 표기
                     _isMoving = false;
                 }
             }
@@ -100,6 +105,11 @@ public class NavAgent : MonoBehaviour
         _lineRenderer.enabled = true;
         _lineRenderer.positionCount = _routePath.Count;
         _lineRenderer.SetPositions(_routePath.Select(p => TileMapManager.Instance.GetWorldPos(p)).ToArray());
+    }
+
+    public void StopImmediately()
+    {
+        _isMoving = false;
     }
 
     #region ASTAR 알고리즘 관련
@@ -151,7 +161,7 @@ public class NavAgent : MonoBehaviour
                 _routePath.Add(last.Cellpos);
                 last = last.Parent;
             }
-            _routePath.Add(_currentPosition);
+            //_routePath.Add(_currentPosition);
 
             _routePath.Reverse();
 

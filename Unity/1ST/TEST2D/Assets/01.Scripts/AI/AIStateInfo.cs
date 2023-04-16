@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class AIStateInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Vector3 LastEnemyPosition;
+    public float MeleeCool = 0f;
+    public float RangeCool = 0f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool IsAttack;
+    public bool IsRange;
+    public bool IsMelee;
+
+    public bool IsArrived; //목적지 도착 여부
+    
 }
