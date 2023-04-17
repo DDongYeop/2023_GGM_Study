@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <Windows.h>
 #include <mmsystem.h>
 #include "console.h"
@@ -13,6 +14,8 @@ int main()
 	PLAYER tPlayer = {};
 	POS tStartPos = {};
 	POS tEndPos = {};
+	vector<BOOM> vecBomb;
+	vector<POS> boomEffect;
 	Init(cMaze, &tPlayer, &tStartPos, &tEndPos);
 	while (true)
 	{
@@ -39,8 +42,8 @@ int main()
 	while (true)
 	{
 		Gotoxy(0, 0);
-		Update(cMaze, &tPlayer);
-		Render(cMaze, &tPlayer);
+		Update(cMaze, &tPlayer, vecBomb, boomEffect);
+		Render(cMaze, &tPlayer, boomEffect);
 		if (tPlayer.tPos.x == tEndPos.x && tPlayer.tPos.y == tEndPos.y)
 		{
 			PlaySound(TEXT("pickupCoin.wav"), 0, SND_FILENAME | SND_ASYNC);

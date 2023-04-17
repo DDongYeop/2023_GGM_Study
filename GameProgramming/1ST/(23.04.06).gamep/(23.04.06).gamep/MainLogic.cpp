@@ -1,4 +1,6 @@
 #include <iostream>
+#include <algorithm>
+#include <vector>
 #include <Windows.h>
 #include "MainLogic.h"
 #include "console.h"
@@ -38,7 +40,7 @@ void Init(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, PPOS _pStartPos, PPO
 	strcpy_s(_cMaze[19], "00000000000000000000");
 }
 
-void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer)
+void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<BOOM>& _vecBomb, vector<POS> _bombEffect)
 {
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
 	{
@@ -66,14 +68,34 @@ void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer)
 		++_pPlayer->tNewPos.x;
 		Sleep(100);
 	}
+	if (GetAsyncKeyState('E') & 0x8000)
+	{
+		_pPlayer->bPushonoff = !_pPlayer->bPushonoff;
+		Sleep(100);
+	}
+
+	_pPlayer->tNewPos.x = clamp(_pPlayer->tNewPos.x, 0, HORIZON-2);
+	_pPlayer->tNewPos.y = clamp(_pPlayer->tNewPos.y, 0, VERTICAL-1);
+
 	if (_cMaze[_pPlayer->tNewPos.y][_pPlayer->tNewPos.x] != '0') //º®ÀÌ ¾Æ´Ï¸é °»½Å
 	{
 		_pPlayer->tPos = _pPlayer->tNewPos;
 	}
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	{
+		// ÆøÅº¼³Ä¡
+		BombCreate(_cMaze, _pPlayer, _vecBomb);
+	}
 
+	int iBombcount = _pPlayer->iBombCount;
+	for (int i = 0; i < iBombcount; i++)
+	{
+		BOOM& boomItem = _vecBomb[i];
+		boomItem.life--;
+	}
 }
 
-void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer)
+void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomEffect)
 {
 	for (int i = 0; i < VERTICAL; i++)
 	{
@@ -91,8 +113,48 @@ void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer)
 				cout << "¢ç";
 			else if (_cMaze[i][j] == '3')
 				cout << "¢Í";
-				
+			else if (_cMaze[i][j] == 'b') //¹°Ç³¼±
+			{
+				SetColor((int)COLOR::SKYBLUE, (int)COLOR::BALCK);
+				cout << "£À";
+			}
+			else if (_cMaze[i][j] == 'p')
+			{
+				SetColor((int)COLOR::MINT, (int)COLOR::BALCK);
+				cout << "¡Û";
+			}
+			else if (_cMaze[i][j] == '4') //½½¶óÀÓ
+				cout << "¢»";
+			else if (_cMaze[i][j] == '5') //Çª½¬
+				cout << "¡Ø";
+			SetColor((int)COLOR::WHITE, (int)COLOR::BALCK);
 		}
 		cout << '\n';
+	}
+
+	cout << "SPACEBAR : ÆøÅº¼³Ä¡, E: Çª½Ã´É·Â ON/OFF" << endl;
+	cout << "ÆøÅº ÆÄ¿ö" << _pPlayer->iBombPower << endl; // ->, (*iBombPower).
+	if (_pPlayer->bPushonoff)
+		cout << "Çª½Ã ´É·Â" << "ON " << endl;
+	else
+		cout << "Çª½Ã ´É·Â" << "OFF" << endl;
+	if (_pPlayer->bTrans)
+		cout << "½½¶óÀÓ ´É·Â" << "ON " << endl;
+	else
+		cout << "½½¶óÀÓ ´É·Â" << "OFF" << endl;	
+}
+
+void BombCreate(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<BOOM>& _vecBomb)
+{
+	//¿¹¿ÜÃ³¸® ÆøÅºÀÇ °³¼ö´Â ¿ì¸® ±âÈ¹»ó 5°³·Î ÇÑÁ¤
+	//Á¾·áÁ¶°Ç
+	if (_pPlayer->iBombCount == 5)
+		return;
+	//ÆøÅºÀ» ¼³Ä¡
+	if (_cMaze[_pPlayer->tPos.y][_pPlayer->tPos.x] == '1')
+	{
+		_cMaze[_pPlayer->tPos.y][_pPlayer->tPos.x] = 'b';
+		_pPlayer->iBombCount++;
+		_vecBomb.push_back({_pPlayer->tPos.x, _pPlayer->tPos.y, 50, false});
 	}
 }

@@ -24,7 +24,13 @@ typedef struct _tagboom
 	int x;
 	int y;
 	int life;
+	int bDie;
 }BOOM, *PBOOM;
+
+#include <vector> //템플릿클래스이기에 넣어줘야한다 
+//네임스페이스를 넣어줘야한다. std::vector로 사용하기 때문에
+//using namespace std; //상당히 많은게 들어있음. 충돌날 수도 있음. 헤더엔 넣어주지 말아라 
 void Init(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, PPOS _pStartPos, PPOS _pEndPos);
-void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer);
-void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer);
+void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<BOOM>& _vecBomb, std::vector<POS> _bombEffect);
+void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<POS> _boomEffect);
+void Boom(char _cMaze[VERTICAL][HORIZON], BOOM boom);
