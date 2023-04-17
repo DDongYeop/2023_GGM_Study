@@ -17,12 +17,21 @@ public class AttackState : CommonState
 
     private float _attackStartTime; //공격이 시작된 시간 기록
     [SerializeField] private float _attackSlideDuration = .2f, _attackSlideSpeed = .1f; //슬라이드 되는 시간과 슬라이드 되는 스피드 나타냄 
+
+    private DamageCaster _damageCaster;
     
+    public override void SetUp(Transform agentRoot)
+    {
+        base.SetUp(agentRoot);
+        _damageCaster = agentRoot.Find("DamageCaster").GetComponent<DamageCaster>();
+    }
+
     public override void OnEnterState()
     {
         _agentInput.OnAttackKeyPress += OnAttackHandle;
         _animator.OnAnimationEndTrigger += OnAnimaionEnd;
         _agentInput.OnRollingKeyPress += OnRollingHandle;
+        _animator.OnAnimationEventTrigger += OnDamageCastHandle;
         _currentCombo = 0;
         _canAttack = true;
         _animator.SetAttackState(true);
@@ -39,6 +48,7 @@ public class AttackState : CommonState
         _agentInput.OnAttackKeyPress -= OnAttackHandle;
         _animator.OnAnimationEndTrigger -= OnAnimaionEnd;
         _agentInput.OnRollingKeyPress -= OnRollingHandle;
+        _animator.OnAnimationEventTrigger -= OnDamageCastHandle;
         _animator.SetAttackState(false);
         _animator.SetAttackTrigger(false);
         
@@ -50,6 +60,11 @@ public class AttackState : CommonState
     private void OnRollingHandle()
     {
         _agentController.ChangeState(StateType.Rolling);
+    }
+
+    private void OnDamageCastHandle()
+    {
+        _damageCaster.CastDamge();
     }
 
     private void OnAnimaionEnd()

@@ -7,7 +7,8 @@ public class AttackAIState : CommonAIState
     [SerializeField] private float _rotateSpeed = 720f;
 
     protected Vector3 _targetVector; //적을 바라보는 벡터
-    
+
+    private bool isActive;
     
     public override void OnEnterState()
     {
@@ -15,6 +16,8 @@ public class AttackAIState : CommonAIState
         _enemyController.AgentAnimator.OnAnimationEventTrigger += AttackCollisionHandle;
         _enemyController.AgentAnimator.OnAnimationEndTrigger += AttackAnimationEndHandle;
         _aiActionData.IsAttacking = false;
+
+        isActive = true;
     }
 
     public override void OnExitState()
@@ -24,6 +27,8 @@ public class AttackAIState : CommonAIState
 
         _enemyController.AgentAnimator.SetAttackState(false); //애니메이션 리셋
         _enemyController.AgentAnimator.SetAttackTrigger(false);
+
+        isActive = false;
     }
 
     //공격 애니메이션 끝났을때 처리
@@ -42,7 +47,7 @@ public class AttackAIState : CommonAIState
     {
         base.UpdateState(); // 먼저 공격 가능한 거리인지 체그하고
 
-        if (_aiActionData.IsAttacking == false)
+        if (_aiActionData.IsAttacking == false && isActive)
         {
             SetTarget(); //타겟을 향하도록 벡터를 만들고
 

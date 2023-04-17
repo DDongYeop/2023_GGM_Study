@@ -23,7 +23,8 @@ public class PoolManager
 
     public PoolableMono Pop(string prefabName)
     {
-        if (_pools.ContainsKey(prefabName))
+        
+        if (!_pools.ContainsKey(prefabName))
         {
             Debug.LogError($"Prefab does not exist on pool : {prefabName}");
             return null;
