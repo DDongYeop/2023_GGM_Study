@@ -1,5 +1,4 @@
 #pragma once
-#include "DONGEngine.h"
 
 class Game : public DONGEngine
 {
@@ -12,6 +11,5 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Render(HDC hdc) override;
 	virtual void Release() override;
-
 };
 

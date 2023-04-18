@@ -23,5 +23,22 @@ using namespace std;
 
 #define PI				3.14159265
 
+//½Ì±ÛÅæ µðÆÄÀÎ
+#define DECLARE_SINGLE(type)	\
+private:						\
+	type() {}					\
+	~type() {}					\
+public:							\
+	static type* GetInstance()	\
+	{							\
+		static type instance;	\
+		return &instance;		\
+	}							\
+
+#define GET_SINGLE(type)	type::GetInstance()
+
+//Engine Define
+#define INPUT			g_Engine->GetInput()
+#define TIMER			g_Engine->GetTimer()->GetDeltaTime()
 
 extern shared_ptr<class DONGEngine> g_Engine;
