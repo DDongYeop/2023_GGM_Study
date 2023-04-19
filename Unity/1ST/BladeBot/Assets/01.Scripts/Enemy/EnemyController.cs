@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class EnemyController : MonoBehaviour
     public EnemyHealth EnemyHealthCompo { get; private set; }
 
     public bool IsDead = false;
+    
+    public UnityEvent OnAfterDeadthTrigger = null;
     
     protected virtual void Awake()
     {
@@ -69,6 +72,11 @@ public class EnemyController : MonoBehaviour
         {
             _agentAnimator.StopAnimation(false); //애니메이션 재생 다시 시작
             _agentAnimator.SetDead(); //사망애니메이션 처리
+            
+            MonoFunction.Instance.AddCoroutine(() =>
+            {
+                OnAfterDeadthTrigger?.Invoke();
+            }, 1.5f);
         });
     }
 }

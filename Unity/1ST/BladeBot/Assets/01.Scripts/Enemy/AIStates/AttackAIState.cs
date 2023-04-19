@@ -49,15 +49,10 @@ public class AttackAIState : CommonAIState
         _aiActionData.IsAttacking = false;
         _enemyController.AgentAnimator.SetAttackState(false);
 
-        StartCoroutine(DealyAction(() => {
+        MonoFunction.Instance.AddCoroutine(() => 
+        {
             _aiActionData.IsAttacking = false;
-        }, _atkCooltime));
-    }
-
-    private IEnumerator DealyAction(Action action, float time)
-    {
-        yield return new WaitForSeconds(time);
-        action?.Invoke();
+        }, _atkCooltime);
     }
     
     private void AttackAnimationEndHandle()
