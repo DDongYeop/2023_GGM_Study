@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,18 @@ public class AttackAIState : CommonAIState
     protected Vector3 _targetVector; //적을 바라보는 벡터
 
     private bool isActive;
-    
+
+    private int _atkDamge = 1;
+    private float _atkCooltime = 0.2f;
+
+    public override void SetUp(Transform agentRoot)
+    {
+        base.SetUp(agentRoot);
+        _rotateSpeed = _enemyController.EnemyData.RotateSpeed;
+        _atkDamge = _enemyController.EnemyData.AtkDamage;
+        _atkCooltime = _enemyController.EnemyData.AtkCoolTime;
+    }
+
     public override void OnEnterState()
     {
         _enemyController.NavMovement.StopImmediately();
@@ -34,10 +46,20 @@ public class AttackAIState : CommonAIState
     //공격 애니메이션 끝났을때 처리
     private void AttackCollisionHandle()
     {
-        _enemyController.AgentAnimator.SetAttackState(false);
         _aiActionData.IsAttacking = false;
+        _enemyController.AgentAnimator.SetAttackState(false);
+
+        StartCoroutine(DealyAction(() => {
+            _aiActionData.IsAttacking = false;
+        }, _atkCooltime));
     }
 
+    private IEnumerator DealyAction(Action action, float time)
+    {
+        yield return new WaitForSeconds(time);
+        action?.Invoke();
+    }
+    
     private void AttackAnimationEndHandle()
     {
         //아직 플레이어 채력 없어서 공격 안됨

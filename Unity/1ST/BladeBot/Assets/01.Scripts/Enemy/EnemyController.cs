@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] private EnemyDataSO _enemyData;
+    public EnemyDataSO EnemyData => _enemyData;
+    
     [SerializeField] private CommonAIState _currentState;
 
     private Transform _targetTrm;
@@ -19,12 +22,16 @@ public class EnemyController : MonoBehaviour
     private EnemyVFXManager _vfxManager;
     public EnemyVFXManager VfxManager => _vfxManager;
     
+    public EnemyHealth EnemyHealthCompo { get; private set; }
+
+    public bool IsDead = false;
     
     protected virtual void Awake()
     {
         _vfxManager = GetComponent<EnemyVFXManager>();
         _navMovement = GetComponent<NavAgentMovement>();
         _agentAnimator = transform.Find("Visual").GetComponent<AgentAnimator>();
+        EnemyHealthCompo = GetComponent<EnemyHealth>();
         
         List<CommonAIState> _states = new List<CommonAIState>();
         transform.Find("AI").GetComponentsInChildren<CommonAIState>(_states);
@@ -35,6 +42,8 @@ public class EnemyController : MonoBehaviour
     protected virtual void Start()
     {
         _targetTrm = GameManager.Instance.PlayerTrm;
+        _navMovement.SetSpeed(_enemyData.MoveSpeed); //이속 설정
+        EnemyHealthCompo.SetMaxHP(_enemyData.MaxHP); //체력 설정
     }
 
     public void ChangeState(CommonAIState state)
@@ -46,6 +55,20 @@ public class EnemyController : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (IsDead)
+            return;
         _currentState?.UpdateState();
+    }
+
+    public void SetDead()
+    {
+        IsDead = true;
+        _navMovement.StopNavigation();
+        _agentAnimator.StopAnimation(true); //애니메이션 정지
+        _navMovement.KnockBack(() =>
+        {
+            _agentAnimator.StopAnimation(false); //애니메이션 재생 다시 시작
+            _agentAnimator.SetDead(); //사망애니메이션 처리
+        });
     }
 }

@@ -5174,6 +5174,7 @@ MonoBehaviour:
   _targetLayer:
     serializedVersion: 2
     m_Bits: 256
+  _damage: 10
 --- !u!1 &523471627
 GameObject:
   m_ObjectHideFlags: 0
@@ -6432,7 +6433,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91b9b90c6851754f9987e5307043cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyData: {fileID: 11400000, guid: 2e1feb320cea8ff42a4a38edcc370ada, type: 2}
   _currentState: {fileID: 426908606}
+  IsDead: 0
 --- !u!195 &1317807998
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6467,6 +6470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7844eceb47f8eed48a60b6f1df6252e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _knockBackSpeed: 4
+  _gravity: -9.8
+  _knockBackTime: 0.6
 --- !u!114 &1317808000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6510,6 +6516,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16840ceb022b31f4f9a69cf6dc051167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDeadTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1317807997}
+        m_TargetAssemblyTypeName: EnemyController, Assembly-CSharp
+        m_MethodName: SetDead
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnHitTriggered:
     m_PersistentCalls:
       m_Calls:
@@ -6525,6 +6546,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _isDead: 0
+  MaxHP: 0
 --- !u!1 &1357343788
 GameObject:
   m_ObjectHideFlags: 0
