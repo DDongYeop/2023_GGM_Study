@@ -40,7 +40,7 @@ void Init(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, PPOS _pStartPos, PPO
 	strcpy_s(_cMaze[19], "00000000000000000000");
 }
 
-void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<BOOM>& _vecBomb, vector<POS> _bombEffect)
+void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<BOOM>& _vecBomb, vector<POS> _boomEffect)
 {
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
 	{
@@ -90,9 +90,45 @@ void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<BOOM>& _vec
 	int iBombcount = _pPlayer->iBombCount;
 	for (int i = 0; i < iBombcount; i++)
 	{
-		BOOM& boomItem = _vecBomb[i];
-		boomItem.life--;
+		BOOM& boomItem = _vecBomb[i]; //∆¯≈∫ µÈ∞Ì ø¬¥Ÿ
+		boomItem.life--; // ¡°¡° life∞®º“ Ω√≈≤¥Ÿ
+		//±Ù∫˝∞≈∏Æ¥¬∞≈
+		boomItem.life % 10 >= 5 ? _cMaze[boomItem.y][boomItem.x] = 'b' : _cMaze[boomItem.y][boomItem.x] = 'p';
+		if (boomItem.life <= 0) //∆¯≈∫¿Ã ≈Õ¡Ææﬂ«‘
+		{
+			boomItem.bDie = true;
+			--_pPlayer->iBombCount;
+			Fire(_cMaze, _pPlayer, { boomItem.x, boomItem.y }, _boomEffect);
+			//±Ê∑Œ πŸ≤„¡‡æﬂ«‘
+			//≈Õ∆Æ∏∞¥Ÿ
+		}
 	}
+}
+
+void Fire(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, POS _boompos, std::vector<POS>& _boomEffect)
+{
+	_cMaze[_boompos.y][_boompos.x] = '1';
+	//∆¯≈∫ π¸¿ß
+	int iBombminrangex = _boompos.x - _pPlayer->iBombPower;
+	int iBombmaxrangex = _boompos.x + _pPlayer->iBombPower;
+	int iBombminrangey = _boompos.y - _pPlayer->iBombPower;
+	int iBombmaxrangey = _boompos.y + _pPlayer->iBombPower;
+
+	//«√∑π¿ÃæÓ »Æ¿Œ
+	if ((_pPlayer->tPos.x >= iBombminrangex && _pPlayer->tPos.x <= iBombmaxrangex && _pPlayer->tPos.y == _boompos.y) ||
+		(_pPlayer->tPos.y >= iBombminrangey && _pPlayer->tPos.y <= iBombmaxrangey && _pPlayer->tPos.x == _boompos.x))
+		_pPlayer->tPos = {0,0};
+
+	//∆¯≈∫ ¿Ã∆Â∆Æ
+	vector<POS> veceffect;
+	for (int i = iBombminrangex; i <= iBombmaxrangex; ++i)
+	{
+		//veceffect.push_back({ clamp(_boompos.x, 0, HORIZON - 2)}, {clamp()});
+
+	}
+
+	//±Ê∑Œ πŸ≤„¡÷¥¬ ∞˙¡§ø°º≠ æ∆¿Ã≈€ »Æ∑¸
+
 }
 
 void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomEffect)
