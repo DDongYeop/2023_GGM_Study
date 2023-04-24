@@ -51,7 +51,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 15
+      - m_Value: 25
         m_Name: Spread range
         m_Overridden: 1
     m_Vector2f:
@@ -126,9 +126,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5091917010390914830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d4b03cd28bb9b4ea94454ebd7dce9e, type: 3}
+  m_Script: {fileID: 11500000, guid: d2fe8a7e97a7d3e47be9836a13eb901d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particles: []
+  _particle: []
   _effects:
   - {fileID: 5091917010390914819}

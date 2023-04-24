@@ -28,6 +28,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         CreatePool();
+        CreateTimeController();
+    }
+
+    private void CreateTimeController()
+    {
+        TimeController.Instance = gameObject.AddComponent<TimeController>();
     }
 
     private void CreatePool()
