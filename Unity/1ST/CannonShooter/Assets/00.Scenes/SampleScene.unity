@@ -529,7 +529,7 @@ GameObject:
   - component: {fileID: 554417382}
   - component: {fileID: 554417385}
   m_Layer: 0
-  m_Name: cannonBall
+  m_Name: CannonBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,6 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BallDirectionTrn: {fileID: 957934488}
   PowerGuageTrm: {fileID: 1925045001}
+  JumpCnt: 2
   _maxPower: 15
   _chargeSpeed: 20
   _state: 0

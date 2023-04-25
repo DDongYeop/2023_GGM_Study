@@ -16,6 +16,7 @@ public class BallController : MonoBehaviour
 {
     public Transform BallDirectionTrn;
     public Transform PowerGuageTrm;
+    public float JumpCnt;
     
     [SerializeField] private float _maxPower = 15f, _chargeSpeed = 20f;
     private float _currentPower = 0;
@@ -24,6 +25,8 @@ public class BallController : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private Vector2 _inputDir;
     private Camera _main;
+    private float _jumpCnt;
+    private float _gameOverTime = 5;
     
     private void Awake()
     {
@@ -32,6 +35,25 @@ public class BallController : MonoBehaviour
     }
 
     private void Update()
+    {
+        GameOver();
+        BallRotate();
+        FireWait();
+    }
+
+    private void GameOver()
+    {
+        if (_jumpCnt == 0)
+        {
+            _gameOverTime -= Time.deltaTime;
+            if (_gameOverTime < 0)
+                Debug.Log("GameOver");
+        }
+        else
+            _gameOverTime = 5;
+    }
+
+    private void BallRotate()
     {
         if (_state == BallState.IDLE)
         {
@@ -48,8 +70,11 @@ public class BallController : MonoBehaviour
             BallDirectionTrn.rotation = quaternion.Euler(0,0, angle);
             //BallDirectionTrn.rotation = Quaternion.Euler(0,0, angle * Mathf.Rad2Deg);
         }
+    }
 
-        if (Input.GetMouseButtonDown(0) && _state == BallState.IDLE)
+    private void FireWait()
+    {
+        if (Input.GetMouseButtonDown(0) && _state == BallState.IDLE && _jumpCnt > 0)
         {
             _state = BallState.CHARGING;
             TimeController.Instance.SetTimeScale(0.4f);
@@ -76,6 +101,7 @@ public class BallController : MonoBehaviour
         _rigidbody.AddForce(_inputDir.normalized * _currentPower, ForceMode2D.Impulse); // Impulse 야구공 같이 빡 치면 날라감, Force 미는거  
         _currentPower = 0;
         PowerGuageTrm.localScale = new Vector3(0, 1, 1);
+        --_jumpCnt;
         _state = BallState.IDLE; // 나중에 제거
     }
 
@@ -83,5 +109,6 @@ public class BallController : MonoBehaviour
     {
         if (_state == BallState.FIRE)
             _state = BallState.IDLE;
+        _jumpCnt = JumpCnt;
     }
 }
