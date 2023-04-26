@@ -8,11 +8,12 @@ public class TypeWriterText : MonoBehaviour
 {
     [SerializeField] private float _typeTime = 0.3f;
     [SerializeField] private Color _startColor, _endColor;
+    [SerializeField] private GameObject _particlePrefab;
     private TMP_Text _tmpText;
     private int _tIndex = 0;
     private bool _isTyping = false;
 
-        private void Awake()
+    private void Awake()
     {
         _tmpText = GetComponent<TMP_Text>();
     }
@@ -21,12 +22,13 @@ public class TypeWriterText : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A) && _isTyping == false)
         {
+            _tIndex = 0;
             _isTyping = true;
             StartEffect("Hello GGM! This is game!");
         }
-        else if (Input.GetKeyDown(KeyCode.A) && _isTyping)
+        else if(Input.GetKeyDown(KeyCode.A) && _isTyping == true)
         {
-            StopAllCoroutines();
+            StopEffect();
         }
     }
 
@@ -42,6 +44,19 @@ public class TypeWriterText : MonoBehaviour
         StartCoroutine(TypeText());
     }
 
+    public void StopEffect()
+    {
+        StopAllCoroutines();
+        TMP_TextInfo textInfo = _tmpText.textInfo;
+        _tmpText.maxVisibleCharacters = textInfo.characterCount;
+        _tmpText.ForceMeshUpdate();
+        for (int i = _tIndex; i < textInfo.characterCount; i++)
+        {
+            StartCoroutine(TypeOneCharacter(textInfo, i));
+        }
+        _isTyping = false;
+    }
+
     private IEnumerator TypeText()
     {
         TMP_TextInfo textInfo = _tmpText.textInfo;
@@ -53,12 +68,15 @@ public class TypeWriterText : MonoBehaviour
     }
 
 
-    private IEnumerator TypeOneCharacter(TMP_TextInfo textInfo)
+    private IEnumerator TypeOneCharacter(TMP_TextInfo textInfo, int idx = -1)
     {
-        _tmpText.maxVisibleCharacters = _tIndex + 1;
-        _tmpText.ForceMeshUpdate();
-
-        TMP_CharacterInfo charInfo = textInfo.characterInfo[_tIndex];
+        if(idx < 0)
+        {
+            _tmpText.maxVisibleCharacters = _tIndex + 1;
+            _tmpText.ForceMeshUpdate();
+        }
+        
+        TMP_CharacterInfo charInfo = textInfo.characterInfo[idx < 0 ? _tIndex : idx];
 
         if(charInfo.isVisible == false)
         {
@@ -79,6 +97,11 @@ public class TypeWriterText : MonoBehaviour
 
             Vector3 v1Origin = vertices[vIndex1];
             Vector3 v2Origin = vertices[vIndex2];
+            /*
+             *   v1     v2 여기 2개의 점을 가져온거다.
+             * 
+             *   v0     v3
+             */
 
             float currentTime = 0;
             float percent = 0;
@@ -91,12 +114,13 @@ public class TypeWriterText : MonoBehaviour
 
                 vertices[vIndex1] = v1Origin + new Vector3(0, yDelta, 0);
                 vertices[vIndex2] = v2Origin + new Vector3(0, yDelta, 0);
-
-                for (int i = 0; i < 4; i++)
+                
+                //컬러 건드리기
+                for(int i = 0; i < 4; i++)
                 {
                     vertexColors[vIndex0 + i] = Color.Lerp(_startColor, _endColor, percent);
                 }
-                
+
                 _tmpText.UpdateVertexData();
                 yield return null;
             }
@@ -104,9 +128,13 @@ public class TypeWriterText : MonoBehaviour
             vertices[vIndex1] = v1Origin;
             vertices[vIndex2] = v2Origin;
 
-            _tmpText.UpdateVertexData(TMP_VertexDataUpdateFlags.Vertices | TMP_VertexDataUpdateFlags.Colors32);
+            _tmpText.UpdateVertexData( TMP_VertexDataUpdateFlags.Vertices | TMP_VertexDataUpdateFlags.Colors32);
+
+            Vector3 endPos = vertices[vIndex3];
+            Vector3 worldEndPos = transform.TransformPoint(endPos);
+            GameObject effect = Instantiate(_particlePrefab, worldEndPos, Quaternion.Euler(-90,0,0));
+            Destroy(effect.gameObject, 2f);
         }
         _tIndex++;
     }
-
 }
