@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 379002022}
   - component: {fileID: 379002021}
   - component: {fileID: 379002024}
+  - component: {fileID: 379002025}
   m_Layer: 0
   m_Name: SampleText
   m_TagString: Untagged
@@ -418,11 +419,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379002020}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c97f52136aaf9f8428118ce6000d8cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &379002025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379002020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9b2ced8e524e445a4550c98bbedddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _typeTime: 0.1
+  _startColor: {r: 1, g: 0, b: 0, a: 1}
+  _endColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,15 +28,15 @@ public class WobblyText : MonoBehaviour
 
             Vector3[] vertices = textInfo.meshInfo[cInfo.materialReferenceIndex].vertices;
 
-            int vIndex0 = cInfo.vertexIndex;
-            for (int j = 0; j < 4; j++)
+            int vIndex0 = cInfo.vertexIndex + 1;
+            Vector3 origin = vertices[vIndex0];
+            for (int j = 0; j < 2; j++)
             {
-                if (j == 1 || j == 2)
-                {
-                    Vector3 origin = vertices[vIndex0 + j];
-                    vertices[vIndex0 + j] = origin + new Vector3(0, Mathf.Sin(Time.time * 2f + origin.x), 0);
-                }
+                Vector3 current = vertices[vIndex0 + j];
+                
+                vertices[vIndex0 + j] = current + new Vector3(0, Mathf.Sin(Time.time * 2f + origin.x) + 0.5f, 0);   
             }
+
         }
 
         /*var meshInfo = textInfo.meshInfo[0];
