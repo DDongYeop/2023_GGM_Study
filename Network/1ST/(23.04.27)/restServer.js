@@ -62,6 +62,37 @@ http.createServer(async (req, res) =>
                 })
             }
         }
+        else if (req.method === 'PUT') //닉네임 수정
+        {
+            if (req.url.startsWith('/user/')) // localhost:8083/users/id값
+            {
+                const key = req.url.split('/')[2];
+                let body = '';
+                req.on('data', (data)=>
+                {
+                    body += data;
+                });
+                return req.on('end', () =>
+                {
+                    console.log('Post 본문: ', body);
+                    users[key] = JSON.parse(body).name;
+                    res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+                    return res.end(JSON.stringify(users));
+                })
+            }
+        }
+        else if (req.method === 'DELETE')
+        {
+            if (req.url.startsWith('/user/')) // localhost:8083/users/id값
+            {
+                const key = req.url.split('/')[2];
+                delete users[key];
+                res.writeHead(200, {'Content-Type': 'text/plain; charset=utf-8'});
+                return res.end(JSON.stringify(users));
+                
+            }
+        }
+
         res.writeHead(404);
         return res.end('NOT FOUNT');
     }
