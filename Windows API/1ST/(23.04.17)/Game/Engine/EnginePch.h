@@ -11,11 +11,15 @@
 #include <list>
 #include <map>
 
+#include "fmod.h"
+#include "fmod.hpp"
+
 using namespace std;
 
 //각종 Lib
 #pragma comment(lib, "winmm.lib")
 #pragma comment(lib, "msimg32.lib")
+#pragma comment(lib, "fmod_vc.lib")
 
 //각종 Define
 #define SCREEN_WIDTH	800
@@ -42,3 +46,7 @@ public:							\
 #define TIMER			g_Engine->GetTimer()->GetDeltaTime()
 
 extern shared_ptr<class DONGEngine> g_Engine;
+
+//Util Functions
+wstring s2ws(const string& s);
+string ws2s(const wstring& s);

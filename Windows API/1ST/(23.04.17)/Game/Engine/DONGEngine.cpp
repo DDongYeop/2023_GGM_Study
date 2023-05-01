@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "DONGEngine.h"
-#include "SceneManager.h"
 
 DONGEngine::DONGEngine() : m_hBackDC(NULL), m_hBitmap(NULL)
 {
@@ -33,6 +32,8 @@ void DONGEngine::Startup()
 		m_input->Init(m_hWnd);
 
 	GET_SINGLE(SceneManager)->Init();
+	GET_SINGLE(SoundManager)->Init();
+
 	Init();
 }
 
@@ -53,6 +54,7 @@ void DONGEngine::MainUpdate()
 	float fDT = m_timer->GetDeltaTime();
 
 	GET_SINGLE(SceneManager)->Update(fDT);
+	GET_SINGLE(SoundManager)->Update(fDT);
 
 	Update(fDT);
 }
@@ -77,6 +79,7 @@ void DONGEngine::Cleanup()
 	DeleteDC(m_hBackDC);
 
 	GET_SINGLE(SceneManager)->Release();
+	GET_SINGLE(SoundManager)->Release();
 
 	Release();
 }
