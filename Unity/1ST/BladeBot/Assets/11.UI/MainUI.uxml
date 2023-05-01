@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/11.UI/MainUI.uss?fileID=7433441132597879392&amp;guid=58e94f3539080fd4dbda50879785b3f1&amp;type=3#MainUI" />
+    <ui:Button text="버튼" display-tooltip-when-elided="true" name="BtnOpen" class="btn" />
+</ui:UXML>
