@@ -18,11 +18,20 @@ public class MainUI : MonoBehaviour
         VisualElement root = _uiDocument.rootVisualElement;
         // 이녀석은 UI Obj다. 모든 애들의 근간이 된다 
 
-        Button btn = root.Q<Button>("BtnOpen");
+        VisualElement popupWindow = root.Q("PopupWindow");
+
+        Button openBtn = root.Q<Button>("BtnOpen");
         // Query => 질의, 질문
-        btn.RegisterCallback<ClickEvent>(e =>
+        openBtn.RegisterCallback<ClickEvent>(e =>
         {
-            Debug.Log("버튼이 클릭됨");
+            Time.timeScale = 0;
+            popupWindow.AddToClassList("open");
+        });
+        Button closeBtn = root.Q<Button>("BtnClose");
+        closeBtn.RegisterCallback<ClickEvent>(e =>
+        {
+            Time.timeScale = 1;
+            popupWindow.RemoveFromClassList("open");
         });
     }
 }
