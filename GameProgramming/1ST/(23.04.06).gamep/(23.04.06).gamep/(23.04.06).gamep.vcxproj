@@ -145,7 +145,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="MainLogic.cpp" />
-    <ClCompile Include="Real_Main.cpp" />
+    <ClCompile Include="RealMain.cpp" />
     <ClCompile Include="StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>

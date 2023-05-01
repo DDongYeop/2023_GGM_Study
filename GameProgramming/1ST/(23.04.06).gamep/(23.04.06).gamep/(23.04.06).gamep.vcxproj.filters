@@ -21,7 +21,7 @@
     <ClCompile Include="console.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Real_Main.cpp">
+    <ClCompile Include="RealMain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="StartScene.cpp">

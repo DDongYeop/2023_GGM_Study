@@ -120,15 +120,51 @@ void Fire(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, POS _boompos, std::v
 		_pPlayer->tPos = {0,0};
 
 	//폭탄 이펙트
-	vector<POS> veceffect;
+	static vector<POS> veceffect;
 	for (int i = iBombminrangex; i <= iBombmaxrangex; ++i)
 	{
-		//veceffect.push_back({ clamp(_boompos.x, 0, HORIZON - 2)}, {clamp()});
-
+		veceffect.push_back({ clamp(i, 0, HORIZON - 2), _boompos.y });
+	}
+	for (int i = iBombminrangey; i <= iBombmaxrangey; ++i)
+	{
+		veceffect.push_back({ _boompos.x, clamp(i, 0, VERTICAL - 1) });
 	}
 
 	//길로 바꿔주는 과정에서 아이템 확률
+	//반복문을 돌면서 veceffect를 가지고 반복문 돌면서 우리가 길로 바꾸고 확률 지정
+	for (const auto& target : veceffect)
+	{
+		_boomEffect.push_back(target); 
+		if (_cMaze[target.y][target.x] == '0')
+		{
+			float fRandom = rand() % 10001 / 100.f; // 0 ~ 10000 -> 0.0 ~ 100%
+			if (fRandom <= 50.f)
+			{
+				float fRandomitem = rand() % 10001 / 100.f; 
+				if (fRandomitem <= 50.f)
+					_cMaze[target.y][target.x] = '4'; //물풍선
+				if (fRandomitem <= 70.f)
+					_cMaze[target.y][target.x] = '5'; //슬라임
+				else 
+					_cMaze[target.y][target.x] = '6'; //푸시
+			}
+			else
+				_cMaze[target.y][target.x] = '1'; 
+		}
+	}
+	veceffect.clear();
+}
 
+void Event(std::vector<BOOM>& _vecBomb)
+{
+	vector<BOOM>::iterator iter = _vecBomb.begin();
+	for (; iter != _vecBomb.end();)
+	{
+		if (iter->bDie)
+			iter = _vecBomb.erase(iter);
+		else
+			iter++;
+	}
 }
 
 void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomEffect)
@@ -159,9 +195,11 @@ void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomE
 				SetColor((int)COLOR::MINT, (int)COLOR::BALCK);
 				cout << "○";
 			}
-			else if (_cMaze[i][j] == '4') //슬라임
+			else if (_cMaze[i][j] == '4') //물풍선
+				cout << "◐";
+			else if (_cMaze[i][j] == '5') //슬라임
 				cout << "♤";
-			else if (_cMaze[i][j] == '5') //푸쉬
+			else if (_cMaze[i][j] == '6') //푸쉬
 				cout << "※";
 			SetColor((int)COLOR::WHITE, (int)COLOR::BALCK);
 		}

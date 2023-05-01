@@ -35,3 +35,4 @@ void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<BOOM>&
 void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<POS> _boomEffect);
 void BombCreate(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<BOOM>& _vecBomb);
 void Fire(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, POS _boompos, std::vector<POS>& _boomEffect);
+void Event(std::vector<BOOM>& _vecBomb);

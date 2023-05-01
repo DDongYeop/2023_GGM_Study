@@ -44,6 +44,7 @@ int main()
 		Gotoxy(0, 0);
 		Update(cMaze, &tPlayer, vecBomb, boomEffect);
 		Render(cMaze, &tPlayer, boomEffect);
+		Event(vecBomb);
 		if (tPlayer.tPos.x == tEndPos.x && tPlayer.tPos.y == tEndPos.y)
 		{
 			PlaySound(TEXT("pickupCoin.wav"), 0, SND_FILENAME | SND_ASYNC);
