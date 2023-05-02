@@ -3,7 +3,7 @@ class DONGWindow
 {
 public:
 	DONGWindow();
-	~DONGWindow();
+	virtual ~DONGWindow();
 
 public:
 	int		Run(HINSTANCE hInst, LPWSTR lpCmdLine, int nCmdShow);

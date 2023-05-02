@@ -16,5 +16,8 @@ public:
 private:
 	float m_posX;
 	float m_posY;
+
+	shared_ptr<Image> m_player;
+	shared_ptr<Image> m_map;
 };
 

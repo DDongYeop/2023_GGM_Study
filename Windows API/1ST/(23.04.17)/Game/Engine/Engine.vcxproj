@@ -166,6 +166,8 @@
     <ClInclude Include="DONGEngine.h" />
     <ClInclude Include="DONGWindow.h" />
     <ClInclude Include="EnginePch.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Scene.h" />
@@ -177,6 +179,8 @@
     <ClCompile Include="DONGEngine.cpp" />
     <ClCompile Include="DONGWindow.cpp" />
     <ClCompile Include="EnginePch.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

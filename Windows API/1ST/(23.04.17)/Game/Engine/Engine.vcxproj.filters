@@ -42,6 +42,12 @@
     <ClInclude Include="SoundManager.h">
       <Filter>Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -69,6 +75,12 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="SoundManager.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>

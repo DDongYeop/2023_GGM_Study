@@ -2,8 +2,10 @@
 #include "DONGWindow.h"
 #include "Timer.h"
 #include "Input.h"
+#include "Image.h"
 #include "SceneManager.h"
 #include "SoundManager.h"
+#include "ImageManager.h"
 
 class DONGEngine : public DONGWindow, public enable_shared_from_this<DONGEngine>
 {
