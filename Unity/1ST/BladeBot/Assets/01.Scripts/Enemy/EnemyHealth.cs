@@ -44,6 +44,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             OnDeadTriggered?.Invoke();
         }
         
+        UIManager.Instance.Subscribe(this);
+        
         OnHealthCchanged?.Invoke(_currentHP, MaxHP);
     }
 }
