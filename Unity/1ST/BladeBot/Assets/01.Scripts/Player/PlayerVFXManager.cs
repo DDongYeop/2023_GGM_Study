@@ -8,7 +8,8 @@ public class PlayerVFXManager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem[] _blades;
     [SerializeField] private VisualEffect _footStep;
-
+    [SerializeField] private VisualEffect _healEffect;
+    
     private AttackState _atkState;
 
     private void Awake()
@@ -38,5 +39,10 @@ public class PlayerVFXManager : MonoBehaviour
     private void PlayBlade(int combo)
     {
         _blades[combo - 1].Play();
+    }
+
+    public void PlayHealEffect()
+    {
+        _healEffect.Play();
     }
 }
