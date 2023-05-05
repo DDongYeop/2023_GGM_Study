@@ -24,7 +24,10 @@ public class Cannon : MonoBehaviour
     public float _currentPower;
 
     [SerializeField] private CannonState _currentState;
-    
+
+    public Action<float, float> OnPowerChanged = null;
+    public Action<float> OnAngleChanged = null;
+
     private void Awake()
     {
         _barrelTrm = transform.Find("CannonBarrel");
@@ -51,6 +54,7 @@ public class Cannon : MonoBehaviour
         {
             _currentPower += _maxPower * Time.deltaTime;
             _currentPower = Mathf.Clamp(_currentPower, 0, _maxPower);
+            OnPowerChanged?.Invoke(_currentPower, _maxPower);
         }
         else if (Input.GetButtonUp("Jump") && _currentState == CannonState.CHARGING)
         {
@@ -66,6 +70,8 @@ public class Cannon : MonoBehaviour
         _currentRotation += y * _rotateSpeed * Time.deltaTime;
         _currentRotation = Mathf.Clamp(_currentRotation, 0, 90f);
 
+        OnAngleChanged?.Invoke(_currentRotation);
+        
         if (Mathf.Abs(y) > 0)
         {
             _currentState = CannonState.MOVING;
