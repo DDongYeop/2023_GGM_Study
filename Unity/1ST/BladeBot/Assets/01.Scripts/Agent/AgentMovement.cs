@@ -4,7 +4,7 @@ public class AgentMovement : MonoBehaviour
 {
     public bool IsActiveMove = true; //키보드로 이동하냐? 아니냐 
     
-    [SerializeField] private float _moveSpeed = 8f, _gravity = -9.8f;
+    [SerializeField] private float _gravity = -9.8f;
 
     private CharacterController _characterController;
 
@@ -15,11 +15,18 @@ public class AgentMovement : MonoBehaviour
     private AgentAnimator _animator;
 
     private Vector3 _inputValocity;
+
+    private AgentController _controller;
     
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = transform.Find("Visual").GetComponent<AgentAnimator>();
+    }
+    
+    public void SetInit(AgentController controller)
+    {
+        _controller = controller;
     }
 
     public void SetMovementVelocity(Vector3 value)
@@ -35,7 +42,8 @@ public class AgentMovement : MonoBehaviour
         
         _inputValocity.Normalize(); //스택메모리와 힙메모리의 차이를 알아둬야한다. 
 
-        _movementVelocity = _inputValocity * (_moveSpeed * Time.fixedDeltaTime);
+        float moveSpeed = _controller.CharData.MoveSpeed;
+            _movementVelocity = _inputValocity * (moveSpeed * Time.fixedDeltaTime);
         _movementVelocity = Quaternion.Euler(0, -45f, 0) * _movementVelocity;
         
         if (_movementVelocity.sqrMagnitude > 0)
@@ -78,4 +86,5 @@ public class AgentMovement : MonoBehaviour
         
         _animator.SetAirbone(_characterController.isGrounded == false); //추가됨
     }
+
 }

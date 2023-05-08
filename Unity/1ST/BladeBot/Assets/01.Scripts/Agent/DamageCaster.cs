@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,12 @@ public class DamageCaster : MonoBehaviour
     [SerializeField] private float _casterInterpolation = 0.5f; // 캐스트를 뒤쪽으로 뺴주는 정도
     [SerializeField] private LayerMask _targetLayer;
 
-    [SerializeField] private int _damage = 10;
+    private AgentController _controller;
+    
+    public void SetInit(AgentController controller)
+    {
+        _controller = controller;
+    }
     
     public void CastDamge()
     {
@@ -20,12 +24,30 @@ public class DamageCaster : MonoBehaviour
 
         if (isHit)
         {
-            Debug.Log($"맞았습니다 : {hit.collider.name}");
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable health))
-                health.OnDamage(_damage, hit.point, hit.normal);
+            {
+                int damage = _controller.CharData.BaseDamage;
+                float critical = _controller.CharData.BaseCritical;
+                float criticalDamage = _controller.CharData.BaseCriticalDamage;
+                
+                //아이템을 먹었다면 크리티컬이라면 이런 설정들이 여기서 계산
+                float dice = Random.value; // 0 ~ 1 값 나옴
+                int fontSize = 10;
+                Color fontColor = Color.white;
+
+                if (dice < critical)
+                {
+                    damage = Mathf.CeilToInt(damage * criticalDamage);
+                    fontSize = 15;
+                    fontColor = Color.red;
+                }
+                
+                health.OnDamage(damage, hit.point, hit.normal);
+                
+                PopupText pText = PoolManager.Instance.Pop("PopupText") as PopupText;
+                pText.StartPopup(text:damage.ToString(), pos:hit.point + new Vector3(0, 2, 0), fontSize:fontSize, color:fontColor);
+            }
         }
-        else
-            Debug.Log("안 맞았습니다");
     }
     
 #if UNITY_EDITOR

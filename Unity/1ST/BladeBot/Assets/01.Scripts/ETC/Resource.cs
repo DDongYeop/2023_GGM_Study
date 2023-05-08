@@ -40,6 +40,7 @@ public class Resource : PoolableMono
 
     public override void Init()
     {
+        gameObject.layer = LayerMask.NameToLayer("Resource");
         _collider.enabled = true;
     }
 

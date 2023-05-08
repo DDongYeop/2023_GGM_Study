@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -43,5 +44,24 @@ public class GameManager : MonoBehaviour
         {
             PoolManager.Instance.CreatePool(p.Prefab, p.Count);
         });
+    }
+    
+    //디버그 코드
+    [SerializeField] private LayerMask _whatIsGround;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Ray ray = Define.MainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            bool result = Physics.Raycast(ray, out hit, Define.MainCam.farClipPlane, _whatIsGround);
+
+            if (result)
+            {
+                PoolableMono mono = PoolManager.Instance.Pop("HammerEnemy");
+                mono.transform.SetPositionAndRotation(hit.point, Quaternion.identity);
+            }
+        }
     }
 }
