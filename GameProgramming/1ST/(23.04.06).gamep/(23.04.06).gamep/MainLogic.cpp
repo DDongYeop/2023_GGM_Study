@@ -81,11 +81,36 @@ void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<BOOM>& _vec
 	{
 		_pPlayer->tPos = _pPlayer->tNewPos;
 	}
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+
+	if (Getitem(_cMaze[_pPlayer->tPos.y][_pPlayer->tPos.x], _pPlayer))
+		_cMaze[_pPlayer->tNewPos.y][_pPlayer->tNewPos.x] = '1';
+
+	//½½¶óÀÓ, Çª½¬ ´É·Â ±¸Çö
+	else if (_pPlayer->bPushonoff && _pPlayer->bWallPush && _cMaze[_pPlayer->tNewPos.y][_pPlayer->tNewPos.x] == '0')
 	{
-		// ÆøÅº¼³Ä¡
-		BombCreate(_cMaze, _pPlayer, _vecBomb);
+		POS tDiffpos = {_pPlayer->tNewPos.x - _pPlayer->tPos.x, _pPlayer->tNewPos.y - _pPlayer->tPos.y}; 
+		POS tNextpos = { _pPlayer->tPos.x + tDiffpos.x * 1, _pPlayer->tPos.y + tDiffpos.y * 1 }; //´ÙÀ½Ä­
+		POS tDoubleps = { _pPlayer->tPos.x + tDiffpos.x * 2, _pPlayer->tPos.y + tDiffpos.y * 2 }; //´Ù´ÙÀ½Ä­
+		
+		if (_cMaze[tDoubleps.y][tDoubleps.x] == '0' && _pPlayer->bTrans) //Çª½¬ ON, ´ÙÀ½´ÙÀ½ÀÌ º®
+		{
+			_pPlayer->tPos = _pPlayer->tNewPos;
+		}
+		else if (_cMaze[tDoubleps.y][tDoubleps.x] == '1') //Çª½¬ ON, ´ÙÀ½´ÙÀ½ÀÌ ±æÀÌ
+		{
+			_cMaze[tDoubleps.y][tDoubleps.x] = '0';
+			_cMaze[tNextpos.y][tNextpos.x] = '1';
+			_pPlayer->tPos = _pPlayer->tNewPos;
+		}
 	}
+	else if (_pPlayer->bTrans)
+	{
+		_pPlayer->tPos = _pPlayer->tNewPos;
+	}
+
+	// ÆøÅº¼³Ä¡
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+		BombCreate(_cMaze, _pPlayer, _vecBomb);
 
 	int iBombcount = _pPlayer->iBombCount;
 	for (int i = 0; i < iBombcount; i++)
@@ -167,17 +192,51 @@ void Event(std::vector<BOOM>& _vecBomb)
 	}
 }
 
+bool Getitem(char _cItem, PPLAYER _pPlayer)
+{
+	if (_cItem == '4') //¹°Ç³¼± ÆÄ¿ö
+	{
+		_pPlayer->iBombPower++;
+		return true;
+	}
+	if (_cItem == '5') //½½¶óÀÓ
+	{
+		_pPlayer->bTrans = true;
+		return true;
+	}
+	if (_cItem == '6') //Çª½Ã
+	{
+		_pPlayer->bWallPush = true;
+		_pPlayer->bPushonoff = true;
+		return true;
+		
+	}
+	return FALSE;
+}
+
 void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomEffect)
 {
 	for (int i = 0; i < VERTICAL; i++)
 	{
 		for (int j = 0; j < HORIZON; j++)
 		{
-			//ÇÃ·¹ÀÌ¾î
-			//º®
+			bool drawed = false; //¾ÆÁ÷ ±×·ÁÁöÁö ¾ÊÀ½
+			for (int k = 0; i < _boomEffect.size(); ++k)
+			{
+				if (_boomEffect[k].y == i && _boomEffect[k].x == j)
+				{
+					SetColor((int)COLOR::LIGHT_BLUE, (int)COLOR::BLACK);
+					cout << "¢Ç";
+					_boomEffect.erase(_boomEffect.begin() + k);
+					drawed = true;
+					break;
+				}
+			}
+			if (drawed)
+				continue;
 			if (_pPlayer->tPos.x == j && _pPlayer->tPos.y == i)
 				cout << "¡×";
-			if (_cMaze[i][j] == '0')
+			else if (_cMaze[i][j] == '0')
 				cout << "¡á";
 			else if (_cMaze[i][j] == '1')
 				cout << " ";
@@ -187,12 +246,12 @@ void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomE
 				cout << "¢Í";
 			else if (_cMaze[i][j] == 'b') //¹°Ç³¼±
 			{
-				SetColor((int)COLOR::SKYBLUE, (int)COLOR::BALCK);
+				SetColor((int)COLOR::SKYBLUE, (int)COLOR::BLACK);
 				cout << "£À";
 			}
 			else if (_cMaze[i][j] == 'p')
 			{
-				SetColor((int)COLOR::MINT, (int)COLOR::BALCK);
+				SetColor((int)COLOR::MINT, (int)COLOR::BLACK);
 				cout << "¡Û";
 			}
 			else if (_cMaze[i][j] == '4') //¹°Ç³¼±
@@ -201,7 +260,7 @@ void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomE
 				cout << "¢»";
 			else if (_cMaze[i][j] == '6') //Çª½¬
 				cout << "¡Ø";
-			SetColor((int)COLOR::WHITE, (int)COLOR::BALCK);
+			SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
 		}
 		cout << '\n';
 	}
