@@ -9,6 +9,7 @@ Image::Image() : m_hBitmap(nullptr)
 	m_transColor = RGB(255, 0, 255);
 	m_angle = 0;
 	m_rotate = FALSE;
+	m_center = TRUE;
 
 	m_blendFunc.BlendFlags = 0;
 	m_blendFunc.AlphaFormat = 0;
@@ -21,7 +22,7 @@ Image::~Image()
 		DeleteObject(m_hBitmap);
 }
 
-bool Image::Load(wstring fileName)
+bool Image::Load(wstring fileName, bool center)
 {
 	if (m_hBitmap)
 		DeleteObject(m_hBitmap);
@@ -34,10 +35,12 @@ bool Image::Load(wstring fileName)
 	GetObject(m_hBitmap, sizeof(m_bitInfo), &m_bitInfo);
 	m_width = m_bitInfo.bmWidth;
 	m_height = m_bitInfo.bmHeight;
+
+	m_center = center;
 	return true;
 }
 
-bool Image::Load(HBITMAP hBitmap)
+bool Image::Load(HBITMAP hBitmap, bool center)
 {
 	if (hBitmap == nullptr)
 		return false;
@@ -49,6 +52,8 @@ bool Image::Load(HBITMAP hBitmap)
 	GetObject(m_hBitmap, sizeof(m_bitInfo), &m_bitInfo);
 	m_width = m_bitInfo.bmWidth;
 	m_height = m_bitInfo.bmHeight;
+	
+	m_center = center;
 	return true;
 }
 
@@ -93,6 +98,26 @@ void Image::SetTransColor(COLORREF color)
 COLORREF Image::GetTransColor() const
 {
 	return m_transColor;
+}
+
+RECT Image::GetBoundingBox()
+{
+	RECT rc;
+	if (m_center)
+	{
+		rc.left = m_posX - m_dest_width / 2;
+		rc.right = rc.left + m_dest_width;
+		rc.top = m_posY - m_dest_height / 2;
+		rc.bottom = rc.top + m_dest_height;
+	}
+	else
+	{
+		rc.left = m_posX;
+		rc.right = rc.left + m_dest_width;
+		rc.top = m_posY;
+		rc.bottom = rc.top + m_dest_height;
+	}
+	return rc;
 }
 
 HBITMAP Image::CreateAlphaBitmap(HDC hdc, int x, int y, int dest_width, int dest_height)
@@ -168,51 +193,91 @@ HBITMAP Image::CreateRotateBitmap(HDC hdc, int x, int y, int dest_width, int des
 
 void Image::DrawBitmap(HDC hdc, int x, int y, int dest_width, int dest_height)
 {
+	m_posX = x;
+	m_posY = y;
+
 	if (dest_width == 0)
 		dest_width = m_width;
 	if (dest_height == 0)
 		dest_height = m_height;
 
-	DrawBitmap(hdc, x, y, dest_width, dest_height, 0, 0, m_width, m_height);
+	if (m_center)
+	{
+		x = x - dest_width / 2;
+		y = y - dest_height / 2;
+	}
+
+	m_dest_width = dest_width;
+	m_dest_height = dest_height;
+
+	HDC hMemDC = CreateCompatibleDC(hdc);
+	SelectObject(hMemDC, m_hBitmap);
+
+	GdiTransparentBlt(hdc, x, y, dest_width, dest_height, hMemDC, 0, 0, m_width, m_height, m_transColor);
+
+	DeleteDC(hMemDC);
+
 }
 
 void Image::DrawBitmap(HDC hdc, int x, int y, int dest_width, int dest_height, int sx, int sy, int sw, int sh)
 {
+	m_posX = x;
+	m_posY = y;
+	
 	HDC hMemDC = CreateCompatibleDC(hdc);
 	SelectObject(hMemDC, m_hBitmap);
 
-	int centerX = x - dest_width / 2;
-	int centerY = y - dest_height / 2;
+	if (dest_width == 0)
+		dest_width = m_width;
+	if (dest_height == 0)
+		dest_height = m_height;
 
-	GdiTransparentBlt(
-		hdc, centerX, centerY, dest_width, dest_height,
-		hMemDC, sx, sy, sw, sh, m_transColor);
+	if (m_center)
+	{
+		x = x - dest_width / 2;
+		y = y - dest_height / 2;
+	}
+
+	m_dest_width = dest_width;
+	m_dest_height = dest_height;
+
+	GdiTransparentBlt(hdc, x, y, dest_width, dest_height, hMemDC, sx, sy, sw, sh, m_transColor);
 
 	DeleteDC(hMemDC);
 }
 
 void Image::DrawAlpha(HDC hdc, int x, int y, BYTE alpha, int dest_width, int dest_height)
 {
-	static HDC hAlphaMemDC;
-	HBITMAP hAlphaBitmap, hOldBitmap;
-
+	m_posX = x;
+	m_posY = y;
+	
 	if (dest_width == 0)
 		dest_width = m_width;
 	if (dest_height == 0)
 		dest_height = m_height;
 
+	if (m_center)
+	{
+		x = x - dest_width / 2;
+		y = y - dest_height / 2;
+	}
+
+	m_dest_width = dest_width;
+	m_dest_height = dest_height;
+
+	static HDC hAlphaMemDC;
+	HBITMAP hAlphaBitmap, hOldBitmap;
+
 	if (!hAlphaMemDC)
 		hAlphaMemDC = CreateCompatibleDC(hdc);
 
-	int centerX = x - dest_width / 2;
-	int centerY = y - dest_height / 2;
-	hAlphaBitmap = CreateAlphaBitmap(hdc, centerX, centerY, dest_width, dest_height);
+	hAlphaBitmap = CreateAlphaBitmap(hdc, x, y, dest_width, dest_height);
 
 	hOldBitmap = (HBITMAP)SelectObject(hAlphaMemDC, hAlphaBitmap);
 
 	m_blendFunc.SourceConstantAlpha = alpha;
 	GdiAlphaBlend(
-		hdc, centerX, centerY, dest_width, dest_height,
+		hdc, x, y, dest_width, dest_height,
 		hAlphaMemDC, 0, 0, dest_width, dest_height, m_blendFunc);
 
 	SelectObject(hAlphaMemDC, hOldBitmap);
@@ -221,17 +286,28 @@ void Image::DrawAlpha(HDC hdc, int x, int y, BYTE alpha, int dest_width, int des
 
 void Image::DrawRotate(HDC hdc, int x, int y, float angle, int dest_width, int dest_height)
 {
+	m_posX = x;
+	m_posY = y;
+	
+	if (dest_width == 0)
+		dest_width = m_width;
+	if (dest_height == 0)
+		dest_height = m_height;
+
+	if (m_center)
+	{
+		x = x - dest_width / 2;
+		y = y - dest_height / 2;
+	}
+
+	m_dest_width = dest_width;
+	m_dest_height = dest_height;
+
 	static HDC hRotMemDC;
 	HBITMAP hRotBitmap, hOldBitmap;
 
 	if( !hRotMemDC )
 		hRotMemDC = CreateCompatibleDC(hdc);
-
-	// 이미지 크기 수정 없을 때, 
-	if (dest_width == 0)
-		dest_width = m_width;
-	if (dest_height == 0)
-		dest_height = m_height;
 
 	// 회전된 이미지 생성
 	hRotBitmap = CreateRotateBitmap(hdc, 0, 0, dest_width, dest_height, angle);
@@ -239,13 +315,73 @@ void Image::DrawRotate(HDC hdc, int x, int y, float angle, int dest_width, int d
 	// 회전 된 이미지 memDC에 쥐어 준다.
 	hOldBitmap = (HBITMAP)SelectObject(hRotMemDC, hRotBitmap);
 
-	int centerX = x - dest_width / 2;
-	int centerY = y - dest_height / 2;
-
-	GdiTransparentBlt(
-		hdc, centerX, centerY, dest_width, dest_height,
-		hRotMemDC, 0, 0, dest_width, dest_height, m_transColor);
+	GdiTransparentBlt(hdc, x, y, dest_width, dest_height, hRotMemDC, 0, 0, dest_width, dest_height, m_transColor);
 
 	SelectObject(hRotMemDC, hOldBitmap);
 	DeleteObject(hRotBitmap);
+}
+
+void Image::DrawLoopBitmap(HDC hdc, const LPRECT rtDraw, int offsetX, int offsetY)
+{
+	if (offsetX < 0)
+		offsetX = m_width + (offsetX % m_width);
+	if (offsetY)
+		offsetY = m_height + (offsetY % m_height);
+
+	//그려지는 영역(이미지) 변수
+	RECT rcSour;
+	int sourWidth;
+	int sourHeight;
+
+	//그려지는 DC 영역
+	if (rtDraw == nullptr)
+		return;
+
+	RECT rcDest;
+	int drawAreaX = rtDraw->left;
+	int drawAreaY = rtDraw->top;
+	int drawWidth = rtDraw->right - rtDraw->left;
+	int drawHeight = rtDraw->bottom - rtDraw->top;
+
+	//세로 루프 영역 구하기
+	for (int y = 0; y < drawHeight; y += sourHeight)
+	{
+		//영역 높이 계산
+		rcSour.top = (y + offsetY) % m_height;
+		rcSour.bottom = m_height;
+		sourHeight = rcSour.bottom - rcSour.top;
+
+		//sour영역 그려지는 화면 넘어 갔을 때
+		if (y + sourHeight > drawHeight)
+		{
+			rcSour.bottom -= (y + sourHeight) - drawHeight;
+			sourHeight = rcSour.bottom - rcSour.top;
+		}
+
+		//그려지는 영역
+		rcDest.top = y + drawAreaY;
+		rcDest.bottom = rcDest.top + sourHeight;
+
+		//가로 루프 영역
+		for (int x = 0; x < drawWidth; x += sourWidth)
+		{
+			rcSour.left = (x + offsetX) % m_width;
+			rcSour.right = m_width;
+			sourWidth = rcSour.right - rcSour.left;
+
+			if (x + sourWidth > drawWidth)
+			{
+				rcSour.right -= (x + sourWidth) - drawWidth;
+				sourWidth = rcSour.right - rcSour.left;
+			}
+
+			rcDest.left = x + drawAreaX;
+			rcDest.right = rcDest.left + sourWidth;
+			int width = rcSour.right - rcSour.left;
+			int height = rcSour.bottom - rcSour.top;
+
+			// 그리기
+			DrawBitmap(hdc, rcDest.left, rcDest.top, width, height, rcSour.left, rcSour.top, width, height);
+		}
+	}
 }
