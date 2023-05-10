@@ -45,9 +45,8 @@ public class DissolveFeedback : Feedback
             _skinnedMeshRenderer.SetPropertyBlock(_materialProp);
             yield return null;
         }
-        {
-            
-        }
+        
+        OfAfterDissolve?.Invoke();
     }
 
     public override void FinishFeedback()

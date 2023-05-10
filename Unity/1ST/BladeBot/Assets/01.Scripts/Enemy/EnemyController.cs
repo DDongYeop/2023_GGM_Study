@@ -10,7 +10,8 @@ public class EnemyController : PoolableMono
     public EnemyDataSO EnemyData => _enemyData;
     
     [SerializeField] private CommonAIState _currentState;
-
+    public CommonAIState CurrentState => _currentState;
+    
     private Transform _targetTrm;
     public Transform TargetTrm => _targetTrm;
 
@@ -31,6 +32,9 @@ public class EnemyController : PoolableMono
     
     private CommonAIState _initState;
 
+    private List<AITransition> _anyTransitions = new List<AITransition>();
+    public List<AITransition> AnyTransitions => _anyTransitions;
+
     protected virtual void Awake()
     {
         _vfxManager = GetComponent<EnemyVFXManager>();
@@ -43,6 +47,13 @@ public class EnemyController : PoolableMono
         transform.Find("AI").GetComponentsInChildren<CommonAIState>(_states);
         
         _states.ForEach((s => s.SetUp(transform))); //여기서 셋업이 시작되는거 
+
+        Transform anyTranTrm = transform.Find("AI/AnyTransitions");
+        if (anyTranTrm != null)
+        {
+            anyTranTrm.GetComponentsInChildren<AITransition>(_anyTransitions);
+            _anyTransitions.ForEach(t => t.SetUp(transform));
+        }
         
         _initState = _currentState;
     }

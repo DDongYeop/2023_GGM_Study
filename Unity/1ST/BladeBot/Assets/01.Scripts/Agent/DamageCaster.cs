@@ -18,14 +18,15 @@ public class DamageCaster : MonoBehaviour
     public void CastDamge()
     {
         Vector3 startPos = transform.position - transform.forward * _casterRadius;
-        RaycastHit hit;
-        bool isHit = Physics.SphereCast(startPos, _casterRadius, transform.forward, out hit,
-            _casterRadius + _casterInterpolation, _targetLayer);
+        RaycastHit[] hitArr = Physics.SphereCastAll(startPos, _casterRadius, transform.forward, _casterRadius + _casterInterpolation, _targetLayer);
 
-        if (isHit)
+        foreach (RaycastHit hit in hitArr)
         {
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable health))
             {
+                if (hit.point.sqrMagnitude == 0)
+                    continue;
+                
                 int damage = _controller.CharData.BaseDamage;
                 float critical = _controller.CharData.BaseCritical;
                 float criticalDamage = _controller.CharData.BaseCriticalDamage;

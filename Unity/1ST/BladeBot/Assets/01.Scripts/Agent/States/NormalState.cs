@@ -44,8 +44,8 @@ public class NormalState : CommonState
         _agentMovement = agentRoot.GetComponent<AgentMovement>();
     }*/ 
 
-    public override void UpdateState()
+    public override bool UpdateState()
     {
-        
+        return true;   
     }
 }

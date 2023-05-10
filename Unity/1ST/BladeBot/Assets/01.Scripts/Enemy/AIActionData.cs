@@ -10,4 +10,6 @@ public class AIActionData : MonoBehaviour
     public Vector3 LastSpotPoint;
     public bool IsArrived;
     public bool IsAttacking;
+
+    public bool IsHit;
 }

@@ -60,10 +60,11 @@ public class AttackAIState : CommonAIState
         //아직 플레이어 채력 없어서 공격 안됨
     }
 
-    public override void UpdateState()
+    public override bool UpdateState()
     {
-        base.UpdateState(); // 먼저 공격 가능한 거리인지 체그하고
-
+        if (base.UpdateState()) // 먼저 공격 가능한 거리인지 체그하고
+            return true;
+        
         if (_aiActionData.IsAttacking == false && isActive)
         {
             SetTarget(); //타겟을 향하도록 벡터를 만들고
@@ -85,6 +86,8 @@ public class AttackAIState : CommonAIState
                 _enemyController.AgentAnimator.SetAttackTrigger(true); //공격모션 재생 
             }
         }
+
+        return false;
     }
 
     private void SetTarget()
