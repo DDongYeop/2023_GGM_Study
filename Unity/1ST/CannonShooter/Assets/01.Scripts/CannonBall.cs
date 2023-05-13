@@ -64,6 +64,8 @@ public class CannonBall : MonoBehaviour
             box.PlayExplosion(dir.normalized * power + new Vector2(0, 4f));
         }
 
+        GameManager.Instance.CurrentBoxCount -= cols.Length;
+
         CameraManager.Instance.ShakeCam(intensity: 2f, duration: 0.8f);
         Destroy(effect, 2f);
 

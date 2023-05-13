@@ -18,6 +18,29 @@ public class UIManager : MonoBehaviour
     public Action OnCloseMessagePopup = null;
     private TextMeshProUGUI _msgTmpText;
 
+    private Transform _playerTrm;
+    private Transform _mainCamTrm;
+    private RectTransform _cannonThumbnail;
+    private bool _isIconShow;
+
+    private CountBox _boxCount, _ballCount;
+
+    public string BoxCount
+    {
+        set
+        {
+            _boxCount.Text = value;
+        }
+    }
+    
+    public string BallCount
+    {
+        set
+        {
+            _ballCount.Text = value;
+        }
+    }
+    
     public void Init()
     {
         Transform gaugeTrm = transform.Find("BottomInfoBox/GaugeBox");
@@ -25,6 +48,12 @@ public class UIManager : MonoBehaviour
         _powerTmpText = gaugeTrm.Find("PowerText").GetComponent<TextMeshProUGUI>();
         _msgTmpText = transform.Find("BottomInfoBox/MsgBox").GetComponent<TextMeshProUGUI>();
         _msgTmpText.SetText("");
+        _playerTrm = GameManager.Instance.Player.transform;
+        _mainCamTrm = GameObject.Find("Main Camera").GetComponent<Transform>();
+        _cannonThumbnail = GameObject.Find("CannonThumbnail").GetComponent<RectTransform>();
+
+        _boxCount = transform.Find("TopRightBox/BoxCountBox").GetComponent<CountBox>();
+        _ballCount = transform.Find("TopRightBox/BallCountBox").GetComponent<CountBox>();
     }
 
     public void AddEvent(Cannon playerCannon)
@@ -64,6 +93,26 @@ public class UIManager : MonoBehaviour
             _msgTmpText.DOKill();
             _msgTmpText.alpha = 1; //이걸 복귀시켜야한다
             OnCloseMessagePopup?.Invoke();
+        }
+
+        CameraPlayerCheck();
+    }
+
+    private void CameraPlayerCheck()
+    {
+        float value = Mathf.Abs(_mainCamTrm.position.x - _playerTrm.position.x);
+
+        if (value < 13 && _isIconShow == false) 
+        {
+            _isIconShow = !_isIconShow;
+            _cannonThumbnail.DOKill();
+            _cannonThumbnail.DOAnchorPosX(-200, .5f);
+        }
+        else if (value > 13 && _isIconShow)
+        {
+            _isIconShow = !_isIconShow;
+            _cannonThumbnail.DOKill();
+            _cannonThumbnail.DOAnchorPosX(0, .5f);
         }
     }
 }

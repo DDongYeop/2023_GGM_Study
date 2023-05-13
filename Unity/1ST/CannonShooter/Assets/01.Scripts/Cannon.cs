@@ -38,6 +38,14 @@ public class Cannon : MonoBehaviour
     private float _viewRigSpeed = 8f;
     private Transform _viewRig;
 
+    private float _minX, _maxX;
+
+    public void SetXBound(float min, float max)
+    {
+        _minX = min;
+        _maxX = max;
+    }
+
     private void Awake()
     {
         _barrelTrm = transform.Find("CannonBarrel");
@@ -81,6 +89,8 @@ public class Cannon : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
 
         _viewRig.Translate(new Vector3(x * _viewRigSpeed * Time.deltaTime, 0, 0), Space.World);
+
+        _viewRig.position = new Vector3(Mathf.Clamp(_viewRig.position.x, _minX, _maxX), _viewRig.position.y, 0);
     }
 
     private void CheckFire()
@@ -121,6 +131,8 @@ public class Cannon : MonoBehaviour
         ball.Fire(_firePosition.right, _currentPower);
 
         CameraManager.Instance.SetActiveCam(CameraCategory.BallCam, ball.transform); //��ī�޶� ���󰡰�
+
+        GameManager.Instance.CurrentBallCount--;
     }
 
     private void CannonBallExlosionHandle()
