@@ -11,9 +11,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Box
+  - Player
+  - Light
   - 
   - 
   - 
@@ -42,11 +42,11 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Player
-    uniqueID: 166667317
+    uniqueID: 3728677717
     locked: 0
   - name: Stage
-    uniqueID: 1359917895
+    uniqueID: 32806603
     locked: 0
   - name: Target
-    uniqueID: 2896191723
+    uniqueID: 3100373753
     locked: 0
