@@ -11,15 +11,18 @@ public class AttackAIState : CommonAIState
 
     private bool isActive;
 
-    private int _atkDamge = 1;
-    private float _atkCooltime = 0.2f;
+    private int _atkDamage = 1;
+    private float _atkMotionDelay = 0.2f;
 
+    [SerializeField] private float _atkCoolTime = 1f;
+    private float _lastAtkTime;
+    
     public override void SetUp(Transform agentRoot)
     {
         base.SetUp(agentRoot);
         _rotateSpeed = _enemyController.EnemyData.RotateSpeed;
-        _atkDamge = _enemyController.EnemyData.AtkDamage;
-        _atkCooltime = _enemyController.EnemyData.AtkCoolTime;
+        _atkDamage = _enemyController.EnemyData.AtkDamage;
+        _atkMotionDelay = _enemyController.EnemyData.AtkCoolTime;
     }
 
     public override void OnEnterState()
@@ -27,6 +30,7 @@ public class AttackAIState : CommonAIState
         _enemyController.NavMovement.StopImmediately();
         _enemyController.AgentAnimator.OnAnimationEventTrigger += AttackCollisionHandle;
         _enemyController.AgentAnimator.OnAnimationEndTrigger += AttackAnimationEndHandle;
+        _enemyController.AgentAnimator.OnPreAnimationEventTrigger += PreAttackHandle;
         _aiActionData.IsAttacking = false;
 
         isActive = true;
@@ -36,28 +40,38 @@ public class AttackAIState : CommonAIState
     {
         _enemyController.AgentAnimator.OnAnimationEventTrigger -= AttackCollisionHandle;
         _enemyController.AgentAnimator.OnAnimationEndTrigger -= AttackAnimationEndHandle;
+        _enemyController.AgentAnimator.OnPreAnimationEventTrigger -= PreAttackHandle;
 
         _enemyController.AgentAnimator.SetAttackState(false); //애니메이션 리셋
         _enemyController.AgentAnimator.SetAttackTrigger(false);
 
+        _enemyController.CancelAttack(); //나갈떄 취소
+        
         isActive = false;
+    }
+
+    private void PreAttackHandle()
+    {
+        _enemyController.PreAttack();
     }
 
     //공격 애니메이션 끝났을때 처리
     private void AttackCollisionHandle()
     {
-        _aiActionData.IsAttacking = false;
+        //_aiActionData.IsAttacking = false;
         _enemyController.AgentAnimator.SetAttackState(false);
+        
+        _lastAtkTime = Time.time;
 
         MonoFunction.Instance.AddCoroutine(() => 
         {
             _aiActionData.IsAttacking = false;
-        }, _atkCooltime);
+        }, _atkMotionDelay);
     }
     
     private void AttackAnimationEndHandle()
     {
-        //아직 플레이어 채력 없어서 공격 안됨
+        _enemyController.AttackWeapon(_atkDamage, _targetVector);
     }
 
     public override bool UpdateState()
@@ -79,7 +93,7 @@ public class AttackAIState : CommonAIState
                 float sign = result.y > 0 ? 1 : -1;
                 _enemyController.transform.rotation = Quaternion.Euler(0, sign *_rotateSpeed * Time.deltaTime, 0) * _enemyController.transform.rotation;
             }
-            else
+            else if (_lastAtkTime + _atkCoolTime < Time.time)
             {
                 _aiActionData.IsAttacking = true;
                 _enemyController.AgentAnimator.SetAttackState(true);

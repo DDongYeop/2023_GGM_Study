@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     private Transform _playerTrm;
 
-    [FormerlySerializedAs("_initPollList")] [SerializeField] private PoolingListSO _initPoolList;
+    [SerializeField] private PoolingListSO _initPoolList;
     
     public Transform PlayerTrm
     {
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     }
     
     //디버그 코드
-    [SerializeField] private LayerMask _whatIsGround;
+    /*[SerializeField] private LayerMask _whatIsGround;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -63,5 +63,5 @@ public class GameManager : MonoBehaviour
                 mono.transform.SetPositionAndRotation(hit.point, Quaternion.identity);
             }
         }
-    }
+    }*/
 }

@@ -18,6 +18,7 @@ public class AgentAnimator : MonoBehaviour
     
     public event Action OnAnimationEndTrigger = null;
     public event Action OnAnimationEventTrigger = null;
+    public event Action OnPreAnimationEventTrigger = null; //프리차징 이벤트
     
     private Animator _animator;
     public Animator Animator => _animator;
@@ -75,6 +76,11 @@ public class AgentAnimator : MonoBehaviour
     private void OnAnimationEnd()
     {
         OnAnimationEndTrigger?.Invoke();
+    }
+
+    protected virtual void OnPreAnimationEvent()
+    {
+        OnPreAnimationEventTrigger?.Invoke();
     }
 
     public void StopAnimation(bool value)

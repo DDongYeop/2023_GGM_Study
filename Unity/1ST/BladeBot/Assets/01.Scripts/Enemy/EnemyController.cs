@@ -35,6 +35,8 @@ public class EnemyController : PoolableMono
     private List<AITransition> _anyTransitions = new List<AITransition>();
     public List<AITransition> AnyTransitions => _anyTransitions;
 
+    private EnemyAttack _enemyAttack;
+    
     protected virtual void Awake()
     {
         _vfxManager = GetComponent<EnemyVFXManager>();
@@ -54,6 +56,8 @@ public class EnemyController : PoolableMono
             anyTranTrm.GetComponentsInChildren<AITransition>(_anyTransitions);
             _anyTransitions.ForEach(t => t.SetUp(transform));
         }
+
+        _enemyAttack = GetComponent<EnemyAttack>();
         
         _initState = _currentState;
     }
@@ -108,4 +112,23 @@ public class EnemyController : PoolableMono
     {
         PoolManager.Instance.Push(this);
     }
+
+    #region 공격관련 매서드
+
+    public void AttackWeapon(int damage, Vector3 targetDir)
+    {
+        _enemyAttack.Attack(damage, targetDir);
+    }
+
+    public void PreAttack()
+    {
+        _enemyAttack.PreAttack();
+    }
+
+    public void CancelAttack()
+    {
+        _enemyAttack.CancelAttack();
+    }
+
+    #endregion
 }
