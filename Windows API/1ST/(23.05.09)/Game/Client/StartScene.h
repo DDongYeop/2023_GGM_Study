@@ -22,5 +22,7 @@ private:
 
 	shared_ptr<Image> m_player;
 	shared_ptr<Image> m_map;
+
+	shared_ptr<ProgressBar> m_progressBar;
 };
 

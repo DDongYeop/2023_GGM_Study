@@ -2,7 +2,7 @@
 #include "ImageManager.h"
 #include "Image.h"
 
-shared_ptr<Image> ImageManager::AddImage(wstring strKey, wstring fileName, COLORREF transColor)
+shared_ptr<Image> ImageManager::AddImage(wstring strKey, wstring fileName, bool center, COLORREF transColor)
 {
 	shared_ptr<Image> image = FindImage(strKey);
 
@@ -10,7 +10,7 @@ shared_ptr<Image> ImageManager::AddImage(wstring strKey, wstring fileName, COLOR
 		return image;
 
 	image = make_shared<Image>();
-	if (image == nullptr || image->Load(fileName) == false)
+	if (image == nullptr || image->Load(fileName, center) == false)
 		return image = nullptr;
 
 	image->SetTransColor(transColor);

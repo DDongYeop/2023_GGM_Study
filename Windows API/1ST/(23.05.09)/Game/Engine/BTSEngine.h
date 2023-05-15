@@ -3,6 +3,7 @@
 #include "Timer.h"
 #include "Input.h"
 #include "Image.h"
+#include "ProgressBar.h"
 #include "SceneManager.h"
 #include "SoundManager.h"
 #include "ImageManager.h"
