@@ -38,18 +38,29 @@ int main()
 		}
 	}
 	system("cls");
+	clock_t oldtime, curtime;
+	oldtime = clock();
 	//게임 로직 시작 
 	while (true)
 	{
 		Gotoxy(0, 0);
 		Update(cMaze, &tPlayer, vecBomb, boomEffect);
 		Render(cMaze, &tPlayer, boomEffect);
-		Event(vecBomb);
+		Event(vecBomb, boomEffect);
 		if (tPlayer.tPos.x == tEndPos.x && tPlayer.tPos.y == tEndPos.y)
 		{
 			PlaySound(TEXT("pickupCoin.wav"), 0, SND_FILENAME | SND_ASYNC);
 			Sleep(1000);
 			break;
+		}
+		while (true)
+		{
+			curtime = clock();
+			if (curtime - oldtime >= 33)
+			{
+				oldtime = curtime;
+				break;
+			}
 		}
 	}
 }

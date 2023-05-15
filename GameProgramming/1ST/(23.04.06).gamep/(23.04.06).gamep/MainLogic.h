@@ -31,9 +31,9 @@ typedef struct _tagboom
 //네임스페이스를 넣어줘야한다. std::vector로 사용하기 때문에
 //using namespace std; //상당히 많은게 들어있음. 충돌날 수도 있음. 헤더엔 넣어주지 말아라 
 void Init(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, PPOS _pStartPos, PPOS _pEndPos);
-void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<BOOM>& _vecBomb, std::vector<POS> _bombEffect);
-void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<POS> _boomEffect);
+void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<BOOM>& _vecBomb, std::vector<POS>& _bombEffect);
+void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<POS>& _boomEffect);
 void BombCreate(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, std::vector<BOOM>& _vecBomb);
 void Fire(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, POS _boompos, std::vector<POS>& _boomEffect);
-void Event(std::vector<BOOM>& _vecBomb);
+void Event(std::vector<BOOM>& _vecBomb, std::vector<POS>& _boomEffect);
 bool Getitem(char _cItem, PPLAYER _pPlayer);

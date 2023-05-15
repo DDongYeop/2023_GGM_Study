@@ -40,7 +40,7 @@ void Init(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, PPOS _pStartPos, PPO
 	strcpy_s(_cMaze[19], "00000000000000000000");
 }
 
-void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<BOOM>& _vecBomb, vector<POS> _boomEffect)
+void Update(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<BOOM>& _vecBomb, vector<POS>& _boomEffect)
 {
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
 	{
@@ -180,7 +180,7 @@ void Fire(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, POS _boompos, std::v
 	veceffect.clear();
 }
 
-void Event(std::vector<BOOM>& _vecBomb)
+void Event(std::vector<BOOM>& _vecBomb, std::vector<POS>& _boomEffect)
 {
 	vector<BOOM>::iterator iter = _vecBomb.begin();
 	for (; iter != _vecBomb.end();)
@@ -189,6 +189,12 @@ void Event(std::vector<BOOM>& _vecBomb)
 			iter = _vecBomb.erase(iter);
 		else
 			iter++;
+	}
+
+	vector<POS>::iterator effectiter = _boomEffect.begin();
+	for (; effectiter != _boomEffect.end();)
+	{
+		effectiter = _boomEffect.erase(effectiter);
 	}
 }
 
@@ -214,7 +220,7 @@ bool Getitem(char _cItem, PPLAYER _pPlayer)
 	return FALSE;
 }
 
-void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomEffect)
+void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS>& _boomEffect)
 {
 	for (int i = 0; i < VERTICAL; i++)
 	{
@@ -234,6 +240,7 @@ void Render(char _cMaze[VERTICAL][HORIZON], PPLAYER _pPlayer, vector<POS> _boomE
 			}
 			if (drawed)
 				continue;
+			SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
 			if (_pPlayer->tPos.x == j && _pPlayer->tPos.y == i)
 				cout << "¡×";
 			else if (_cMaze[i][j] == '0')
