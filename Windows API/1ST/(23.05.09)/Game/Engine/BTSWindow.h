@@ -7,7 +7,7 @@ public:
 	virtual ~BTSWindow();
 
 public:
-	int		Run(HINSTANCE hInst, LPWSTR lpCmdLine, int nCmdShow);
+	int		Run(HINSTANCE hInst, LPWSTR lpCmdLine, int nCmdShowm, int width = SCREEN_WIDTH, int height = SCREEN_HEIGHT);
 	static	LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
@@ -25,6 +25,8 @@ protected:
 public:
 	HWND		GetWndHandle() { return m_hWnd; }
 	HINSTANCE	GetInstanceHandle() { return m_hInstance; }
+	UINT		GetWidth() { return m_nWidth; }
+	UINT		GetHeight() { return m_nHeight;  }
 
 protected:
 	HWND		m_hWnd;

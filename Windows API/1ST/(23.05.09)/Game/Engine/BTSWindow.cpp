@@ -11,9 +11,11 @@ BTSWindow::~BTSWindow()
 {
 }
 
-int BTSWindow::Run(HINSTANCE hInst, LPWSTR lpCmdLine, int nCmdShow)
+int BTSWindow::Run(HINSTANCE hInst, LPWSTR lpCmdLine, int nCmdShow, int width, int height)
 {
 	m_hInstance = hInst;
+	m_nWidth = width;
+	m_nHeight = height;
 
 	registerWndClass();
 	createWindow();
