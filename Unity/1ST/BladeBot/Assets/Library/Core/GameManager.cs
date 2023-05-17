@@ -32,6 +32,16 @@ public class GameManager : MonoBehaviour
 
         CreatePool();
         CreateTimeController();
+        CreateCameraManager();
+    }
+
+    private void CreateCameraManager()
+    {
+        GameObject camManager = new GameObject("CameraManager");
+        camManager.transform.parent = transform;
+        CameraManager.Instance = camManager.AddComponent<CameraManager>();
+        Transform camTrm = GameObject.Find("FollowCam").transform;
+        CameraManager.Instance.Init(camTrm);
     }
 
     private void CreateTimeController()
@@ -49,7 +59,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //µð¹ö±× ÄÚµå
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
     //[SerializeField]
     //private LayerMask _whatIsGround;
     //private void Update()

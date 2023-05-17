@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class EnemyBeamAttack : EnemyAttack
 {
-    [SerializeField]
-    private Beam _beamPrefab;
-    [SerializeField]
-    private Transform _atkPosTrm;
+    [SerializeField] private LayerMask _whatIsEnemy;
+    [SerializeField] private Beam _beamPrefab;
+    [SerializeField] private Transform _atkPosTrm;
 
     private Beam _currentBeam;
 
@@ -28,6 +27,7 @@ public class EnemyBeamAttack : EnemyAttack
     {
         _currentBeam = PoolManager.Instance.Pop(_beamPrefab.gameObject.name) as Beam;
         _currentBeam.transform.position = _atkPosTrm.position;
+        _currentBeam.SetUpLayerMask(_whatIsEnemy);
         _currentBeam.PreCharging(); //����í¡
     }
 

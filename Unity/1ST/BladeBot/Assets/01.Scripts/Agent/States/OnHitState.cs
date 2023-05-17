@@ -34,7 +34,6 @@ public class OnHitState : CommonState
 
     private void HandleHit(int damage, Vector3 point, Vector3 normal)
     {
-        CameraManager.Instance.CameraShake();
         normal.y = 0;
         _hitTimer = 0;
         _animator.SetisHit(true);

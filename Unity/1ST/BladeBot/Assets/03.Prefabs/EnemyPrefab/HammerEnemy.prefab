@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &393959276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 393959277}
+  m_Layer: 8
+  m_Name: AtkPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &393959277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393959276}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.835}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6359671737881466748}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6359671737230530447
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +348,7 @@ GameObject:
   - component: {fileID: 6359671737881466624}
   - component: {fileID: 6359671737881466631}
   - component: {fileID: 6359671737881466630}
+  - component: {fileID: 716532584}
   m_Layer: 8
   m_Name: HammerEnemy
   m_TagString: Untagged
@@ -343,6 +375,7 @@ Transform:
   - {fileID: 6359671737381817513}
   - {fileID: 6359671738542090621}
   - {fileID: 6359671737230530446}
+  - {fileID: 393959277}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -511,6 +544,24 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   MaxHP: 0
+--- !u!114 &716532584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359671737881466749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f8b765ae41ce74ab3765362dc08bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _atkPosTrm: {fileID: 393959277}
+  _atkRadius: 3
+  _damage: 10
+  _whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &6359671737937527974
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,6 +764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotateSpeed: 360
+  _atkCoolTime: 1
 --- !u!1 &6359671738530356346
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +818,7 @@ MonoBehaviour:
   LastSpotPoint: {x: 0, y: 0, z: 0}
   IsArrived: 0
   IsAttacking: 0
+  IsHit: 0
 --- !u!1 &6359671738542090622
 GameObject:
   m_ObjectHideFlags: 0

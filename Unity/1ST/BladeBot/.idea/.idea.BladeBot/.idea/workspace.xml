@@ -4,14 +4,15 @@
     <list default="true" id="990e11ec-3c4e-43af-8b33-e7c1fd8111dd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BladeBot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BladeBot/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentAnimator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/CommonState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/CommonState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/NormalState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/NormalState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/02.Animations/PlayerController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02.Animations/PlayerController.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Character/MainCharacter/LittleAdventurerAndie MainMenu.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Character/MainCharacter/LittleAdventurerAndie MainMenu.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Library/Core/Define.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Library/Core/Define.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/OnHitState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/OnHitState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/CameraManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/CameraManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Weapons/Beam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Weapons/Beam.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Weapons/EnemyBeamAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Weapons/EnemyBeamAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Library/Core/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Library/Core/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Library/LibAssembly.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Library/LibAssembly.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/URP_Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/URP_Renderer.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +59,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Enemy/ItemDropper.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Enemy/NavAgentMovement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Feedbacks/BlinkFeedback.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Feedbacks/CamShakeFeedback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Feedbacks/DissolveFeedback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Feedbacks/HitSplashFeedback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Feedbacks/PlayHitParticleFeedback.cs" root0="FORCE_HIGHLIGHTING" />
@@ -66,6 +68,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/PlayerRunBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/PlayerVFXManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/PopupText.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Weapons/EnemySmashAttack.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/Core/CameraManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/Feedback/Feedback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/Feedback/FeedbackPlayer.cs" root0="FORCE_HIGHLIGHTING" />
@@ -177,7 +180,7 @@
       <workItem from="1683677421144" duration="7614000" />
       <workItem from="1684116854118" duration="5827000" />
       <workItem from="1684282319059" duration="294000" />
-      <workItem from="1684282984116" duration="4625000" />
+      <workItem from="1684282984116" duration="7947000" />
     </task>
     <servers />
   </component>

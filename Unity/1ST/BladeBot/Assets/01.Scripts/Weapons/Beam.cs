@@ -12,14 +12,11 @@ public class Beam : PoolableMono
     private LineRenderer _lineRenderer;
     private Light _beamLight;
 
-    [SerializeField]
-    private float _beamLength = 10f;
+    [SerializeField] private float _beamLength = 10f;
     private LayerMask _whatIsEnemy;
 
-    [SerializeField]
-    private float _beamTime = 0.6f;
-    [SerializeField]
-    private int _beamDamage = 5;
+    [SerializeField] private float _beamTime = 0.6f;
+    [SerializeField] private int _beamDamage = 5;
 
     public override void Init()
     {
@@ -39,6 +36,11 @@ public class Beam : PoolableMono
         Init();
     }
 
+    public void SetUpLayerMask(LayerMask target)
+    {
+        _whatIsEnemy = target;
+    }
+
     public void PreCharging()
     {
         _beamLight.enabled = true;
@@ -50,7 +52,7 @@ public class Beam : PoolableMono
         float r = _lineRenderer.startWidth; //라인이 그려지는 시작 두께
 
         RaycastHit hit;
-        bool isHit = Physics.SphereCast(transform.position, r, targetDir.normalized, out hit);
+        bool isHit = Physics.SphereCast(transform.position, r, targetDir.normalized, out hit, _beamLength, _whatIsEnemy);
 
         _lineRenderer.enabled = true;
         _lineRenderer.SetPosition(0, transform.position);
