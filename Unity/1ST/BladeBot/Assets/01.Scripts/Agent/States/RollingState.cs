@@ -2,48 +2,46 @@ using UnityEngine;
 
 public class RollingState : CommonState
 {
-    [SerializeField] private float _rollingSpeed = 0.4f, _animationThreshold = 0.1f;
+    [SerializeField]
+    private float _rollingSpeed = 0.4f, _animationThreshold = 0.1f;  //¾Ö´Ï¸ŞÀÌ¼Ç ¾²·¹½ºÈ¦µå
+
     private float _timer = 0;
-    
     public override void OnEnterState()
     {
-        //ë§ˆìš°ìŠ¤ ë³´ê³  
-        /*_animator.OnAnimationEndTrigger += RollingEndHandle;
-        _animator.SetRollingState(true);
-        _agentMovement.IsActiveMove = false;
-        //ì–´ëŠ ë°©í–¥ì„ ë³´ê³  íšŒì „ì‹œí‚¬ì§€ ê²°ì •í•´ì•¼í•¨, ë§ˆìš°ìŠ¤ ë³´ë„ë¡ 
-        Vector3 mousePos = _agentInput.GetMouseWorldPosition();
-        Vector3 dir = mousePos - _agentController.transform.position;
-        dir.y = 0;
-        //_agentMovement.SetRotation(dir);
-        _agentMovement.SetMovementVelocity(dir.normalized * _rollingSpeed);*/
-        
-        //í‚¤ë³´ë“œ ì‚¬ìš© 
         _animator.OnAnimationEndTrigger += RollingEndHandle;
         _animator.SetRollingState(true);
         _agentMovement.IsActiveMove = false;
-        Vector3 keyDir = _agentInput.GetCurrentInputDirection();
-        // ë°”ë¼ë³´ëŠ” ë°©í–¥ìœ¼ë¡œ 
-        if (keyDir.magnitude < .1f)
-            keyDir = _agentController.transform.forward;
-        _agentMovement.SetMovementVelocity(keyDir + _agentController.transform.position);
-        _agentMovement.SetMovementVelocity(keyDir.normalized * _rollingSpeed);
-        _timer = 0;
-    }
+        //¿©±â¼­ ¾î´À ¹æÇâÀ» º¸°í È¸Àü½ÃÅ³Áö °áÁ¤ÇØ¾ß ÇÑ´Ù. Áö±İÀº ¸¶¿ì½º¸¦ º¸µµ·Ï ÇØº»´Ù.
+        //Vector3 mousePos = _agentInput.GetMouseWorldPosition();
+        //Vector3 dir = mousePos - _agentController.transform.position;
 
+        //_agentMovement.SetRotation(mousePos);
+
+        Vector3 keyDir = _agentInput.GetCurrentInputDirection();
+        //¿©±â¼­ ¹Ş¾Ò´Âµ¥ ¸¸¾à Å°¸¦ ¾È´©¸£°í ÀÖ¾ú´Ù¸é Áö±İ ¹Ù¶óº¸´Â ¹æÇâÀ¸·Î ·Ñ¸µµé¾î°¡ÀÚ.
+        if(keyDir.magnitude < 0.1f)
+        {
+            keyDir = _agentController.transform.forward;
+        }
+        _agentMovement.SetRotation(keyDir + _agentController.transform.position);
+        _agentMovement.SetMovementVelocity(keyDir.normalized * _rollingSpeed);
+        _timer = 0; //Å¸ÀÌ¸Ó ½ÃÀÛ
+    }
+    
     public override void OnExitState()
     {
         _animator.OnAnimationEndTrigger -= RollingEndHandle;
         _agentMovement.IsActiveMove = true;
         _animator.SetRollingState(false);
     }
-
     private void RollingEndHandle()
     {
+        if (_timer < _animationThreshold) return;
+
         _agentMovement.StopImmediately();
         _agentController.ChangeState(Core.StateType.Normal);
     }
-    
+
     public override bool UpdateState()
     {
         _timer += Time.deltaTime;

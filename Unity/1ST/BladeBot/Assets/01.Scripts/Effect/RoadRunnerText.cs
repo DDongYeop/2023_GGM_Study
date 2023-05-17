@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,24 +16,25 @@ public class TypeChar
     private Color _startColor;
     private Color _endColor;
 
-    public TypeChar(int start, Vector3[] vertices, Color32[] colors, Color startColor, Color endColor, float delayTime, float effectTime = 0.5f, float offset = 15f)
+    public TypeChar(int start, Vector3[] vertices, Color32[] colors, Color startColor, Color endColor, 
+                        float delayTime, float effectTime = 0.5f, float offset = 15f)
     {
         _originPos = new Vector3[4];
-        for (int i = 0; i < 4; ++i)
+        for(int i = 0; i < 4; ++i)
         {
-            Vector3 point = vertices[start + i]; //ì´ê±¸ í•˜ëŠ” ì´ìœ ëŠ” ë²¡í„°3ì„ ë³µì‚¬í•˜ê¸° ìœ„í•¨
+            Vector3 point = vertices[start + i];  //ÀÌ°É ÇÏ´Â ÀÌÀ¯´Â º¤ÅÍ3¸¦ º¹»çÇÏ±â À§ÇÔ.
             _originPos[i] = point;
-            
-            //ë¡œë“œëŸ¬ë„ˆ ì´íŽ™íŠ¸ì— í•„ìš”í•˜ë„ë¡ ì´ˆë°˜ ì…‹íŒ…
-            if (i == 0 || i == 3)
+
+            //·Îµå·¯³Ê ÀÌÆåÆ®¿¡ ÇÊ¿äÇÏµµ·Ï ÃÊ¹Ý ¼ÂÆÃ
+            if(i == 0 || i == 3)
             {
-                vertices[start + i] = point + new Vector3(offset, 0, 0); //ìš°ì¸¡ìœ¼ë¡œ ì˜¤í”„ì…‹ë§Œí¼ ë” ê°„ ê³³
-            }
-            else
+                vertices[start + i] = point + new Vector3(offset, 0, 0); //¿ìÃøÀ¸·Î ¿ÀÇÁ¼Â¸¸Å­ ´õ °£ °÷
+            }else
             {
-                vertices[start + i] = point + new Vector3(offset + 0.25f, 0, 0); //ìš°ì¸¡ìœ¼ë¡œ ì˜¤í”„ì…‹ + 0.25fê°„ ê³³
+                vertices[start + i] = point + new Vector3(offset + 0.25f, 0, 0); //¿ìÃøÀ¸·Î ¿ÀÇÁ¼Â + 0.25f°£°÷
             }
-            colors[start + i].a = 0; //íˆ¬ëª…ë„ë§Œ 0ìœ¼ë¡œ 
+
+            colors[start + i].a = 0; //Åõ¸íµµ¸¸ 0À¸·Î º¯°æ
         }
         _delayTime = delayTime;
         _effectTime = effectTime;
@@ -46,18 +46,19 @@ public class TypeChar
     public void UpdateMesh(Vector3[] vertices, Color32[] colors)
     {
         _currentTime += Time.deltaTime;
-        if (_currentTime < _delayTime || IsComplete)
-            return; //ë”œë ˆì´ íƒ€ìž„ ì•ˆ ì§€ë‚¬ê±°ë‚˜ ì™„ë£Œëœ ì´íŽ™íŠ¸ë¼ë©´ ì•„ë¬´ê²ƒë„ ì•ˆ í•¨
-        float time = _currentTime - _delayTime;
-        float percent = time / _effectTime;
+        if (_currentTime < _delayTime || IsComplete) return;
+        //µô·¹ÀÌÅ¸ÀÓÀÌ ¾ÆÁ÷ ¾ÈÁö³µ°Å³ª ¿Ï·áµÈ ÀÌÆåÆ®¶ó¸é ¾Æ¹«°Íµµ ÇÏÁö ¾Ê´Â´Ù.
 
-        for (int i = 0; i < 4; i++)
+        float time = _currentTime - _delayTime;
+        float percent = time / _effectTime; 
+
+        for(int i = 0; i < 4; i++)
         {
             vertices[_startIndex + i] = Vector3.Lerp(vertices[_startIndex + i], _originPos[i], percent);
             colors[_startIndex + i] = Color.Lerp(_startColor, _endColor, percent);
         }
 
-        if (percent >= 1)
+        if(percent >= 1)
         {
             IsComplete = true;
         }
@@ -66,8 +67,10 @@ public class TypeChar
 
 public class RoadRunnerText : MonoBehaviour
 {
-    [SerializeField] private float _typeTime = 0.1f;
-    [SerializeField] private Color _startColor, _endColor;
+    [SerializeField]
+    private float _typeTime = 0.1f;
+    [SerializeField]
+    private Color _startColor, _endColor;
 
     private bool _isTyping = false;
 
@@ -80,13 +83,14 @@ public class RoadRunnerText : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && _isTyping == false)
+        if(Input.GetKeyDown(KeyCode.A) && _isTyping == false)
         {
-            StartEffect("Hello world! This is GGM!");
+            _isTyping = true;
+            StartEffect("This is GGM!! Á¶¿ëÈ÷ ÇØ ±è¹Î¼ö!");
         }
     }
 
-    private void StartEffect(string text)
+    public void StartEffect(string text)
     {
         _tmpText.SetText(text);
         _tmpText.color = _endColor;
@@ -102,19 +106,22 @@ public class RoadRunnerText : MonoBehaviour
         Vector3[] vertices = textInfo.meshInfo[0].vertices;
         Color32[] colors = textInfo.meshInfo[0].colors32;
 
-        for (int i = 0; i < textInfo.characterCount; i++)
+        for(int i = 0; i < textInfo.characterCount; i++)
         {
             TMP_CharacterInfo charInfo = textInfo.characterInfo[i];
-            if (charInfo.isVisible == false)
-                continue;
-            charList.Add(new TypeChar(charInfo.vertexIndex, vertices, colors, _startColor, _endColor, i * _typeTime, _typeTime));
+            if (charInfo.isVisible == false) continue;
+            charList.Add(
+                new TypeChar(charInfo.vertexIndex, vertices, colors, 
+                            _startColor, _endColor, 
+                            i * _typeTime, _typeTime));
         }
 
         bool isAllComplete = false;
-        while (isAllComplete == false)
+        
+        while(isAllComplete == false)
         {
             yield return null;
-            foreach (TypeChar t in charList)
+            foreach(TypeChar t in charList)
             {
                 t.UpdateMesh(vertices, colors);
                 isAllComplete = t.IsComplete;

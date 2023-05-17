@@ -6,11 +6,14 @@ using UnityEngine;
 
 public class AgentController : MonoBehaviour
 {
-    [SerializeField] private CharacterDataSO _characterSO;
-    public CharacterDataSO CharData => _characterSO;
-    
-    private Dictionary<StateType, IState> _stateDictionary = null;  //ê°€ì§€ê³  ìˆëŠ” ìƒíƒœë“¤ ì €ì¥
-    private IState _currentState; //í˜„ì¬ ìƒíƒœ ì €ì¥
+    [SerializeField]
+    private CharacterDataSO _charDataSO;
+    public CharacterDataSO CharData => _charDataSO;
+
+    private Dictionary<StateType, IState> _stateDictionary = null;  //°¡Áö°í ÀÖ´Â »óÅÂµé ÀúÀå
+    private IState _currentState; //ÇöÀç »óÅÂ ÀúÀå
+
+    public String CurrentState;
 
     public AgentMovement AgentMovementCompo { get; private set; }
     public DamageCaster DamageCasterCompo { get; private set; }
@@ -34,10 +37,12 @@ public class AgentController : MonoBehaviour
 
         AgentMovementCompo = GetComponent<AgentMovement>();
         AgentMovementCompo.SetInit(this);
-        
+
         DamageCasterCompo = transform.Find("DamageCaster").GetComponent<DamageCaster>();
         DamageCasterCompo.SetInit(this);
     }
+
+
     private void Start()
     {
         ChangeState(StateType.Normal);
@@ -45,13 +50,13 @@ public class AgentController : MonoBehaviour
 
     public void ChangeState(StateType type)
     {
-        _currentState?.OnExitState(); //í˜„ì¬ ìƒíƒœ ë‚˜ê°€ê³ 
+        _currentState?.OnExitState(); //ÇöÀç »óÅÂ ³ª°¡°í
         _currentState = _stateDictionary[type];
-        _currentState?.OnEnterState(); //ë‹¤ìŒìƒíƒœ ì‹œì‘
+        _currentState?.OnEnterState(); //´ÙÀ½»óÅÂ ½ÃÀÛ
     }
 
     private void Update()
     {
-        _currentState.UpdateState();
+        _currentState?.UpdateState();
     }
 }

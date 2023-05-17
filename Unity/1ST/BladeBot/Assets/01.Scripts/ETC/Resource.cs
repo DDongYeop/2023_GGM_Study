@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,15 +5,17 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Resource : PoolableMono
 {
-    [SerializeField] private ResourceDataSO _resourceData;
+    [SerializeField]
+    private ResourceDataSO _resourceData;
     public ResourceDataSO ResourceData => _resourceData;
+
     private AudioSource _audioSource;
     private Collider _collider;
 
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
-        _audioSource.clip = _resourceData.UseSound; //ì‚¬ìš© ì‚¬ìš´ë“œ ë„£ê¸°
+        _audioSource.clip = _resourceData.UseSound; //»ç¿ë »ç¿îµå ³Ö¾îÁÖ°í
         _collider = GetComponent<Collider>();
     }
 
@@ -25,16 +26,15 @@ public class Resource : PoolableMono
 
     private IEnumerator DestroyCoroutine()
     {
-        if (_audioSource.clip != null)
+        if(_audioSource.clip != null)
         {
             _audioSource.Play();
             yield return new WaitForSeconds(_audioSource.clip.length + 0.3f);
-        }
-        else
+        }else
         {
             yield return null;
         }
-        
+
         PoolManager.Instance.Push(this);
     }
 

@@ -1,29 +1,32 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AgentMovement : MonoBehaviour
 {
-    public bool IsActiveMove = true; //í‚¤ë³´ë“œë¡œ ì´ë™í•˜ëƒ? ì•„ë‹ˆëƒ 
-    
-    [SerializeField] private float _gravity = -9.8f;
+    public bool IsActiveMove = true; //Å°º¸µå·Î ÀÌµ¿ÇÏ³Ä? ¾Æ´Ï³Ä
+
+    [SerializeField]
+    private float _gravity = -9.8f;
 
     private CharacterController _characterController;
 
     private Vector3 _movementVelocity;
-    public Vector3 MovementVelocity => _movementVelocity; //í‰ë©´ì†ë„
-    private float _verticalVelocity; //ì¤‘ë ¥ì†ë„
+    public Vector3 MovementVelocity => _movementVelocity; //Æò¸é¼Óµµ
+    private float _verticalVelocity; //Áß·Â¼Óµµ
 
     private AgentAnimator _animator;
 
-    private Vector3 _inputValocity;
-
+    private Vector3 _inputVelocity;
     private AgentController _controller;
-    
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = transform.Find("Visual").GetComponent<AgentAnimator>();
     }
-    
+
     public void SetInit(AgentController controller)
     {
         _controller = controller;
@@ -31,35 +34,35 @@ public class AgentMovement : MonoBehaviour
 
     public void SetMovementVelocity(Vector3 value)
     {
-        _inputValocity = value;
+        _inputVelocity = value;
         _movementVelocity = value;
     }
 
     private void CalculatePlayerMovement()
     {
-        //ì—¬ê¸°ê°€ í•µì‹¬ì´ë‹¤ 
-        _animator?.SetSpeed(_inputValocity.sqrMagnitude); //ì¶”ê°€ë¨
-        
-        _inputValocity.Normalize(); //ìŠ¤íƒë©”ëª¨ë¦¬ì™€ í™ë©”ëª¨ë¦¬ì˜ ì°¨ì´ë¥¼ ì•Œì•„ë‘¬ì•¼í•œë‹¤. 
+        //¿©±â°¡ ÇÙ½É
+        _animator?.SetSpeed(_inputVelocity.sqrMagnitude); //Ãß°¡µÊ.
+
+        _inputVelocity.Normalize();
 
         float moveSpeed = _controller.CharData.MoveSpeed;
-            _movementVelocity = _inputValocity * (moveSpeed * Time.fixedDeltaTime);
+        _movementVelocity = _inputVelocity * (moveSpeed * Time.fixedDeltaTime);
         _movementVelocity = Quaternion.Euler(0, -45f, 0) * _movementVelocity;
-        
-        if (_movementVelocity.sqrMagnitude > 0)
+
+        if(_movementVelocity.sqrMagnitude > 0)
         {
             transform.rotation = Quaternion.LookRotation(_movementVelocity);
-            //ê°€ì•¼í•  ë°©í–¥ ë³´ê²Œ í•˜ê¸°
+            //°¡¾ßÇÒ ¹æÇâ º¸°Ô ÇÏ±â
         }
     }
 
     public void StopImmediately()
     {
         _movementVelocity = Vector3.zero;
-        _animator?.SetSpeed(_movementVelocity.sqrMagnitude); //ì¶”ê°€ë¨
+        _animator?.SetSpeed(_movementVelocity.sqrMagnitude); //Ãß°¡µÊ.
     }
 
-    public void SetRotation(Vector3 targetPos) //ì§€ì ì„ ë°”ë¼ë³´ëŠ” ì½”ë“œ 
+    public void SetRotation(Vector3 targetPos)  //ÁöÁ¡À» ¹Ù¶óº¸´Â ÄÚµå
     {
         Vector3 dir = targetPos - transform.position;
         dir.y = 0;
@@ -68,23 +71,22 @@ public class AgentMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsActiveMove)
-            CalculatePlayerMovement(); //í”Œë ˆì´ì–´ ì´ì† ê³„ì‚° (í‚¤ë³´ë“œ ì…ë ¥ì‹œì—ë§Œ 45ë„ ê³„ì‚°)
+        if(IsActiveMove)
+            CalculatePlayerMovement(); //ÇÃ·¹ÀÌ¾î ÀÌ¼Ó °è»ê (Å°º¸µå ÀÔ·Â½Ã¿¡¸¸ 45µµ°è»ê)
 
-        if (_characterController.isGrounded == false) // ë•…ì— ìˆì„ë•Œ
+        if(_characterController.isGrounded == false)
         {
             _verticalVelocity = _gravity * Time.fixedDeltaTime;
         }
-        else //ì¤‘ë ¥ì— ê°€ì¤‘ì¹˜ ë„£ì–´ì„œ 
+        else
         {
-            // 0.3fëŠ” í•˜ë“œì½”ë”© ê°’
+            //0.3Àº ÇÏµåÄÚµùµÈ °ª
             _verticalVelocity = _gravity * 0.3f * Time.fixedDeltaTime;
         }
 
         Vector3 move = _movementVelocity + _verticalVelocity * Vector3.up;
         _characterController.Move(move);
-        
-        _animator.SetAirbone(_characterController.isGrounded == false); //ì¶”ê°€ë¨
-    }
 
+        _animator?.SetAirbone(_characterController.isGrounded == false);
+    }
 }

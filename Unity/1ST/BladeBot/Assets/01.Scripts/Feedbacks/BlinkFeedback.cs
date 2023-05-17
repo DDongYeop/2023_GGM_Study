@@ -1,20 +1,22 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BlinkFeedback : Feedback
 {
-    [SerializeField] private SkinnedMeshRenderer _meshRenderer;
-    [SerializeField] private float _blinkTime = 0.2f;
+    [SerializeField]
+    private SkinnedMeshRenderer _meshRenderer;
+    [SerializeField]
+    private float _blinkTime = 0.2f;
 
     private MaterialPropertyBlock _matPropBlock;
+
     private readonly int _blinkHash = Shader.PropertyToID("_Blink");
 
     private void Awake()
     {
         _matPropBlock = new MaterialPropertyBlock();
-        _meshRenderer.GetPropertyBlock(_matPropBlock); //ì—¬ê¸°ì— í•´ë‹¹ ë©”í‹°ë¦¬ì–¼ì— ìˆëŠ” í”„ë¡œí¼í‹° ê°€ì ¸ì™€ì¤Œ
+        _meshRenderer.GetPropertyBlock(_matPropBlock); //¿©±â¿¡ ÇØ´ç ¸ŞÆ¼¸®¾ó¿¡ ÀÖ´Â ÇÁ·ÎÆÛÆ¼¸¦ °¡Á®¿ÍÁØ´Ù.
     }
 
     public override void CreateFeedback()
@@ -22,21 +24,22 @@ public class BlinkFeedback : Feedback
         StartCoroutine(MaterialBlink());
     }
 
-    private IEnumerator MaterialBlink()
+    IEnumerator MaterialBlink()
     {
         _matPropBlock.SetFloat(_blinkHash, 0.5f);
         _meshRenderer.SetPropertyBlock(_matPropBlock);
 
         yield return new WaitForSeconds(_blinkTime);
-        
+
         _matPropBlock.SetFloat(_blinkHash, 0);
         _meshRenderer.SetPropertyBlock(_matPropBlock);
     }
 
     public override void FinishFeedback()
     {
-        StopAllCoroutines();
+        StopAllCoroutines(); //ÀÌ ºñÇØºñ¾î¿¡¼­ °ü¸®ÇÏ´Â ¸ğµç ÄÚ·çÆ¾ Á¾·á
         _matPropBlock.SetFloat(_blinkHash, 0);
         _meshRenderer.SetPropertyBlock(_matPropBlock);
+
     }
 }

@@ -6,8 +6,8 @@ namespace Core
     {
         Normal = 0,
         Attack = 1,
-        /*OnHit = 2,*/
-        Rolling = 3
+        //OnHit = 2,
+        Rolling = 3,
     }
 
     public enum ResourceType
@@ -18,13 +18,15 @@ namespace Core
     public class Define
     {
         private static Camera _mainCam = null;
-
         public static Camera MainCam
         {
             get
             {
-                if (_mainCam == null)
+                if(_mainCam == null)
+                {
                     _mainCam = Camera.main;
+                }
+
                 return _mainCam;
             }
         }

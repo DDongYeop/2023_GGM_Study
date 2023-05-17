@@ -1,17 +1,17 @@
+using Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private Transform _playerTrm;
 
-    [SerializeField] private PoolingListSO _initPoolList;
-    
+    [SerializeField]
+    private PoolingListSO _initPoolList;
+
+    private Transform _playerTrm;
     public Transform PlayerTrm
     {
         get
@@ -24,8 +24,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if(Instance != null)
+        {
             Debug.LogError("Multiple GameManager is running");
+        }
         Instance = this;
 
         CreatePool();
@@ -40,28 +42,31 @@ public class GameManager : MonoBehaviour
     private void CreatePool()
     {
         PoolManager.Instance = new PoolManager(transform);
-        _initPoolList.PoolList.ForEach(p => 
+        _initPoolList.PoolList.ForEach(p =>
         {
             PoolManager.Instance.CreatePool(p.Prefab, p.Count);
         });
     }
-    
-    //ë””ë²„ê·¸ ì½”ë“œ
-    /*[SerializeField] private LayerMask _whatIsGround;
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Ray ray = Define.MainCam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
 
-            bool result = Physics.Raycast(ray, out hit, Define.MainCam.farClipPlane, _whatIsGround);
 
-            if (result)
-            {
-                PoolableMono mono = PoolManager.Instance.Pop("HammerEnemy");
-                mono.transform.SetPositionAndRotation(hit.point, Quaternion.identity);
-            }
-        }
-    }*/
+    //µð¹ö±× ÄÚµå
+    //[SerializeField]
+    //private LayerMask _whatIsGround;
+    //private void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.Q))
+    //    {
+    //        Ray ray = Define.MainCam.ScreenPointToRay(Input.mousePosition);
+    //        RaycastHit hit;
+
+    //        bool result = Physics.Raycast(ray, out hit, Define.MainCam.farClipPlane, _whatIsGround);
+            
+    //        if(result)
+    //        {
+    //            PoolableMono mono = PoolManager.Instance.Pop("HammerEnemy");
+
+    //            mono.transform.SetPositionAndRotation(hit.point, Quaternion.identity);
+    //        }
+    //    }
+    //}
 }

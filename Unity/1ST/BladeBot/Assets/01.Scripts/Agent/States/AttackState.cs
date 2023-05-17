@@ -1,25 +1,29 @@
+using Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Core;
 using UnityEngine;
 
 public class AttackState : CommonState
 {
     public event Action<int> OnAttackStart = null;
     public event Action OnAttackEnd = null;
-    [SerializeField] private float _keyDelay = 0.5f;
-    
-    private int _currentCombo = 1; //í˜„ì¬ ì½¤ë³´ê°€ ëª‡ì¸ì§€
-    private bool _canAttack = true; //ì„ ì…ë ¥ ë§‰ê¸°ìœ„í•´ ë‹¤ìŒ ê³µê²© ê°€ëŠ¥ ìƒíƒœì¸ê°€
-    private float _keyTimer = 0; //ë‹¤ìŒê³µê³¡ì´ ì´ë¤„ì§€ê¸°ê¹Œì§€ ê¸°ë‹¤ë¦¬ëŠ” ì‹œê°„
-    // ì´ì‹œê°„ë‚´ë¡œ ì…ë ¥ ì•ˆ í•˜ë©´ Idleë¡œ ëŒì•„ê°
 
-    private float _attackStartTime; //ê³µê²©ì´ ì‹œì‘ëœ ì‹œê°„ ê¸°ë¡
-    [SerializeField] private float _attackSlideDuration = .2f, _attackSlideSpeed = .1f; //ìŠ¬ë¼ì´ë“œ ë˜ëŠ” ì‹œê°„ê³¼ ìŠ¬ë¼ì´ë“œ ë˜ëŠ” ìŠ¤í”¼ë“œ ë‚˜íƒ€ëƒ„ 
+    [SerializeField]
+    private float _keyDelay = 0.5f;
+
+    private int _currentCombo = 1; //ÇöÀç ÄŞº¸°¡ ¸îÀÎÁö 
+    private bool _canAttack = true; // ¼±ÀÔ·Â ¸·±â À§ÇØ¼­ ´ÙÀ½ °ø°İ°¡´É»óÅÂÀÎ°¡
+    private float _keyTimer = 0; //´ÙÀ½°ø°İÀÌ ÀÌ·ïÁö±â±îÁö ±â´Ù¸®´Â ½Ã°£
+    //ÀÌ ½Ã°£³»·Î ÀÔ·Â ¾ÈÇÏ¸é idle·Î µ¹¾Æ°£´Ù.
+
+    private float _attackStartTime; //°ø°İÀÌ ½ÃÀÛµÈ ½Ã°£À» ±â·ÏÇÏ°í
+    [SerializeField]
+    private float _attackSlideDuration = 0.2f, _attackSlideSpeed = 0.1f;
+    //ÀÌ°Å´Â ½½¶óÀÌµåµÇ´Â ½Ã°£°ú ½½¶óÀÌµå µÇ´Â ½ºÇÇµå¸¦ ³ªÅ¸³½´Ù.
 
     private DamageCaster _damageCaster;
-    
+
     public override void SetUp(Transform agentRoot)
     {
         base.SetUp(agentRoot);
@@ -29,32 +33,38 @@ public class AttackState : CommonState
     public override void OnEnterState()
     {
         _agentInput.OnAttackKeyPress += OnAttackHandle;
-        _animator.OnAnimationEndTrigger += OnAnimaionEnd;
+        _animator.OnAnimationEndTrigger += OnAnimationEnd;
         _agentInput.OnRollingKeyPress += OnRollingHandle;
         _animator.OnAnimationEventTrigger += OnDamageCastHandle;
+
         _currentCombo = 0;
         _canAttack = true;
         _animator.SetAttackState(true);
 
-        _agentMovement.IsActiveMove = false; // í‚¤ë³´ë“œ ì…ë ¥ì„ ì¡ê·¸ê³ 
-
+        _agentMovement.IsActiveMove = false;  //Å°º¸µå ÀÌµ¿À» Àá±×°í
         Vector3 pos = _agentInput.GetMouseWorldPosition();
         _agentMovement.SetRotation(pos);
-        OnAttackHandle(); //ì²˜ìŒ 1íƒ€ ë“¤ì–´ê°€ë„ë¡ 
+        OnAttackHandle(); //Ã³À½ 1Å¸ µé¾î°¡µµ·Ï
     }
 
-    public override void OnExitState()
+    public override void OnExitState() 
     {
         _agentInput.OnAttackKeyPress -= OnAttackHandle;
-        _animator.OnAnimationEndTrigger -= OnAnimaionEnd;
+        _animator.OnAnimationEndTrigger -= OnAnimationEnd;
         _agentInput.OnRollingKeyPress -= OnRollingHandle;
         _animator.OnAnimationEventTrigger -= OnDamageCastHandle;
+
         _animator.SetAttackState(false);
         _animator.SetAttackTrigger(false);
-        
-        _agentMovement.IsActiveMove = true; //í‚¤ë³´ë“œ ì´ë™ì„ í’€ì–´ì£¼ê³  
-        
+
+        _agentMovement.IsActiveMove = true; //Å°º¸µå ÀÌµ¿À» Ç®¾îÁÖ°í
+
         OnAttackEnd?.Invoke();
+    }
+
+    private void OnDamageCastHandle()
+    {
+        _damageCaster.CastDamage();
     }
 
     private void OnRollingHandle()
@@ -62,45 +72,46 @@ public class AttackState : CommonState
         _agentController.ChangeState(StateType.Rolling);
     }
 
-    private void OnDamageCastHandle()
-    {
-        _damageCaster.CastDamge();
-    }
-
-    private void OnAnimaionEnd()
+    private void OnAnimationEnd()
     {
         _canAttack = true;
-        _keyTimer = _keyDelay; //0.5ì´ˆ ê¸°ë‹¤ë¦¬ê¸° ì‹œì‘
+        _keyTimer = _keyDelay; //0.5ÃÊ ±â´Ù¸®±â ½ÃÀÛ
     }
+
 
     public void OnAttackHandle()
     {
-        if (_canAttack && _currentCombo < 3)
+        if(_canAttack && _currentCombo < 3)
         {
             _attackStartTime = Time.time;
             _canAttack = false;
             _currentCombo++;
+            //¾Ö´Ï¸ŞÀÌ¼Ç Æ®¸®°Å ÇØÁÖ°í
             _animator.SetAttackTrigger(true);
-            OnAttackStart?.Invoke(_currentCombo); //í˜„ì¬ ì½¤ë³´ ìˆ˜ì¹˜ ë°œí–‰
+            OnAttackStart?.Invoke(_currentCombo); //ÇöÀç ÄŞº¸¼öÄ¡¸¦ ¹ßÇàÇØÁØ´Ù.
         }
     }
 
     public override bool UpdateState()
     {
-        if (Time.time < _attackStartTime + _attackSlideDuration) //ìŠ¬ë¼ì´ë“œê°€ ë˜ê³  ìˆì–´ì•¼í•˜ëŠ” ì‹œê°„
+        if(Time.time < _attackStartTime + _attackSlideDuration) //½½¶óÀÌµå°¡ µÇ°í ÀÖ¾î¾ß ÇÏ´Â ½Ã°£
         {
-            float timePassed = Time.time - _attackStartTime; //í˜„ì¬ í˜ëŸ¬ê°„ ì‹œê°„ì´ ë‚˜ì˜¤ê³ 
-            float lerpTime = timePassed / _attackSlideDuration; // 0~1ê°’ìœ¼ë¡œ ë§µí•‘
+            float timePassed = Time.time - _attackStartTime; //ÇöÀç Èê·¯°£ ½Ã°£ÀÌ ³ª¿À°í
+            float lerpTime = timePassed / _attackSlideDuration; //0~1°ªÀ¸·Î ¸ÊÇÎÇÏ°í
 
-            Vector3 targetSpeed = Vector3.Lerp(_agentController.transform.forward * _attackSlideSpeed, Vector3.zero, lerpTime);
+            Vector3 targetSpeed = Vector3.Lerp(_agentController.transform.forward * _attackSlideSpeed, 
+                                                Vector3.zero, 
+                                                lerpTime);
             _agentMovement.SetMovementVelocity(targetSpeed);
         }
-        
-        if (_canAttack && _keyTimer > 0)
+
+        if(_canAttack && _keyTimer > 0)
         {
             _keyTimer -= Time.deltaTime;
-            if (_keyTimer <= 0)
+            if(_keyTimer <= 0)
+            {
                 _agentController.ChangeState(StateType.Normal);
+            }
         }
 
         return true;

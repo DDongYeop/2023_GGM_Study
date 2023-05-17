@@ -9,20 +9,20 @@ public class AgentAnimator : MonoBehaviour
     private readonly int _isAirboneHash = Animator.StringToHash("is_airbone");
     private readonly int _attackHash = Animator.StringToHash("attack");
     private readonly int _isAttackHash = Animator.StringToHash("is_attack");
-    private readonly int _isRollingHash = Animator.StringToHash("is_rolling");
+    private readonly int _isRollingHash = Animator.StringToHash("is_rolling");  //1
 
-    private readonly int _hurtTriggerHash = Animator.StringToHash("hurt");
-    
     private readonly int _isDeadHash = Animator.StringToHash("is_dead");
     private readonly int _deadTriggerHash = Animator.StringToHash("dead");
-    
+
+    private readonly int _hurtTriggerHash = Animator.StringToHash("hurt");
+
     public event Action OnAnimationEndTrigger = null;
     public event Action OnAnimationEventTrigger = null;
-    public event Action OnPreAnimationEventTrigger = null; //í”„ë¦¬ì°¨ì§• ì´ë²¤íŠ¸
-    
+    public event Action OnPreAnimationEventTrigger = null; //ÇÁ¸®Ã­Â¡ ÀÌº¥Æ®
+
     private Animator _animator;
     public Animator Animator => _animator;
-
+    //ÀÌ¹ÌÁö ¸ŞÀÌÅ·
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -33,7 +33,7 @@ public class AgentAnimator : MonoBehaviour
         OnAnimationEventTrigger?.Invoke();
     }
 
-    public void SetRollingState(bool value)
+    public void SetRollingState(bool value) //2
     {
         _animator.SetBool(_isRollingHash, value);
     }
@@ -55,37 +55,41 @@ public class AgentAnimator : MonoBehaviour
 
     public void SetAttackTrigger(bool value)
     {
-        if (value)
+        if(value)
+        {
             _animator.SetTrigger(_attackHash);
-        else
+        }else
+        {
             _animator.ResetTrigger(_attackHash);
+        }
     }
-
+    
     public void SetHurtTrigger(bool value)
-    {
-        if (value)
+    { 
+        if(value )
         {
             _animator.SetTrigger(_hurtTriggerHash);
-        }
-        else
+        }else
         {
             _animator.ResetTrigger(_hurtTriggerHash);
         }
     }
 
-    private void OnAnimationEnd()
+
+    public void OnAnimationEnd()
     {
         OnAnimationEndTrigger?.Invoke();
     }
 
-    protected virtual void OnPreAnimationEvent()
+    public void OnPreAnimationEvent()
     {
         OnPreAnimationEventTrigger?.Invoke();
     }
 
     public void StopAnimation(bool value)
     {
-        _animator.speed = value ? 0 : 1; //trueì¼ë–„ 0ìœ¼ë¡œ ë§Œë“¤ê³  ì•„ë‹ˆë©´ 1ë¡œ ë‹¤ì‹œ ì¬ìƒ
+        _animator.speed = value ? 0 : 1; //trueÀÏ ¶§ 0À¸·Î ¸¸µé¾î¼­ Á¤Áö, 
+        //¾Æ´Ò¶§ 1·Î ¸¸µé¾î¼­ ´Ù½Ã Àç»ı
     }
 
     public void SetDead()
@@ -94,4 +98,3 @@ public class AgentAnimator : MonoBehaviour
         _animator.SetTrigger(_deadTriggerHash);
     }
 }
-

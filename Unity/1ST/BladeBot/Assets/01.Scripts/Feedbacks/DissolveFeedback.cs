@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,19 +5,20 @@ using UnityEngine.Events;
 
 public class DissolveFeedback : Feedback
 {
-    [SerializeField] private SkinnedMeshRenderer _skinnedMeshRenderer;
+    [SerializeField]
+    private SkinnedMeshRenderer _skinedMeshRenderer;
 
     private MaterialPropertyBlock _materialProp;
 
-    public UnityEvent OfAfterDissolve = null; //ë””ì¡¸ë¸Œ ëë‚˜ê³  í•  ì¼
+    public UnityEvent OnAfterDissolve = null; //µğÁ¹ºê ³¡³ª°í ÇÒ ÀÏ
 
     private readonly int _dissolveHeightHash = Shader.PropertyToID("_DissolveHeight");
     private readonly int _isDissolveHash = Shader.PropertyToID("_IsDissolve");
-    
-    private void Awake()
+
+    protected void Awake()
     {
         _materialProp = new MaterialPropertyBlock();
-        _skinnedMeshRenderer.GetPropertyBlock(_materialProp);
+        _skinedMeshRenderer.GetPropertyBlock(_materialProp);
     }
 
     public override void CreateFeedback()
@@ -33,27 +33,28 @@ public class DissolveFeedback : Feedback
         float dissolveHeightStart = 5f;
         float dissolveHeightTarget = -5f;
         float dissolveHeight = 0;
-        
-        _materialProp.SetFloat(_isDissolveHash, 1); //true
-        _skinnedMeshRenderer.SetPropertyBlock(_materialProp);
 
-        while (current < dissolveTime)
+        _materialProp.SetFloat(_isDissolveHash, 1); //true
+        _skinedMeshRenderer.SetPropertyBlock(_materialProp);
+
+        while(current < dissolveTime)
         {
             current += Time.deltaTime;
-            dissolveHeight = Mathf.Lerp(dissolveHeightStart, dissolveHeightTarget, current / dissolveTime);
+            dissolveHeight = Mathf.Lerp(
+                dissolveHeightStart, dissolveHeightTarget, current / dissolveTime);
             _materialProp.SetFloat(_dissolveHeightHash, dissolveHeight);
-            _skinnedMeshRenderer.SetPropertyBlock(_materialProp);
+            _skinedMeshRenderer.SetPropertyBlock(_materialProp);
             yield return null;
         }
-        
-        OfAfterDissolve?.Invoke();
+
+        OnAfterDissolve?.Invoke();
     }
 
     public override void FinishFeedback()
     {
         StopAllCoroutines();
-        _materialProp.SetFloat(_isDissolveHash, 0); //trueëŠ” 1, falseëŠ” 0 ë„£ìœ¼ë©´ ëœë‹¤. 
-        _materialProp.SetFloat(_dissolveHeightHash, 5f); //5ëŠ” ì´ˆê¸°í™”
-        _skinnedMeshRenderer.SetPropertyBlock(_materialProp);
+        _materialProp.SetFloat(_isDissolveHash, 0); //true´Â 1, false´Â 0 ³ÖÀ¸¸é µÈ´Ù.
+        _materialProp.SetFloat(_dissolveHeightHash, 5f); //5´Â ÃÊ±âÈ­
+        _skinedMeshRenderer.SetPropertyBlock(_materialProp);
     }
 }

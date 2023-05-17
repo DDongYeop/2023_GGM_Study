@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +5,6 @@ using UnityEngine;
 public class TestUV : MonoBehaviour
 {
     private MeshFilter _meshFilter;
-    
     private void Awake()
     {
         _meshFilter = GetComponent<MeshFilter>();
@@ -14,11 +12,12 @@ public class TestUV : MonoBehaviour
 
     private void Start()
     {
-        Mesh mesh = new Mesh(); //ìƒˆë¡œìš´ ë©”ì‰¬ë¥¼ ë§Œë“¤ì–´ì„œ 
+        Mesh mesh = new Mesh(); //»õ·Î¿î ¸Ş½Ã¸¦ ¸¸µé¾î¼­
 
         Vector3[] vertices = new Vector3[4];
         Vector2[] uv = new Vector2[4];
-        int[] triangles = new int [6];
+        int[] triangles = new int[6];
+
 
         vertices[0] = new Vector3(0, 0);
         vertices[1] = new Vector3(0, 5);
@@ -38,9 +37,9 @@ public class TestUV : MonoBehaviour
         uv[3] = new Vector2(1, 0);
 
         mesh.vertices = vertices;
-        mesh.uv = uv; //ë¹„ì—¬ìˆëŠ” ë°°ì—´ 
+        mesh.uv = uv; //ºñ¾îÀÖ´Â ¹è¿­
         mesh.triangles = triangles;
-        
-        _meshFilter.mesh = mesh; //ë©”ì‰¬ í•„í„°ì— ì ìš© 
+
+        _meshFilter.mesh = mesh; //¸Ş½Ã ÇÊÅÍ¿¡ Á¦°øÇÑ´Ù.
     }
 }

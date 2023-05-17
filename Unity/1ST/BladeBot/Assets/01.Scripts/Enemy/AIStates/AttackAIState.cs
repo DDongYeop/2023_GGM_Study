@@ -5,18 +5,20 @@ using UnityEngine;
 
 public class AttackAIState : CommonAIState
 {
-    [SerializeField] private float _rotateSpeed = 720f;
+    [SerializeField]
+    private float _rotateSpeed = 720f;
 
-    protected Vector3 _targetVector; //ì ì„ ë°”ë¼ë³´ëŠ” ë²¡í„°
+    protected Vector3 _targetVector; //ÀûÀ» ¹Ù¶óº¸´Â º¤ÅÍ
 
-    private bool isActive;
+    private bool _isActive = false;
 
     private int _atkDamage = 1;
     private float _atkMotionDelay = 0.2f;
 
-    [SerializeField] private float _atkCoolTime = 1f;
+    [SerializeField]
+    private float _atkCoolTime = 1f;
     private float _lastAtkTime;
-    
+
     public override void SetUp(Transform agentRoot)
     {
         base.SetUp(agentRoot);
@@ -33,7 +35,7 @@ public class AttackAIState : CommonAIState
         _enemyController.AgentAnimator.OnPreAnimationEventTrigger += PreAttackHandle;
         _aiActionData.IsAttacking = false;
 
-        isActive = true;
+        _isActive = true;
     }
 
     public override void OnExitState()
@@ -42,12 +44,12 @@ public class AttackAIState : CommonAIState
         _enemyController.AgentAnimator.OnAnimationEndTrigger -= AttackAnimationEndHandle;
         _enemyController.AgentAnimator.OnPreAnimationEventTrigger -= PreAttackHandle;
 
-        _enemyController.AgentAnimator.SetAttackState(false); //ì• ë‹ˆë©”ì´ì…˜ ë¦¬ì…‹
+        _enemyController.AgentAnimator.SetAttackState(false);  //¾Ö´Ï¸ÞÀÌ¼Ç ¸®¼Â
         _enemyController.AgentAnimator.SetAttackTrigger(false);
 
-        _enemyController.CancelAttack(); //ë‚˜ê°ˆë–„ ì·¨ì†Œ
-        
-        isActive = false;
+        _enemyController.CancelAttack(); //³ª°¥¶§ Ãë¼Ò
+
+        _isActive = false;
     }
 
     private void PreAttackHandle()
@@ -55,35 +57,38 @@ public class AttackAIState : CommonAIState
         _enemyController.PreAttack();
     }
 
-    //ê³µê²© ì• ë‹ˆë©”ì´ì…˜ ëë‚¬ì„ë•Œ ì²˜ë¦¬
-    private void AttackCollisionHandle()
+    //°ø°Ý ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³µÀ» ¶§ Ã³¸®
+    private void AttackAnimationEndHandle()
     {
         //_aiActionData.IsAttacking = false;
         _enemyController.AgentAnimator.SetAttackState(false);
-        
+
         _lastAtkTime = Time.time;
 
-        MonoFunction.Instance.AddCoroutine(() => 
+        MonoFunction.Instance.AddCoroutine(() =>
         {
             _aiActionData.IsAttacking = false;
-        }, _atkMotionDelay);
+        }, _atkMotionDelay);        
     }
-    
-    private void AttackAnimationEndHandle()
+
+    private void AttackCollisionHandle()
     {
         _enemyController.AttackWeapon(_atkDamage, _targetVector);
     }
 
     public override bool UpdateState()
     {
-        if (base.UpdateState()) // ë¨¼ì € ê³µê²© ê°€ëŠ¥í•œ ê±°ë¦¬ì¸ì§€ ì²´ê·¸í•˜ê³ 
-            return true;
-        
-        if (_aiActionData.IsAttacking == false && isActive)
+        if( base.UpdateState())
         {
-            SetTarget(); //íƒ€ê²Ÿì„ í–¥í•˜ë„ë¡ ë²¡í„°ë¥¼ ë§Œë“¤ê³ 
+            return true;
+        }
+        
+        if (_aiActionData.IsAttacking == false && _isActive)
+        {
+            SetTarget(); //Å¸°ÙÀ» ÇâÇÏµµ·Ï º¤ÅÍ ¸¸µé¾îÁÖ°í
+                         //¿©±â¼­ ¿ø·¡ ·ÎÅ×ÀÌ¼Ç ½ºÇÇµå¿¡ ¸ÂÃç µ¹¾Æ¾ß ÇÏ´Âµ¥ 
 
-            Vector3 currentFrontVector = transform.forward; //ìºë¦­í„° ì „ë°©ìœ¼ë¡œ
+            Vector3 currentFrontVector = transform.forward; //Ä³¸¯ÅÍÀÇ Àü¹æÀ¸·Î 
             float angle = Vector3.Angle(currentFrontVector, _targetVector);
 
             if (angle >= 10f)
@@ -91,22 +96,22 @@ public class AttackAIState : CommonAIState
                 Vector3 result = Vector3.Cross(currentFrontVector, _targetVector);
 
                 float sign = result.y > 0 ? 1 : -1;
-                _enemyController.transform.rotation = Quaternion.Euler(0, sign *_rotateSpeed * Time.deltaTime, 0) * _enemyController.transform.rotation;
+                _enemyController.transform.rotation =
+                    Quaternion.Euler(0, sign * _rotateSpeed * Time.deltaTime, 0) * _enemyController.transform.rotation;
             }
-            else if (_lastAtkTime + _atkCoolTime < Time.time)
+            else if(_lastAtkTime + _atkCoolTime < Time.time )
             {
                 _aiActionData.IsAttacking = true;
                 _enemyController.AgentAnimator.SetAttackState(true);
-                _enemyController.AgentAnimator.SetAttackTrigger(true); //ê³µê²©ëª¨ì…˜ ìž¬ìƒ 
+                _enemyController.AgentAnimator.SetAttackTrigger(true); //°ø°Ý¸ð¼ÇÀ» Àç»ýÇÑ´Ù.
             }
         }
-
         return false;
     }
 
     private void SetTarget()
     {
         _targetVector = _enemyController.TargetTrm.position - transform.position;
-        _targetVector.y = 0;
+        _targetVector.y = 0; //³ôÀÌ´Â ¾ø´Ù°í º¸°í
     }
 }

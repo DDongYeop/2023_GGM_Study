@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArriveDecision : AIDecision
 {
-    public override bool MakeDecision()
+    public override bool MakeADecision()
     {
         return _aiActionData.IsArrived;
     }

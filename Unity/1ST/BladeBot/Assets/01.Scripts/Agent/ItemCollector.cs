@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,48 +7,54 @@ public class ItemCollector : MonoBehaviour
 {
     public UnityEvent<int> OnHeal;
 
-    [SerializeField] private float _magneticRadius = 1f, _magneticPower = 3f;
+    [SerializeField]
+    private float _magneticRadius = 1f, _magneticPower = 3f;
 
-    [SerializeField] private LayerMask _whatisResource;
+    [SerializeField]
+    private LayerMask _whatIsResource;
     private List<Resource> _collectingList = new List<Resource>();
 
     private void Update()
     {
-        Collider[] resources = Physics.OverlapSphere(transform.position, _magneticRadius, _whatisResource);
+        Collider[] resources = Physics.OverlapSphere(transform.position, _magneticRadius, _whatIsResource);
 
-        foreach (Collider r in resources)
+        foreach(Collider r in resources)
         {
-            if (r.TryGetComponent<Resource>(out Resource res))
+            if(r.TryGetComponent<Resource>(out Resource res))
             {
                 _collectingList.Add(res);
-                res.gameObject.layer = 0; //Îçî Ïù¥ÏÉÅ Î¶¨Ïä§Ìä∏Ïóê Ïïà Îì§Ïñ¥Í∞ÄÍ≤å
+                res.gameObject.layer = 0; //¥ı ¿ÃªÛ ∏ÆΩ∫∆Æø° æ»µÈæÓ∞°∞‘
             }
         }
 
-        for (int i = 0; i < _collectingList.Count; i++)
+        for(int i = 0; i < _collectingList.Count; i++)
         {
             Resource r = _collectingList[i];
-            Vector3 nextStep = (transform.position - r.transform.position).normalized * (Time.deltaTime * _magneticPower);
+            Vector3 nextStep = (transform.position - r.transform.position).normalized
+                                    * Time.deltaTime * _magneticPower;
             r.transform.Translate(nextStep, Space.World);
-            if (Vector3.Distance(r.transform.position, transform.position) < 0.3f)
+
+            if(Vector3.Distance(r.transform.position, transform.position) < 0.3f)
             {
-                CosumeResource(r);
+                ConsumeResource(r);
                 _collectingList.RemoveAt(i);
                 i--;
             }
         }
     }
 
-    private void CosumeResource(Resource resource)
+    private void ConsumeResource(Resource resource)
     {
         ResourceDataSO so = resource.ResourceData;
-        switch (so.ResourceType)
+        switch(so.ResourceType)
         {
             case Core.ResourceType.HealOrb:
                 int hpValue = so.GetAmount();
                 OnHeal?.Invoke(hpValue);
                 resource.PickUpResource();
                 break;
+
         }
     }
+
 }

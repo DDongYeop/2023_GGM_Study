@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,13 +5,17 @@ using UnityEngine;
 
 public class TypeWriterText : MonoBehaviour
 {
-    [SerializeField] private float _typeTime = 0.3f;
-    [SerializeField] private Color _startColor, _endColor;
-    [SerializeField] private GameObject _particlePrefab;
     private TMP_Text _tmpText;
     private int _tIndex = 0;
+    [SerializeField]
+    private float _typeTime = 0.3f;
+    [SerializeField]
+    private Color _startColor, _endColor;
     private bool _isTyping = false;
 
+    [SerializeField]
+    private ParticleSystem _particlePrefab;
+    
     private void Awake()
     {
         _tmpText = GetComponent<TMP_Text>();
@@ -39,7 +42,7 @@ public class TypeWriterText : MonoBehaviour
         _tmpText.ForceMeshUpdate();
 
         _tIndex = 0;
-        _tmpText.maxVisibleCharacters = 0; //ì•„ë¬´ ê¸€ìë„ ì•ˆë³´ì—¬
+        _tmpText.maxVisibleCharacters = 0; //¾Æ¹« ±ÛÀÚµµ ¾Èº¸¿©
 
         StartCoroutine(TypeText());
     }
@@ -84,11 +87,11 @@ public class TypeWriterText : MonoBehaviour
         }
         else
         {
-            //ì—¬ê¸°ê°€ ê³µë°±ì´ ì•„ë‹ ë•Œ ê±´ë“œë¦°ë‹¤.
+            //¿©±â°¡ °ø¹éÀÌ ¾Æ´Ò ¶§ °Çµå¸°´Ù.
             Vector3[] vertices = textInfo.meshInfo[charInfo.materialReferenceIndex].vertices;
             Color32[] vertexColors = textInfo.meshInfo[charInfo.materialReferenceIndex].colors32;
-            //ìš°ë¦¬ê°€ ìœ ë‹ˆí‹°ì—ì„œ ì‚¬ìš©í•˜ëŠ” Colorë³€ìˆ˜ëŠ” floatë¡œ 0~1ê¹Œì§€ ê°’ì„ ë°›ëŠ”ê±°ê³ 
-            // Color32ì´ëŠ” 0~255ê¹Œì§€ì˜ 1ë°”ì´íŠ¸ ê°’ì„ ë°›ëŠ” ë…€ì„ì´ë‹¤.
+            //¿ì¸®°¡ À¯´ÏÆ¼¿¡¼­ »ç¿ëÇÏ´Â Colorº¯¼ö´Â float·Î 0~1±îÁö °ªÀ» ¹Ş´Â°Å°í
+            // Color32ÀÌ´Â 0~255±îÁöÀÇ 1¹ÙÀÌÆ® °ªÀ» ¹Ş´Â ³à¼®ÀÌ´Ù.
 
             int vIndex0 = charInfo.vertexIndex;
             int vIndex1 = vIndex0 + 1;
@@ -98,7 +101,7 @@ public class TypeWriterText : MonoBehaviour
             Vector3 v1Origin = vertices[vIndex1];
             Vector3 v2Origin = vertices[vIndex2];
             /*
-             *   v1     v2 ì—¬ê¸° 2ê°œì˜ ì ì„ ê°€ì ¸ì˜¨ê±°ë‹¤.
+             *   v1     v2 ¿©±â 2°³ÀÇ Á¡À» °¡Á®¿Â°Å´Ù.
              * 
              *   v0     v3
              */
@@ -115,7 +118,7 @@ public class TypeWriterText : MonoBehaviour
                 vertices[vIndex1] = v1Origin + new Vector3(0, yDelta, 0);
                 vertices[vIndex2] = v2Origin + new Vector3(0, yDelta, 0);
                 
-                //ì»¬ëŸ¬ ê±´ë“œë¦¬ê¸°
+                //ÄÃ·¯ °Çµå¸®±â
                 for(int i = 0; i < 4; i++)
                 {
                     vertexColors[vIndex0 + i] = Color.Lerp(_startColor, _endColor, percent);
@@ -128,13 +131,17 @@ public class TypeWriterText : MonoBehaviour
             vertices[vIndex1] = v1Origin;
             vertices[vIndex2] = v2Origin;
 
-            _tmpText.UpdateVertexData( TMP_VertexDataUpdateFlags.Vertices | TMP_VertexDataUpdateFlags.Colors32);
+            _tmpText.UpdateVertexData( TMP_VertexDataUpdateFlags.Vertices | TMP_VertexDataUpdateFlags.Colors32 );
 
             Vector3 endPos = vertices[vIndex3];
             Vector3 worldEndPos = transform.TransformPoint(endPos);
-            GameObject effect = Instantiate(_particlePrefab, worldEndPos, Quaternion.Euler(-90,0,0));
+
+            ParticleSystem effect = Instantiate(_particlePrefab, worldEndPos, Quaternion.Euler(-90, 0,0));
+            effect.Play();
+
             Destroy(effect.gameObject, 2f);
         }
+        
         _tIndex++;
     }
 }

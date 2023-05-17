@@ -7,6 +7,6 @@ public class CharacterDataSO : ScriptableObject
 {
     public int BaseDamage;
     public float BaseCritical;
-    public float BaseCriticalDamage; // ν¬μ¦λ€
+    public float BaseCriticalDamage; //Ε©Αυµ©
     public float MoveSpeed;
 }

@@ -1,13 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HitSplashFeedback : Feedback
 {
-    [SerializeField] private SplashEffectPlayer _splashPrefab;
-    [SerializeField] private LayerMask _whatIsGround;
-    [SerializeField] private Color _hitColor;
+    [SerializeField]
+    private SplashEffectPlayer _splashPrefab;
+    [SerializeField]
+    private LayerMask _whatIsGround;
+    [SerializeField]
+    private Color _hitColor;
 
     private AIActionData _aiActionData;
 
@@ -23,19 +25,18 @@ public class HitSplashFeedback : Feedback
 
         RaycastHit hit;
 
-        if (Physics.Raycast(effect.transform.position, Vector3.down, out hit, 10f, _whatIsGround))
+        if(Physics.Raycast(effect.transform.position, Vector3.down, out hit, 10f, _whatIsGround))
         {
             effect.SetData(_hitColor, -hit.distance, _aiActionData.HitNormal);
-            effect.StartPlay(3f); //3ì´ˆí›„ ì‚­ì œ
-        }
-        else
+            effect.StartPlay(3f); //3ÃÊÈÄ ¾ø¾Ö±â
+        }else
         {
-            Debug.Log("ë•…ì— ì•ˆ ë‹¿ì•„ìš”");
+            Debug.Log("¶¥ÀÌ ¾È´ê¾Æ¿ä");
         }
     }
 
     public override void FinishFeedback()
     {
-        //í• ê²Œ ì—†ë‹¤
+        //ÀÌ°Ç ÇÒ°Ô ¾ø°í
     }
 }

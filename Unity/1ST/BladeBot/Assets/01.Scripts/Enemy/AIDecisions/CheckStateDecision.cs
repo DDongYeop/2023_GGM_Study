@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CheckStateDecision : AIDecision
 {
-    [SerializeField] private CommonAIState _baseState;
-    
-    public override bool MakeDecision()
+    [SerializeField]
+    private CommonAIState _baseState;
+
+    public override bool MakeADecision()
     {
-        return _enemyController.CurrentState == _baseState;
+        return _enemyController.CurrentState == _baseState;    
     }
 }

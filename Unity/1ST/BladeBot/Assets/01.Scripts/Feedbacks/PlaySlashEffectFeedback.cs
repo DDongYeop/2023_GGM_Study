@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlaySlashEffectFeedback : Feedback
 {
-    [SerializeField] private PoolableMono _slashEffect;
-    [SerializeField] private float _effectPlayTime;
+    [SerializeField]
+    private PoolableMono _slashEffect;
+    [SerializeField]
+    private float _effectPlayTime;
 
     private AIActionData _aiActionData;
 
@@ -18,11 +20,12 @@ public class PlaySlashEffectFeedback : Feedback
     {
         EffectPlayer effect = PoolManager.Instance.Pop(_slashEffect.name) as EffectPlayer;
         effect.transform.position = _aiActionData.HitPoint;
+        //effect.transform.rotation = Quaternion.LookRotation(_aiActionData.HitNormal * -1);
         effect.StartPlay(_effectPlayTime);
     }
 
     public override void FinishFeedback()
     {
-        //ì—¬ê¸°ì„  í• ê²Œ ì—†ë‹¤
+        //¿©±â¼­´Â ÇÒ°Ô ¾ø¾î.
     }
 }

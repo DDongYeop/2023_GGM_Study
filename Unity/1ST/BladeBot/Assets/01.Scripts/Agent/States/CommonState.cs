@@ -11,7 +11,8 @@ public abstract class CommonState : MonoBehaviour, IState
     protected AgentAnimator _animator;
     protected AgentInput _agentInput;
     protected AgentController _agentController;
-    protected AgentMovement _agentMovement;
+    protected AgentMovement _agentMovement; //ÀÌµ¿°ü·Ã
+
     public virtual void SetUp(Transform agentRoot)
     {
         _animator = agentRoot.Find("Visual").GetComponent<AgentAnimator>();
@@ -20,10 +21,9 @@ public abstract class CommonState : MonoBehaviour, IState
         _agentMovement = agentRoot.GetComponent<AgentMovement>();
     }
 
-    //í”¼ê²©ì²˜ë¦¬ì‹œ ì‚¬ìš©í•  ê²ƒ
+    //ÇÇ°ÝÃ³¸®½Ã »ç¿ëÇÒ °Í
     public void OnHitHandle(Vector3 hitPoint, Vector3 Normal)
     {
 
     }
-
-}  
+}

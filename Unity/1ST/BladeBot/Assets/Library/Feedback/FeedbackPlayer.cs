@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +5,17 @@ using UnityEngine;
 public class FeedbackPlayer : MonoBehaviour
 {
     private List<Feedback> _feedbackToPlay = null;
-
+    
     private void Awake()
     {
         _feedbackToPlay = new List<Feedback>();
-        GetComponents<Feedback>(_feedbackToPlay); //ë‚˜í•œí…Œ ë¶™ì€ í”¼ë“œë°± ê°€ì ¸ì˜¤ê¸°
+        GetComponents<Feedback>(_feedbackToPlay); //³ªÇÑÅ× ºÙÀº ÇÇµå¹éÀ» ÀüºÎ °¡Á®¿Í¼­
     }
 
     public void PlayFeedback()
     {
         FinishFeedback();
-        foreach (Feedback f in _feedbackToPlay)
+        foreach(Feedback f in _feedbackToPlay)
         {
             f.CreateFeedback();
         }

@@ -8,23 +8,21 @@ public class PoolManager
 
     private Dictionary<string, Pool<PoolableMono>> _pools = new Dictionary<string, Pool<PoolableMono>>();
 
-    private Transform _trmParnet;
-
-    public PoolManager(Transform trmParnet)
+    private Transform _trmParent;
+    public PoolManager(Transform trmParent)
     {
-        _trmParnet = trmParnet;
+        _trmParent = trmParent;
     }
 
     public void CreatePool(PoolableMono prefab, int count = 10)
     {
-        Pool<PoolableMono> pool = new Pool<PoolableMono>(prefab, _trmParnet, count);
-        _pools.Add(prefab.gameObject.name, pool); //í”„ë¦¬íŒ¹ì˜ ì´ë¦„ìœ¼ë¡œ í’€ì„ ë§Œë“ ë‹¤.
+        Pool<PoolableMono> pool = new Pool<PoolableMono>(prefab, _trmParent, count);
+        _pools.Add(prefab.gameObject.name, pool); //ÇÁ¸®ÆÕÀÇ ÀÌ¸§À¸·Î Ç®À» ¸¸µç´Ù.
     }
 
     public PoolableMono Pop(string prefabName)
     {
-        
-        if (!_pools.ContainsKey(prefabName))
+        if(!_pools.ContainsKey(prefabName))
         {
             Debug.LogError($"Prefab does not exist on pool : {prefabName}");
             return null;

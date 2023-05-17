@@ -1,17 +1,18 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class ItemDropper : MonoBehaviour
 {
-    [SerializeField] private ItemDropTableSO _dropTable;
+    [SerializeField]
+    private ItemDropTableSO _dropTable;
     private float[] _itemWeights;
 
-    [SerializeField] [Range(0, 1f)] private float _dropChance;
-
+    [SerializeField]
+    [Range(0, 1f)]
+    private float _dropChance;
+    
     private void Start()
     {
         _itemWeights = _dropTable.DropList.Select(item => item.Rate).ToArray();
@@ -19,9 +20,9 @@ public class ItemDropper : MonoBehaviour
 
     public void DropItem()
     {
-        float dropValue = Random.value;
+        float dropValue = Random.value; // 0 ~ 1까지의 값
 
-        if (dropValue < _dropChance)
+        if(dropValue < _dropChance)
         {
             int idx = GetRandomIndex();
             PoolableMono resource = PoolManager.Instance.Pop(_dropTable.DropList[idx].ItemPrefab.name);
@@ -32,7 +33,7 @@ public class ItemDropper : MonoBehaviour
     private int GetRandomIndex()
     {
         float sum = 0;
-        for (int i = 0; i < _itemWeights.Length; i++)
+        for(int i = 0; i < _itemWeights.Length; i++)
         {
             sum += _itemWeights[i];
         }
@@ -40,12 +41,15 @@ public class ItemDropper : MonoBehaviour
         float randomValue = Random.Range(0, sum);
         float tempSum = 0;
 
-        for (int i = 0; i < _itemWeights.Length; i++)
+        for(int i = 0; i < _itemWeights.Length; i++)
         {
-            if (randomValue >= tempSum && randomValue < tempSum + _itemWeights[i])
+            if(randomValue >= tempSum && randomValue < tempSum + _itemWeights[i])
+            {
                 return i;
-            else
+            }else
+            {
                 tempSum += _itemWeights[i];
+            }
         }
         return 0;
     }

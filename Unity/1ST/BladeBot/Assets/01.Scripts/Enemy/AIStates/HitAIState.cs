@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +8,9 @@ public class HitAIState : CommonAIState
     {
         _enemyController.AgentAnimator.OnAnimationEndTrigger += AnimationEndHandle;
         _enemyController.AgentAnimator.SetHurtTrigger(true);
+
+        _enemyController.transform.rotation = Quaternion.LookRotation(_aiActionData.HitNormal);
         
-        _enemyController.transform.rotation = Quaternion.LookRotation(GameManager.Instance.PlayerTrm.position);
     }
 
     public override void OnExitState()
@@ -26,6 +26,6 @@ public class HitAIState : CommonAIState
 
     private void FixedUpdate()
     {
-        //Ïù¥Í±¥ ÎÑâÎ∞±Ï≤òÎ¶¨ ÎñÑÎßå ÏÇ¨Ïö©
+        //¿Ã∞« ≥ÀπÈ√≥∏Æ ∂ß∏∏ ªÁøÎ
     }
 }

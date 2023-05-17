@@ -4,35 +4,43 @@ using UnityEngine;
 
 public class DamageCaster : MonoBehaviour
 {
-    [SerializeField] [Range(0.5f, 4f)] private float _casterRadius = 1f;
-    [SerializeField] private float _casterInterpolation = 0.5f; // Ï∫êÏä§Ìä∏Î•º Îí§Ï™ΩÏúºÎ°ú Î∫¥Ï£ºÎäî Ï†ïÎèÑ
-    [SerializeField] private LayerMask _targetLayer;
+    [SerializeField]
+    [Range(0.5f, 3f)]
+    private float _casterRadius = 1f;
+    [SerializeField]
+    private float _casterInterpolation = 0.5f;  //¿Ã∞« ƒ≥Ω∫≈Õ∏¶ µ⁄¬ ¿∏∑Œ ª©¡÷¥¬ ¡§µµ
+    [SerializeField]
+    private LayerMask _targetLayer;
 
     private AgentController _controller;
-    
     public void SetInit(AgentController controller)
     {
         _controller = controller;
     }
-    
-    public void CastDamge()
+
+    public void CastDamage()
     {
         Vector3 startPos = transform.position - transform.forward * _casterRadius;
-        RaycastHit[] hitArr = Physics.SphereCastAll(startPos, _casterRadius, transform.forward, _casterRadius + _casterInterpolation, _targetLayer);
-
-        foreach (RaycastHit hit in hitArr)
+        
+        RaycastHit[] hitArr = Physics.SphereCastAll(startPos, _casterRadius, transform.forward, 
+                                    _casterRadius + _casterInterpolation, _targetLayer);
+        
+        foreach(RaycastHit hit in hitArr)
         {
             if (hit.collider.TryGetComponent<IDamageable>(out IDamageable health))
             {
-                if (hit.point.sqrMagnitude == 0)
+
+                if(hit.point.sqrMagnitude == 0)
+                {
                     continue;
-                
+                }
+
                 int damage = _controller.CharData.BaseDamage;
                 float critical = _controller.CharData.BaseCritical;
                 float criticalDamage = _controller.CharData.BaseCriticalDamage;
-                
-                //ÏïÑÏù¥ÌÖúÏùÑ Î®πÏóàÎã§Î©¥ ÌÅ¨Î¶¨Ìã∞Ïª¨Ïù¥ÎùºÎ©¥ Ïù¥Îü∞ ÏÑ§Ï†ïÎì§Ïù¥ Ïó¨Í∏∞ÏÑú Í≥ÑÏÇ∞
-                float dice = Random.value; // 0 ~ 1 Í∞í ÎÇòÏò¥
+
+                //æ∆¿Ã≈€¿ª ∏‘æ˙¥Ÿ∏È ≈©∏Æ∆ºƒ√¿Ã∂Û∏È ¿Ã∑± º≥¡§µÈ¿Ã ø©±‚º≠ ∞ËªÍµ…≤®æﬂ
+                float dice = Random.value; // 0 ~ 1±Ó¡ˆ¿« ∞™¿Ã ≥™ø¬¥Ÿ.
                 int fontSize = 10;
                 Color fontColor = Color.white;
 
@@ -42,26 +50,29 @@ public class DamageCaster : MonoBehaviour
                     fontSize = 15;
                     fontColor = Color.red;
                 }
-                
+
                 health.OnDamage(damage, hit.point, hit.normal);
-                
+
                 PopupText pText = PoolManager.Instance.Pop("PopupText") as PopupText;
-                pText.StartPopup(text:damage.ToString(), pos:hit.point + new Vector3(0, 2, 0), fontSize:fontSize, color:fontColor);
+                pText.StartPopup(text: damage.ToString(),
+                                pos: hit.point + new Vector3(0, 2f, 0),
+                                fontSize: fontSize,
+                                color: fontColor);
+
             }
         }
+        
     }
-    
-#if UNITY_EDITOR
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (UnityEditor.Selection.activeObject == gameObject)
+        if(UnityEditor.Selection.activeObject == gameObject)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, _casterRadius);
             Gizmos.color = Color.white;
         }
     }
-
 #endif
 }

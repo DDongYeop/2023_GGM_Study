@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class CommonAIState : MonoBehaviour, IState
@@ -6,7 +6,7 @@ public abstract class CommonAIState : MonoBehaviour, IState
     protected List<AITransition> _transitions;
     protected EnemyController _enemyController;
     protected AIActionData _aiActionData;
-    
+
     public abstract void OnEnterState();
     public abstract void OnExitState();
 
@@ -17,30 +17,30 @@ public abstract class CommonAIState : MonoBehaviour, IState
 
         _transitions = new List<AITransition>();
         transform.GetComponentsInChildren<AITransition>(_transitions);
-        
+
         _transitions.ForEach(t => t.SetUp(agentRoot));
     }
 
     public virtual bool UpdateState()
     {
-        foreach (AITransition t in _transitions)
-        {   
-            if (t.CheckTransition())
+        foreach(AITransition t in _transitions)
+        {
+            if(t.CheckTransition())
             {
                 _enemyController.ChangeState(t.NextState);
                 return true;
             }
         }
 
-        foreach (AITransition t in _enemyController.AnyTransitions)
+        foreach(AITransition t in _enemyController.AnyTransitions)
         {
-            if (t.CheckTransition())
+            if(t.CheckTransition())
             {
                 _enemyController.ChangeState(t.NextState);
                 return true;
             }
         }
-        
+
         return false;
     }
 }

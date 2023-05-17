@@ -1,12 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayHitParticleFeedback : Feedback
 {
-    [SerializeField] private PoolableMono _hitParticle;
-    [SerializeField] private float _effectPlayTime;
+    [SerializeField]
+    private PoolableMono _hitParticle;
+    [SerializeField]
+    private float _effectPlayTime;
 
     private AIActionData _aiActionData;
 
@@ -25,6 +26,7 @@ public class PlayHitParticleFeedback : Feedback
 
     public override void FinishFeedback()
     {
-        //ì—¬ê¸°ì„  í• ê²Œ ì—†ë‹¤
+        //¿©±â¼­´Â ÇÒ°Ô ¾ø¾î.
     }
+
 }

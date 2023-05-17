@@ -9,22 +9,22 @@ public class MonoFunction : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if(Instance != null)
         {
-            Debug.LogError("Nultiple Mono Function is running");
+            Debug.LogError("Multiple Mono function is running");
         }
-
         Instance = this;
     }
 
     public void AddCoroutine(Action Callback, float delayTime)
     {
-        StartCoroutine(DelayCoroutune(Callback, delayTime));
+        StartCoroutine(DelayCoroutine(Callback, delayTime));
     }
 
-    private IEnumerator DelayCoroutune(Action Callback, float delayTime)
+    private IEnumerator DelayCoroutine(Action Callback, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         Callback?.Invoke();
     }
+
 }

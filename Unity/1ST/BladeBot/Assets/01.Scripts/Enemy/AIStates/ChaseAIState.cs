@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,25 +8,26 @@ public class ChaseAIState : CommonAIState
     public override void OnEnterState()
     {
         _enemyController.AgentAnimator.SetSpeed(0.2f);
-        _enemyController.AgentAnimator.OnAnimationEventTrigger += FootSteopHandle;
+        _enemyController.AgentAnimator.OnAnimationEventTrigger += FootStepHandle;
     }
-
+    
     public override void OnExitState()
     {
         _enemyController.AgentAnimator.SetSpeed(0);
-        _enemyController.AgentAnimator.OnAnimationEventTrigger -= FootSteopHandle;
+        _enemyController.AgentAnimator.OnAnimationEventTrigger -= FootStepHandle;
     }
 
-    private void FootSteopHandle()
+    private void FootStepHandle()
     {
-        _enemyController.VfxManager.PlayerFootStep();   
+        _enemyController.VFXManager.PlayFootStep();
     }
 
     public override bool UpdateState()
     {
         _enemyController.NavMovement.MoveToTarget(_aiActionData.LastSpotPoint);
-        _aiActionData.IsArrived = _enemyController.NavMovement.CheckIsArrived(); //ÎèÑÏ∞©ÏùÑ Í∏∞Î°ùÌïúÎã§ 
-        
+        _aiActionData.IsArrived = _enemyController.NavMovement.CheckIsArrived(); //µµ¬¯¿ª ±‚∑œ«—¥Ÿ.
+
         return base.UpdateState();
+        //ø©±‚º≠ π∫∞° «ÿ¡Ÿ≤®∞Ì
     }
 }

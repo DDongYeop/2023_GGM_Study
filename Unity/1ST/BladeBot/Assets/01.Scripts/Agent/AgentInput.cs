@@ -1,49 +1,51 @@
 using System;
 using UnityEngine;
-using Core;
 using static Core.Define;
 
 public class AgentInput : MonoBehaviour
 {
     public event Action<Vector3> OnMovementKeyPress = null;
-    public event Action OnAttackKeyPress = null;
-    public event Action OnRollingKeyPress = null; //Î°§ÎßÅÌÇ§ ÎàåÎ†∏ÏùÑÎñÑ 
+    public event Action OnAttackKeyPress = null; //1
+    public event Action OnRollingKeyPress = null; //∑—∏µ≈∞ ¥≠∑»¿ª ∂ß
 
     [SerializeField] private LayerMask _whatIsGround;
-    private Vector3 _directionInpit;
-    
-    private void Update()
+
+    private Vector3 _directionInput;
+
+    void Update()
     {
         UpdateMoveInput();
-        UpdateAttackInput();
+        UpdateAttackInput(); //2
         UpdateRollingInput();
     }
 
     private void UpdateRollingInput()
     {
-        if (Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump"))
         {
             OnRollingKeyPress?.Invoke();
         }
     }
 
-    private void UpdateAttackInput()
+    private void UpdateAttackInput()  //3
     {
-        if (Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0))
+        {
             OnAttackKeyPress?.Invoke();
+        }
     }
 
     private void UpdateMoveInput()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        _directionInpit = new Vector3(horizontal, 0, vertical);
-        OnMovementKeyPress?.Invoke(_directionInpit);
+        float horizontal = Input.GetAxisRaw("Horizontal"); //¿Ã∞‘ Y√‡ øÚ¡˜¿”¿Ã µ»¥Ÿ.
+        float vertical = Input.GetAxisRaw("Vertical"); //¿Ã∞‘ Z√‡øÚ¡˜¿”¿Ã µ«∞Ì
+        _directionInput = new Vector3(horizontal, 0, vertical);
+        OnMovementKeyPress?.Invoke(_directionInput);
     }
 
     public Vector3 GetCurrentInputDirection()
     {
-        Vector3 dir45 = Quaternion.Euler(0, -45, 0) * _directionInpit.normalized;
+        Vector3 dir45 = Quaternion.Euler(0, -45f, 0) * _directionInput.normalized;
         return dir45;
     }
 
@@ -52,10 +54,14 @@ public class AgentInput : MonoBehaviour
         Ray ray = MainCam.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
-        bool result = Physics.Raycast(ray,  out hit, MainCam.farClipPlane, _whatIsGround);
-        if (result)
+
+        bool result = Physics.Raycast(ray, out hit, MainCam.farClipPlane, _whatIsGround);
+        if(result)
+        {
             return hit.point;
-        else 
+        }else
+        {
             return Vector3.zero;
+        }
     }
 }

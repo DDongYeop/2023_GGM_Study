@@ -11,7 +11,7 @@ public class SplashEffectPlayer : EffectPlayer
 
     public void SetData(Color color, float yDelta, Vector3 hitNormal)
     {
-        foreach (VisualEffect ve in _effects)
+        foreach(VisualEffect ve in _effects)
         {
             ve.SetFloat(_deltaYNameHash, yDelta);
             ve.SetVector4(_colorNameHash, color);

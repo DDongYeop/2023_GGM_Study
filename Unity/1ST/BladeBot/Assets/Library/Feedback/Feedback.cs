@@ -1,14 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public abstract class Feedback : MonoBehaviour
 {
-    public abstract void CreateFeedback(); //í”¼ë“œë°± ìƒì„±
-    public abstract void FinishFeedback(); //í”¼ë“œë°± ì¢…ë£Œ
-
+    public abstract void CreateFeedback(); //ÇÇµå¹é »ı¼º
+    public abstract void FinishFeedback();  //ÇÇµå¹é Á¾·á
+    
     protected virtual void OnDestroy()
     {
         FinishFeedback();

@@ -1,41 +1,41 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InnerDistanceDecision : AIDecision
 {
-    [SerializeField] private float _distance = 5f;
-    [SerializeField] private bool _isAlwaysVisible = false; //ë””ë²„ê·¸
+    [SerializeField]
+    private float _distance = 5f;
+
+    [SerializeField]
+    private bool isAlwaysVisible = false;  //¾ê´Â µð¹ö±ë¿ëµµ
     
-    public override bool MakeDecision()
+    public override bool MakeADecision()
     {
-        if (_enemyController.TargetTrm == null)
-            return false;
+        if (_enemyController.TargetTrm == null) return false;
 
-        float distnace = Vector3.Distance(_enemyController.TargetTrm.position, transform.position);
+        float distance = Vector3.Distance(_enemyController.TargetTrm.position, transform.position);
 
-        if (distnace < _distance)
+        if(distance < _distance)  //½Ã¾ß ¾ÈÀ¸·Î µé¾î¿ÔÀ¸´Ï ÃßÀû ½ÃÀÛ
         {
-            _aiActionData.LastSpotPoint = _enemyController.TargetTrm.position;
-            _aiActionData.TargetSpotted = true;
-        }
-        else
+            _aiActionData.LastSpotPoint = _enemyController.TargetTrm.position; //¸¶Áö¸·À¸·Î º» ½ÃÁ¡À¸·Î ±â·Ï
+            _aiActionData.TargetSpotted = true; //ÀûÀ» ¹ß°ßÇß´Ù.
+        }else
+        {
             _aiActionData.TargetSpotted = false;
-
+        }
         return _aiActionData.TargetSpotted;
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (UnityEditor.Selection.activeObject == gameObject)
+        if(UnityEditor.Selection.activeObject == gameObject || isAlwaysVisible == true)
         {
             Color oldColor = Gizmos.color;
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, _distance);
             Gizmos.color = oldColor;
-            
         }
     }
 #endif

@@ -13,6 +13,6 @@ public abstract class AIDecision : MonoBehaviour
         _enemyController = enemyRoot.GetComponent<EnemyController>();
         _aiActionData = enemyRoot.Find("AI").GetComponent<AIActionData>();
     }
-
-    public abstract bool MakeDecision();
+    
+    public abstract bool MakeADecision();
 }

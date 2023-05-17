@@ -1,5 +1,4 @@
 using System;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +13,12 @@ public class TimeController : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void ModifyTimeScale(float endTimeValue, float timeToWait, Action OnComplete = null)
+    public void ModifyTimeScale(float endTimeValue, float timeToWait, Action OnComplete = null )
     {
-        StartCoroutine(TimeScaleCorutine(endTimeValue, timeToWait, OnComplete));
+        StartCoroutine(TimeScaleCoroutine(endTimeValue, timeToWait, OnComplete));
     }
 
-    private IEnumerator TimeScaleCorutine(float endTimeValue, float timeToWait, Action OnComplete)
+    private IEnumerator TimeScaleCoroutine(float endTimeValue, float timeToWait, Action OnComplete)
     {
         yield return new WaitForSecondsRealtime(timeToWait);
         Time.timeScale = endTimeValue;

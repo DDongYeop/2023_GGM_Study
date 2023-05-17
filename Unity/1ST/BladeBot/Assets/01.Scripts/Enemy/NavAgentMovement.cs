@@ -6,11 +6,12 @@ using UnityEngine.AI;
 
 public class NavAgentMovement : MonoBehaviour
 {
-    [SerializeField] private float _knockBackSpeed = 20f, _gravity = -9.8f, _knockBackTime = 0.4f;
+    [SerializeField]
+    private float _knockBackSpeed = 20f, _gravity = -9.8f, _knockBackTime = 0.4f;
     private float _verticalVelocity;
     private Vector3 _knockBackVelocity;
     private Vector3 _movementVelocity;
-    
+
     private NavMeshAgent _navAgent;
     public NavMeshAgent NavAgent => _navAgent;
 
@@ -20,8 +21,8 @@ public class NavAgentMovement : MonoBehaviour
     private Action EndKnockBackAction;
 
     private AIActionData _aiActionData;
-    
-    private void Awake()
+
+    protected virtual void Awake()
     {
         _navAgent = GetComponent<NavMeshAgent>();
         _characterController = GetComponent<CharacterController>();
@@ -30,7 +31,7 @@ public class NavAgentMovement : MonoBehaviour
 
     public void SetSpeed(float speed)
     {
-        _navAgent.speed = speed; //ì´ë™ ì†ì†Œ SOì— ë§ì¶° ì‹¤í–‰
+        _navAgent.speed = speed; //ÀÌµ¿ ¼Óµµ SO¿¡ ¸ÂÃç¼­ ½ÇÇàÇÏµµ·Ï
     }
 
     public void MoveToTarget(Vector3 pos)
@@ -40,28 +41,31 @@ public class NavAgentMovement : MonoBehaviour
 
     public bool CheckIsArrived()
     {
-        if (_navAgent.pathPending == false && _navAgent.remainingDistance <= _navAgent.stoppingDistance)
+        if(_navAgent.pathPending == false && _navAgent.remainingDistance <= _navAgent.stoppingDistance)
+        {
             return true;
+        }
+
         return false;
     }
 
     public void StopImmediately()
     {
-        _navAgent.SetDestination(transform.position); //ìê¸°ìì‹ ì„ ëª©ì ì§€ë¡œ ë†“ìœ¼ë©´ ë°”ë¡œ ì •ì§€
+        _navAgent.SetDestination(transform.position); //ÀÚ±âÀÚ½ÅÀ» ¸ñÀûÁö·Î ³õÀ¸¸é ¹Ù·Î Á¤ÁöµÊ.
     }
 
     public void StopNavigation()
     {
-        _navAgent.isStopped = true; //ë„¤ë¸Œ ì—ì´ì „íŠ¸ ë©ˆì¶°ì£¼ê³ 
+        _navAgent.isStopped = true; //³×ºê ¿¡ÀÌÀüÆ®¸¦ ¸ØÃçÁÖ°í
     }
 
     public void KnockBack(Action EndAction = null)
     {
         //_navAgent.updatePosition = false;
         //_navAgent.updateRotation = false;
-        
+
         _navAgent.enabled = false;
-        _knockBackStartTime = Time.time; //ë„‰ë°± ì‹œì‘ ì‹œê°„ì„ ì¸¡ì •
+        _knockBackStartTime = Time.time; //³Ë¹é ½ÃÀÛ ½Ã°£À» ÃøÁ¤
         _isControllerMode = true;
         _knockBackVelocity = _aiActionData.HitNormal * -1 * _knockBackSpeed;
 
@@ -72,8 +76,8 @@ public class NavAgentMovement : MonoBehaviour
     {
         float spendTime = Time.time - _knockBackStartTime;
         float ratio = spendTime / _knockBackTime;
-        _movementVelocity = Vector3.Lerp(_knockBackVelocity, Vector3.zero, ratio) * Time.fixedDeltaTime;
-
+        _movementVelocity = Vector3.Lerp(_knockBackVelocity, Vector3.zero, ratio) 
+                                * Time.fixedDeltaTime;
         return ratio < 1;
     }
 
@@ -86,26 +90,23 @@ public class NavAgentMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isControllerMode == false)
-            return;
-        ;
-        if (_characterController.isGrounded == false)
+        if (_isControllerMode == false) return;
+
+        if(_characterController.isGrounded == false)
         {
             _verticalVelocity = _gravity * Time.fixedDeltaTime;
-        }
-        else
+        }else
         {
             _verticalVelocity = _gravity * 0.3f * Time.fixedDeltaTime;
         }
 
-        if (CalculateKnockBackMovement())
+        if(CalculateKnockBackMovement())
         {
             Vector3 move = _movementVelocity + _verticalVelocity * Vector3.up;
             _characterController.Move(move);
-        }
-        else
+        }else
         {
-            _isControllerMode = false; //ì½˜íŠ¸ë¡¤ëŸ¬ ëª¨ë“œ êº¼ì£¼ê³ 
+            _isControllerMode = false; //ÄÜÆ®·Ñ·¯ ¸ğµå ²¨ÁÖ°í
             _characterController.enabled = false;
             EndKnockBackAction?.Invoke();
         }

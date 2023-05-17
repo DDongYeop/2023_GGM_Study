@@ -15,9 +15,9 @@ public class AITransition : MonoBehaviour
     public bool CheckTransition()
     {
         bool result = false;
-        foreach (AIDecision decision in Decisions)
+        foreach(AIDecision decision in Decisions)
         {
-            result = decision.MakeDecision();
+            result = decision.MakeADecision();
             if (decision.IsReverse)
                 result = !result;
             if (result == false)

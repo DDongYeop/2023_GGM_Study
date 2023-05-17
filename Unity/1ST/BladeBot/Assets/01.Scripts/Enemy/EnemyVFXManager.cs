@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
 public class EnemyVFXManager : MonoBehaviour
 {
-    [SerializeField] private VisualEffect _footSteop;
+    [SerializeField]
+    private VisualEffect _footStep;
 
-    public void PlayerFootStep()
+    public void PlayFootStep()
     {
-        _footSteop.Play();
+        _footStep.Play();
     }
+
 }
