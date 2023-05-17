@@ -26,7 +26,6 @@ public class NormalState : CommonState
 
     private void OnRollingHandle()  //3
     {
-        Debug.Log("rolling");
         _agentController.ChangeState(StateType.Rolling); 
     }
 

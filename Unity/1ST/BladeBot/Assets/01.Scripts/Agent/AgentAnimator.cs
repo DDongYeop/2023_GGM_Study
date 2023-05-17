@@ -14,15 +14,16 @@ public class AgentAnimator : MonoBehaviour
     private readonly int _isDeadHash = Animator.StringToHash("is_dead");
     private readonly int _deadTriggerHash = Animator.StringToHash("dead");
 
+    private readonly int _isHitHash = Animator.StringToHash("is_hit");
     private readonly int _hurtTriggerHash = Animator.StringToHash("hurt");
 
     public event Action OnAnimationEndTrigger = null;
     public event Action OnAnimationEventTrigger = null;
-    public event Action OnPreAnimationEventTrigger = null; //ÇÁ¸®Ã­Â¡ ÀÌº¥Æ®
+    public event Action OnPreAnimationEventTrigger = null; //ï¿½ï¿½ï¿½ï¿½Ã­Â¡ ï¿½Ìºï¿½Æ®
 
     private Animator _animator;
     public Animator Animator => _animator;
-    //ÀÌ¹ÌÁö ¸ÞÀÌÅ·
+    //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å·
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -88,13 +89,18 @@ public class AgentAnimator : MonoBehaviour
 
     public void StopAnimation(bool value)
     {
-        _animator.speed = value ? 0 : 1; //trueÀÏ ¶§ 0À¸·Î ¸¸µé¾î¼­ Á¤Áö, 
-        //¾Æ´Ò¶§ 1·Î ¸¸µé¾î¼­ ´Ù½Ã Àç»ý
+        _animator.speed = value ? 0 : 1; //trueï¿½ï¿½ ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ï¿½, 
+        //ï¿½Æ´Ò¶ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½
     }
 
     public void SetDead()
     {
         _animator.SetBool(_isDeadHash, true);
         _animator.SetTrigger(_deadTriggerHash);
+    }
+
+    public void SetisHit(bool value)
+    {
+        _animator.SetBool(_isHitHash, value);
     }
 }

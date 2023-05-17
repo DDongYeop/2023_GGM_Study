@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="990e11ec-3c4e-43af-8b33-e7c1fd8111dd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/TestUV.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/TestUV.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BladeBot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BladeBot/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/CommonState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/CommonState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/NormalState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Agent/States/NormalState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/02.Animations/PlayerController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/02.Animations/PlayerController.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Character/MainCharacter/LittleAdventurerAndie MainMenu.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Character/MainCharacter/LittleAdventurerAndie MainMenu.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Library/Core/Define.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Library/Core/Define.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +22,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e5b1d4d7071a4b08a2c352e4980e4bc41a000/db/823a41c5/Physics.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentAnimator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentHealth.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/AgentMovement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/DamageCaster.cs" root0="FORCE_HIGHLIGHTING" />
@@ -21,6 +31,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/States/CommonState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/States/IState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/States/NormalState.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/States/OnHitState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Agent/States/RollingState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/ETC/Resource.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Effect/EffectPlayer.cs" root0="FORCE_HIGHLIGHTING" />
@@ -55,11 +66,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/PlayerRunBehaviour.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/PlayerVFXManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/PopupText.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Weapon/Beam.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Weapon/EnemyBeamAttack.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/11.UI/EnemyHPBar/EnemyHPBar.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/11.UI/MainUI.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/11.UI/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Library/Core/CameraManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/Feedback/Feedback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/Feedback/FeedbackPlayer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/Helper/MonoFunction.cs" root0="FORCE_HIGHLIGHTING" />
@@ -67,6 +74,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Library/Interface/IDamageable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/SO/CharacterDataSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/SO/EnemyDataSO.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Library/SO/HealthAndArmorSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/SO/ItemDropTableSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Library/SO/ResourceDataSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Red_Ocean/Assets/01.Scripts/Dongyeop/NPC/NPC.cs" root0="SKIP_HIGHLIGHTING" />
@@ -169,6 +177,7 @@
       <workItem from="1683677421144" duration="7614000" />
       <workItem from="1684116854118" duration="5827000" />
       <workItem from="1684282319059" duration="294000" />
+      <workItem from="1684282984116" duration="4625000" />
     </task>
     <servers />
   </component>

@@ -10,18 +10,28 @@ public class AgentController : MonoBehaviour
     private CharacterDataSO _charDataSO;
     public CharacterDataSO CharData => _charDataSO;
 
-    private Dictionary<StateType, IState> _stateDictionary = null;  //°¡Áö°í ÀÖ´Â »óÅÂµé ÀúÀå
-    private IState _currentState; //ÇöÀç »óÅÂ ÀúÀå
+    private Dictionary<StateType, IState> _stateDictionary = null;  //ê°€ì§€ê³  ìˆëŠ” ìƒíƒœë“¤ ì €ì¥
+    private IState _currentState; //í˜„ì¬ ìƒíƒœ ì €ì¥
 
     public String CurrentState;
 
     public AgentMovement AgentMovementCompo { get; private set; }
     public DamageCaster DamageCasterCompo { get; private set; }
 
+    public bool isDead { get; private set; }
+    public AgentHealth AgentHealthCompo { get; private set; }
+
+    public void SetDead()
+    {
+        isDead = true;
+    }
+    
     private void Awake()
     {
         _stateDictionary = new Dictionary<StateType, IState>();
         Transform stateTrm = transform.Find("States");
+
+        AgentHealthCompo = GetComponent<AgentHealth>();
 
         foreach( StateType state in Enum.GetValues(typeof (StateType)) )
         {
@@ -50,13 +60,15 @@ public class AgentController : MonoBehaviour
 
     public void ChangeState(StateType type)
     {
-        _currentState?.OnExitState(); //ÇöÀç »óÅÂ ³ª°¡°í
+        _currentState?.OnExitState(); //í˜„ì¬ ìƒíƒœ ë‚˜ê°€ê³ 
         _currentState = _stateDictionary[type];
-        _currentState?.OnEnterState(); //´ÙÀ½»óÅÂ ½ÃÀÛ
+        _currentState?.OnEnterState(); //ë‹¤ìŒìƒíƒœ ì‹œì‘
     }
 
     private void Update()
     {
+        if (isDead)
+            return;
         _currentState?.UpdateState();
     }
 }
