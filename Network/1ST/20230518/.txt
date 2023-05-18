@@ -8,3 +8,6 @@ npm login
 
 npm i morgan cookie-parser express-sessions
 npm i dotenv
+npm i body-parser
+npm i express-session
+npm i multer

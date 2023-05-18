@@ -3,14 +3,69 @@ const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const multer = require('multer');
+const fs = require('fs');
+
+dotenv.config();
 
 const app = express();
 //서버에다가 변수 설정
 app.set('port', 3000);
 app.use(morgan('dev'));
-app.use(cookieParser(procces.env.COOKIE_SECRET));
-
 dotenv.config();
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(express.urlencoded({extended:false}));
+app.use(session({
+    resave:false,
+    saveUninitialized:false,
+    secret:process.env.COOKIE_SECRET,
+    cookie:
+    {
+        httpOnly:true,
+        secure:false,
+    },
+    name:'session-cookie',
+}));
+
+try
+{
+    fs.readdirSync('uploads');
+}
+catch (err)
+{
+    console.error('uploads folder is not');
+    fs.mkdirSync('uploads');
+}
+
+const upload = multer(
+{
+    storage: multer.diskStorage(
+    {
+        destination(req, file, done)
+        {
+            done(null, 'uploads/');
+        },
+        filename(req, file, done)
+        {
+            const ext = path.extname(file.originalname);
+            done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        },
+    }),
+    limits: {fileSize: 5*1024*1024},
+});
+
+app.get('/upload', (req, res) =>
+{
+    res.sendFile(path.join(__dirname, '/multipart.html'));
+});
+
+app.post('/upload', upload.array('image'), (req, res) =>
+{
+    console.log(req.files);
+    res.send('ok');
+})
 
 app.use((req, res, next) =>
 {
@@ -32,15 +87,21 @@ app.get('/category/:name', (req, res) =>
 
 app.get('/', (req, res, next) =>
 {
-    if (req.cookies?.name)
+    if (req.session?.name)
     {
-        res.send(`Hello ${req.cookies.name}`);
+        res.send(`Hello ${req.session.name}`);
     }
     else
     {
-        res.send('not cookie');
+        res.sendFile(path.join(__dirname, '/session_index.html'));
     }
 });
+
+app.post('/', (req, res) =>
+{
+    req.session.name = req.body.name;
+    res.redirect('/');
+})
 
 app.get('/cookie', (req, res) =>
 {
@@ -53,7 +114,7 @@ app.get('/cookie', (req, res) =>
 
 app.get('/delete', (req, res) =>
 {
-    res.clearCookie('name', 'Kim', {httpOnly: true, path: '/'});
+    req.session.destroy();
     res.redirect('/');
 })
 
