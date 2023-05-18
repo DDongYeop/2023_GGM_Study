@@ -1,0 +1,10 @@
+npm init
+npm i express
+npm i -D nodemon
+
+npm uninstall 패키지명 //패키지 삭제
+
+npm login
+
+npm i morgan cookie-parser express-sessions
+npm i dotenv
