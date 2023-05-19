@@ -24,14 +24,14 @@ int main()
 	writeFile.close();*/
 
 	//file read
-	ifstream readFile("test2.txt");
+	/*ifstream readFile("test2.txt");
 
 	char buf[1024];
 	while (!readFile.eof())
 	{
 		readFile.getline(buf, 12);
 		cout << buf << endl;
-	}
+	}*/
 
 	/*string str;
 	while(getline(readFile, str))
