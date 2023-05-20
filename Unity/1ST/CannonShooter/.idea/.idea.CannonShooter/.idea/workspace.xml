@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c53a609a-2dd2-4791-98a3-af7d9233c7f6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CannonShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CannonShooter/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Cannon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Cannon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Manager/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Manager/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Manager/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Manager/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/ParallaxEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/ParallaxEffect.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/Interface.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/Interface.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/07.Fonts/neodgmSDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/07.Fonts/neodgmSDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +103,7 @@
       <option name="presentableId" value="Default" />
       <updated>1683953191146</updated>
       <workItem from="1683953195321" duration="10381000" />
-      <workItem from="1684557569607" duration="7856000" />
+      <workItem from="1684557569607" duration="7954000" />
     </task>
     <servers />
   </component>
