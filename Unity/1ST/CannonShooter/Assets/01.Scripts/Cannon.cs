@@ -9,7 +9,8 @@ public enum CannonState : short
     IDLE = 0,
     MOVING = 1, 
     CHARGING = 2,
-    FIRE = 3
+    FIRE = 3,
+    WAITING
 }
 
 public class Cannon : MonoBehaviour
@@ -50,13 +51,14 @@ public class Cannon : MonoBehaviour
     {
         _barrelTrm = transform.Find("CannonBarrel");
         _firePosition = _barrelTrm.Find("FirePosition");
-        _currentState = CannonState.IDLE;
+        _currentState = CannonState.WAITING;
 
         _viewRig = transform.Find("ViewRig");
     }
 
     private void Start()
     {
+        GameManager.Instance.OnStageLoadCompleted += () => _currentState = CannonState.IDLE;
         //UI���� �˾�â�� �����ٴ� �̺�Ʈ�� ������ �丮�� ī�޶� ����
         UIManager.Instance.OnCloseMessagePopup += () =>
         {
@@ -68,7 +70,10 @@ public class Cannon : MonoBehaviour
             seq.AppendInterval(1f);
             seq.AppendCallback(() =>
             {
-                _currentState = CannonState.IDLE;
+                if (GameManager.Instance.CheckGameEnd())
+                    _currentState = CannonState.WAITING;
+                else
+                    _currentState = CannonState.IDLE;
             });
         };
     }

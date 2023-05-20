@@ -7,32 +7,12 @@
     <list default="true" id="c53a609a-2dd2-4791-98a3-af7d9233c7f6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CannonShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CannonShooter/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Cannon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Cannon.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Manager/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Manager/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/cannonBall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/cannonBall.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/merged-full-background.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/merged-full-background.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-background-mountains.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-background-mountains.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-background-sky.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-background-sky.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-forest-trees-02.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-forest-trees-02.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/arrow_example.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/arrow_example.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_check_example.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_check_example.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_example.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_example.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_x_example.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_x_example.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/circleSpriteMask.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/circleSpriteMask.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example1.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example4.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example4.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0000.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0000.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0001.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0001.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0002.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0002.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0003.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0003.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0004.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0004.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0005.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0005.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0006.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0006.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0007.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0007.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/cannon.unitypackage.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Manager/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Manager/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/ParallaxEffect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/ParallaxEffect.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/Interface.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/Interface.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/07.Fonts/neodgmSDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/07.Fonts/neodgmSDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,10 +20,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/ParallaxEffect.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Stage.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/CountBox.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@12.1.11/Runtime/Data/UniversalRenderPipelineAsset.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/InnerPanel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/LoadingScreen.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/ResultPanel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/ResultText.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -128,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1683953191146</updated>
       <workItem from="1683953195321" duration="10381000" />
-      <workItem from="1684557569607" duration="3336000" />
+      <workItem from="1684557569607" duration="7856000" />
     </task>
     <servers />
   </component>

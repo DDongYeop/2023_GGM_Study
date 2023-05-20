@@ -1,4 +1,6 @@
+
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -12,13 +14,14 @@ public class GameManager : MonoBehaviour
 
     private Stage _currentStage;
     private AsyncOperationHandle<GameObject> _handle;
-
-    private int _currentBoxCount = 0;
+    
     private int _maxBoxCount = 0;
 
     public event Action OnStageLoadCompleted;
-    public event Action OnStartLoad; 
+    public event Action OnStartLoad;
 
+    private float _time;
+    
     private void Awake()
     {
         if(Instance != null)
@@ -37,18 +40,17 @@ public class GameManager : MonoBehaviour
         LoadStage(1);
     }
 
-    private int _currentBallCount = 0;
-
-    public int CurrentBallCount
-    {
-        get => _currentBallCount;
+    private int _currentBallCount;
+    public int CurrentBallCount {
+        get => _currentBallCount; 
         set
         {
             _currentBallCount = value;
             UpdateCountUI();
         }
     }
-    
+
+    private int _currentBoxCount;
     public int CurrentBoxCount
     {
         get => _currentBoxCount;
@@ -59,24 +61,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void LoadStage(int number)
+    public void LoadStage(int number)
     {
         if (_currentStage != null)
         {
             Destroy(_currentStage.gameObject);
-            Addressables.Release(_handle); //이전 핸들도 함께 릴리즈
+            Addressables.Release(_handle); //���� �ڵ鵵 �Բ� ������
         }
         
-        Addressables.LoadAssetAsync<GameObject>($"Level{number.ToString()}").Completed += (AsyncOperationHandle<GameObject> handle) => 
+        Addressables.LoadAssetAsync<GameObject>($"Level{number.ToString()}").Completed += (AsyncOperationHandle<GameObject> handle) =>
         {
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 _handle = handle;
                 GameObject stage = Instantiate(handle.Result, Vector3.zero, Quaternion.identity);
                 SetStage(stage.GetComponent<Stage>());
+                _time = Time.time;
             }
             else
-                Debug.LogError(handle.Status);
+            {
+                Debug.Log(handle.Status);
+            }
         };
     }
 
@@ -86,17 +91,24 @@ public class GameManager : MonoBehaviour
         _player.transform.position = _currentStage.PlayerPosition;
         _player.SetXBound(_currentStage.StartPos.x, _currentStage.EndPos.x);
 
-        CurrentBoxCount = _maxBoxCount = _currentStage.BoxCount;
-        CurrentBoxCount = _currentStage.BallCount;
-                    
+        _currentBoxCount = _maxBoxCount = _currentStage.BoxCount; //��ü �ڽ� ���� �����ϰ�
+        _currentBallCount = _currentStage.BallCount; //��ü ��ź �� ������
         UpdateCountUI();
+        StartCoroutine(DelayStart());
+    }
+
+    private IEnumerator DelayStart()
+    {
+        yield return new WaitForSeconds(1f);
+        OnStageLoadCompleted?.Invoke(); //�������� ���� ��� �Ϸ�
     }
 
     private void UpdateCountUI()
     {
-        UIManager.Instance.BoxCount = $"{CurrentBoxCount} / {_maxBoxCount}";
-        UIManager.Instance.BallCount = $"{_currentBallCount}";
+        UIManager.Instance.BoxCount = $"{_currentBoxCount} / {_maxBoxCount}";
+        UIManager.Instance.BallCount = _currentBallCount.ToString();
     }
+
 
     private void FindPlayer()
     {
@@ -117,5 +129,18 @@ public class GameManager : MonoBehaviour
         //�̱���
         UIManager.Instance.Init();
         UIManager.Instance.AddEvent(_player); //�÷��̾�� ����ǰ���.
+    }
+
+    public bool CheckGameEnd()
+    {
+        if (_currentBallCount == 0)
+        {
+            UIManager.Instance.ShowResultPanel(4-CurrentBallCount, _maxBoxCount-_currentBoxCount, (int)(Time.time - _time),1);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

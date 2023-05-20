@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,7 +24,11 @@ public class UIManager : MonoBehaviour
     private RectTransform _cannonThumbnail;
     private bool _isIconShow;
 
+    private LoadingScreen _loadingScreen;
+    
     private CountBox _boxCount, _ballCount;
+
+    private ResultPanel _resultPanel;
 
     public string BoxCount
     {
@@ -54,6 +59,11 @@ public class UIManager : MonoBehaviour
 
         _boxCount = transform.Find("TopRightBox/BoxCountBox").GetComponent<CountBox>();
         _ballCount = transform.Find("TopRightBox/BallCountBox").GetComponent<CountBox>();
+
+        _resultPanel = transform.Find("ResultPanel").GetComponent<ResultPanel>();
+
+        _loadingScreen = transform.Find("LoadingScreen").GetComponent<LoadingScreen>();
+        GameManager.Instance.OnStageLoadCompleted += _loadingScreen.ScreenOff;
     }
 
     public void AddEvent(Cannon playerCannon)
@@ -114,5 +124,10 @@ public class UIManager : MonoBehaviour
             _cannonThumbnail.DOKill();
             _cannonThumbnail.DOAnchorPosX(0, .5f);
         }
+    }
+
+    public void ShowResultPanel(int ballCount, int destroyBoxCnt, int sec, int starCnt)
+    {
+        _resultPanel.OpenPopup(ballCount, destroyBoxCnt, sec, starCnt);
     }
 }

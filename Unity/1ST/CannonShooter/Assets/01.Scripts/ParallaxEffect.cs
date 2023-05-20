@@ -10,8 +10,14 @@ public class ParallaxEffect : MonoBehaviour
     private Transform _mainCamTrm;
     private Vector3 _lastCamPosition;
     private float _textureUnitSizeX; //텍스터의 유닛이로 변환한 크기의 너비
+    private bool _isActive = false;
+    
+    private void Awake()
+    {
+        GameManager.Instance.OnStageLoadCompleted += Init;
+    }
 
-    private void Start()
+    private void Init()
     {
         _mainCamTrm = Camera.main.transform;
 
@@ -22,10 +28,14 @@ public class ParallaxEffect : MonoBehaviour
         Texture2D texture = sprite.texture;
 
         _textureUnitSizeX = texture.width / sprite.pixelsPerUnit; //텍스쳐 너비가 몇 유닛인지 정확하게 알아내야함
+        _isActive = true;
     }
 
     private void LateUpdate()
     {
+        if (!_isActive)
+            return;
+        
         Vector3 deltaMove = _mainCamTrm.position - _lastCamPosition;
         transform.position += new Vector3(deltaMove.x * _parallaxRatio.x, deltaMove.y * _parallaxRatio.y);
         _lastCamPosition = _mainCamTrm.position;
