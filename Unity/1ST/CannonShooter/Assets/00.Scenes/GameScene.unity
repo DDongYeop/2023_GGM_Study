@@ -1669,8 +1669,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c062b831dd0bd42bb08551afe2f57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stagePrefab: {fileID: 755218409913794937, guid: 4d5e1783fa69be04d9bbd7320ac1de37, type: 3}
-  _currentBoxCount: 0
+  _ref:
+    m_AssetGUID: 4d5e1783fa69be04d9bbd7320ac1de37
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!4 &721044373
 Transform:
   m_ObjectHideFlags: 0

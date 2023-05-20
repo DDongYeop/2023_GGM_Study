@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: StagePack
+  m_EditorClassIdentifier: 
+  m_GroupName: StagePack
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b630e4b0fdb788f47957a2a49a612f3d
+  m_SerializeEntries:
+  - m_GUID: 4d5e1783fa69be04d9bbd7320ac1de37
+    m_Address: Level1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a01b5a6469e608149b6dda58b94d4f4a
+    m_Address: Level2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 79fa1836a8266bd4794b686c876a0054, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 391d5156587bda5498716c37979ecfaa, type: 2}
+    - {fileID: 11400000, guid: 0ae2b10243536ff40a770bcd9f810dfc, type: 2}

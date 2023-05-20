@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
-using Unity.Mathematics;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +9,15 @@ public class GameManager : MonoBehaviour
 
     private Cannon _player;
     public Cannon Player => _player;
+
+    private Stage _currentStage;
+    private AsyncOperationHandle<GameObject> _handle;
+
+    private int _currentBoxCount = 0;
+    private int _maxBoxCount = 0;
+
+    public event Action OnStageLoadCompleted;
+    public event Action OnStartLoad; 
 
     private void Awake()
     {
@@ -30,8 +37,6 @@ public class GameManager : MonoBehaviour
         LoadStage(1);
     }
 
-    [SerializeField] private Stage _stagePrefab;
-
     private int _currentBallCount = 0;
 
     public int CurrentBallCount
@@ -44,7 +49,6 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    public int _currentBoxCount = 0;
     public int CurrentBoxCount
     {
         get => _currentBoxCount;
@@ -54,17 +58,37 @@ public class GameManager : MonoBehaviour
             UpdateCountUI();
         }
     }
-    private int _maxBoxCount = 0;
-    
+
     private void LoadStage(int number)
     {
-        Stage s = Instantiate(_stagePrefab, Vector3.zero, quaternion.identity);
-        _player.transform.position = s.PlayerPosition;
-        _player.SetXBound(s.StartPos.x, s.EndPos.x);
-
-        CurrentBoxCount = _maxBoxCount = s.BoxCount;
-        CurrentBoxCount = s.BallCount;
+        if (_currentStage != null)
+        {
+            Destroy(_currentStage.gameObject);
+            Addressables.Release(_handle); //이전 핸들도 함께 릴리즈
+        }
         
+        Addressables.LoadAssetAsync<GameObject>($"Level{number.ToString()}").Completed += (AsyncOperationHandle<GameObject> handle) => 
+        {
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                _handle = handle;
+                GameObject stage = Instantiate(handle.Result, Vector3.zero, Quaternion.identity);
+                SetStage(stage.GetComponent<Stage>());
+            }
+            else
+                Debug.LogError(handle.Status);
+        };
+    }
+
+    private void SetStage(Stage stage)
+    {
+        _currentStage = stage;
+        _player.transform.position = _currentStage.PlayerPosition;
+        _player.SetXBound(_currentStage.StartPos.x, _currentStage.EndPos.x);
+
+        CurrentBoxCount = _maxBoxCount = _currentStage.BoxCount;
+        CurrentBoxCount = _currentStage.BallCount;
+                    
         UpdateCountUI();
     }
 

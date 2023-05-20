@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="c53a609a-2dd2-4791-98a3-af7d9233c7f6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CannonShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CannonShooter/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/GameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Cannon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Cannon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/CannonBall.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/CannonBall.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Manager/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Manager/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Manager/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Manager/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/Effects/BrokenEffect.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/Effects/BrokenEffect.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/03.Prefabs/cannonBall.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/03.Prefabs/cannonBall.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-forest-trees-01.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-forest-trees-01.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/Interface.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/Interface.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/07.Fonts/neodgmSDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/07.Fonts/neodgmSDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/merged-full-background.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/merged-full-background.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-background-mountains.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-background-mountains.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-background-sky.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-background-sky.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-forest-trees-02.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/Background/parallax-forest-trees-02.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/arrow_example.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/arrow_example.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_check_example.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_check_example.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_example.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_example.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_x_example.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/checkbox_x_example.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/circleSpriteMask.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/circleSpriteMask.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example2.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example4.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/UI/panel_Example4.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0000.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0000.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0001.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0001.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0002.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0002.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0003.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0003.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0004.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0004.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0005.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0005.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0006.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0006.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0007.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Sprites/explosion/Particle/frame0007.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/cannon.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,13 +59,17 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "rider.external.source.directories": [
-      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\user\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\user\\AppData\\Local\\Symbols\\src"
+      "C:\\Users\\kitty\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\kitty\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\kitty\\AppData\\Local\\Symbols\\src"
     ]
   }
 }]]></component>
@@ -56,6 +78,14 @@
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.23f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath D:\GAME_DEVELOPMENT\GitHub\2023_GGM_Study\Unity\1ST\CannonShooter -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="D:\GAME_DEVELOPMENT\GitHub\2023_GGM_Study\Unity\1ST\CannonShooter" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.23f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\kitty\Documents\GitHub\2023_GGM_Study\Unity\1ST\CannonShooter -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\kitty\Documents\GitHub\2023_GGM_Study\Unity\1ST\CannonShooter" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
@@ -98,6 +128,7 @@
       <option name="presentableId" value="Default" />
       <updated>1683953191146</updated>
       <workItem from="1683953195321" duration="10381000" />
+      <workItem from="1684557569607" duration="3336000" />
     </task>
     <servers />
   </component>
