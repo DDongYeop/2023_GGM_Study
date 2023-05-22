@@ -25,7 +25,7 @@ using namespace std;
 #define SCREEN_WIDTH	800
 #define SCREEN_HEIGHT	600
 
-#define PI				3.14159265
+#define PI				3.14159265f
 
 // ½Ì±ÛÅæ µðÆÄÀÎ
 #define DECLARE_SINGLE(type)	\
@@ -50,3 +50,5 @@ extern shared_ptr<class BTSEngine> g_Engine;
 // Utils Functions
 wstring s2ws(const string& s);
 string ws2s(const wstring& s);
+float getAngle(float startX, float startY, float endX, float endY);
+float getDistance(float startX, float startY, float endX, float endY);
