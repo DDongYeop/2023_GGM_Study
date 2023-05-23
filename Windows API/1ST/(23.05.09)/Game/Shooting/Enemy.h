@@ -39,5 +39,5 @@ private:
 
 	weak_ptr<Pawn>				m_player;
 	shared_ptr<Image>			m_imageEnemy;
-	shared_ptr<ProgressBar>		m_Bar
+	shared_ptr<ProgressBar>		m_hpBar;
 };

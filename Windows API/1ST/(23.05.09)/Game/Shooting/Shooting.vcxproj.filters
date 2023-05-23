@@ -58,6 +58,9 @@
     <ClInclude Include="Enemy.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

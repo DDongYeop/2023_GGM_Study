@@ -14,7 +14,7 @@ enum class ENEMY_TYPE
 	BOSS,
 };
 
-enum class GMAE_STAGE
+enum class GAME_STAGE
 {
 	STAGE_01 = 0,
 	STAGE_02,
