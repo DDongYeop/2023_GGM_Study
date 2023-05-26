@@ -5,6 +5,7 @@ public class ViewAngle : MonoBehaviour
     [Header("View Config")] 
     [SerializeField] private float _viewRadius = 1f;
     [Range(0f, 360f)] [SerializeField] private float _horizontalViewAngle = 0f;
+    [Range(-180f, 180f)] [SerializeField] private float _viewRotateZ = 0f;
     private float _horizontalViewHalfAngle = 0f;
 
     private SpriteRenderer _spriteRenderer;
@@ -26,11 +27,9 @@ public class ViewAngle : MonoBehaviour
         Vector3 originPos = transform.position;
  
         Gizmos.DrawWireSphere(originPos, _viewRadius);
-
-        float eulerAngleZ = transform.eulerAngles.z;
-        Vector3 horizontalRightDir = AngleToDirZ(-_horizontalViewHalfAngle + eulerAngleZ);
-        Vector3 horizontalLeftDir  = AngleToDirZ(_horizontalViewHalfAngle + eulerAngleZ);
-        Vector3 lookDir = AngleToDirZ(eulerAngleZ);
+        Vector3 horizontalRightDir = AngleToDirZ(-_horizontalViewHalfAngle + _viewRotateZ);
+        Vector3 horizontalLeftDir  = AngleToDirZ(_horizontalViewHalfAngle + _viewRotateZ);
+        Vector3 lookDir = AngleToDirZ(_viewRotateZ);
  
         Debug.DrawRay(originPos, horizontalLeftDir * _viewRadius, Color.cyan);
         Debug.DrawRay(originPos, lookDir * _viewRadius, Color.green);
@@ -52,7 +51,7 @@ public class ViewAngle : MonoBehaviour
         
         Vector2 targetPos = hitedTarget.transform.position;
         Vector2 dir = (targetPos - originPos).normalized;
-        Vector2 lookDir = AngleToDirZ(transform.eulerAngles.z);
+        Vector2 lookDir = AngleToDirZ(_viewRotateZ);
         
         float dot = Vector2.Dot(lookDir, dir);
         float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
@@ -60,6 +59,11 @@ public class ViewAngle : MonoBehaviour
         if (angle <= _horizontalViewHalfAngle)
         {
             Debug.DrawLine(originPos, hitedTarget.transform.position, Color.yellow);
+
+            //Quaternion targetRotation = Quaternion.FromToRotation(Vector3.right, hitedTarget.transform.position - transform.position);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 1);
+            //transform.Translate(Vector3.right * 5 * Time.deltaTime, Space.Self);
+
             _spriteRenderer.color = Color.red;
         }
         else if (angle >= 90)
