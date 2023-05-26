@@ -143,6 +143,7 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapManager.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="MapManager.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

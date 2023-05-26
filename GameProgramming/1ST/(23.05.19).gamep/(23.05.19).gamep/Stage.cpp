@@ -1,5 +1,7 @@
 #include<fstream>
 #include "Stage.h"
+#include<iostream>
+using namespace std;
 
 Stage::Stage() : m_cStage{}, m_tStart{}, m_tEnd{}
 {
@@ -38,4 +40,31 @@ bool Stage::Init(char* pFileName)
 
 void Stage::Render()
 {
+    for (int i = 4; i < 10; i++)
+    {
+        for (int j = 0; j < 20; j++)
+        {
+            if (m_cStage[i][j] == (char)STAGE_TYPE::WALL)
+            {
+                cout << "¡á¡á";
+            }
+            else if (m_cStage[i][j] == (char)STAGE_TYPE::ROAD)
+            {
+                cout << " ";
+            }
+            else if (m_cStage[i][j] == (char)STAGE_TYPE::START)
+            {
+                cout << "*";
+            }
+            else if (m_cStage[i][j] == (char)STAGE_TYPE::END)
+            {
+                cout << "¢Í";
+            }
+            else if (m_cStage[i][j] == (char)STAGE_TYPE::COIN)
+            {
+                cout << "¢Þ";
+            }
+        }
+        cout << endl;
+    }
 }

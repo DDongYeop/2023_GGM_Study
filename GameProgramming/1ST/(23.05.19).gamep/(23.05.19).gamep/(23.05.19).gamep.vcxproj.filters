@@ -31,6 +31,9 @@
     <ClCompile Include="MapManager.cpp">
       <Filter>Map</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console.h">
@@ -47,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="MapManager.h">
       <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

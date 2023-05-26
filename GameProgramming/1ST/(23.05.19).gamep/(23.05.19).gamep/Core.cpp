@@ -26,7 +26,7 @@ bool Core::Init()
 void Core::Run()
 {
 	int iStage = MenuDraw();
-
+	system("cls");
 	while (true)
 	{
 		if (iStage == 4)

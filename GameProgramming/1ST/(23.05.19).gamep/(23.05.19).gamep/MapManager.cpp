@@ -1,5 +1,6 @@
 #include "MapManager.h"
 #include "Stage.h"
+#include "console.h"
 MapManager* MapManager::m_pInst = nullptr;
 
 MapManager::MapManager() : m_iCurStage(0)
@@ -31,4 +32,10 @@ bool MapManager::Init()
 void MapManager::Run(int _iCurStage)
 {
 	m_iCurStage = _iCurStage;
+	while (true)
+	{
+		Gotoxy(0, 0);
+		m_pStage[_iCurStage]->Render();
+
+	}
 }
