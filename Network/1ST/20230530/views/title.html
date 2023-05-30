@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{title}}</h1>
+    <p>안녕하세요 {{title}}</p>
+    <button class="{{title}}" type="submit">전송</button>
+    <ul>
+        {% set names = ['박부성', '경동엽', '김민수', '김민수', '서린쌤'] %}
+        {% for item in names %}
+        <li>{{loop.index}}번째 금쪽이 {{item}}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
