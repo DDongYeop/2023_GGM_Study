@@ -13,7 +13,7 @@ public class ViewAngle : MonoBehaviour
     private void Awake()
     {
         _horizontalViewHalfAngle = _horizontalViewAngle * 0.5f;
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
     
     private Vector3 AngleToDirZ(float angleInDegree)
