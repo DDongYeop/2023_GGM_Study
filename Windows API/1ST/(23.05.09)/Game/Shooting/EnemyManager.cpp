@@ -2,6 +2,7 @@
 #include "EnemyManager.h"
 #include "Pawn.h"
 #include "Enemy.h"
+#include "BulletManager.h"
 
 void EnemyManager::Init(weak_ptr<Pawn> player, GAME_STAGE stage)
 {
@@ -18,6 +19,7 @@ void EnemyManager::Update(float dt)
 
 		if ((*iter)->GetHP() <= 0)
 		{
+			GET_SINGLE(BulletManager)->DeletePawn(*iter);
 			iter = m_Enemies.erase(iter);
 		}
 		else
@@ -134,5 +136,11 @@ void EnemyManager::CreateEnemy(GAME_STAGE stage)
 		break;
 	default:
 		break;
+	}
+
+	list<shared_ptr<Enemy>>::iterator iter;
+	for (iter = m_Enemies.begin(); iter != m_Enemies.end(); ++iter)
+	{
+		GET_SINGLE(BulletManager)->AddPawn(*iter);
 	}
 }

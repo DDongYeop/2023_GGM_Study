@@ -14,11 +14,14 @@ public:
 	void	Render(HDC hdc) override;
 	void	Release() override;
 
+	void	OnCollisionProcess(float score) override;
+
 public:
 	void	CreateBullet();
 
 private:
 	int						m_nLevel;
+	int						m_nTotalScore;
 	shared_ptr<Image>		m_imagePlayer;
 	shared_ptr<ProgressBar>	m_hpBar;
 };

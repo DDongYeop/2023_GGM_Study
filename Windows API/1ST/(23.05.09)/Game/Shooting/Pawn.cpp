@@ -7,6 +7,8 @@ Pawn::Pawn() : Actor(0, 0)
 	m_fMaxHP = 100;
 	m_fHP = m_fHP;
 	m_fDamage = 10;
+	m_nScore = 1;
+	m_ePawnType = PAWN_TYPE::NONE;
 }
 
 Pawn::Pawn(float x, float y, int width, int height, float scale, float speed) : Actor(x, y, width, height, scale)
@@ -15,6 +17,8 @@ Pawn::Pawn(float x, float y, int width, int height, float scale, float speed) : 
 	m_fMaxHP = 100;
 	m_fHP = m_fMaxHP;
 	m_fDamage = 10;
+	m_nScore = 1;
+	m_ePawnType = PAWN_TYPE::NONE;
 }
 
 Pawn::~Pawn()
@@ -34,6 +38,15 @@ void Pawn::Render(HDC hdc)
 }
 
 void Pawn::Release()
+{
+}
+
+void Pawn::OnDamageProcess(float damage)
+{
+	AddHP(damage);
+}
+
+void Pawn::OnCollisionProcess(float score)
 {
 }
 

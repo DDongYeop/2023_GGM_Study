@@ -14,6 +14,8 @@ public:
 	void	Render(HDC hdc);
 	void	Release();
 
+	void	OnDamageProcess(float damage) override;
+
 public:
 	void	CreateBullet();
 

@@ -26,6 +26,8 @@ public:
 	float	GetSpeed() { return m_fSpeed; }
 	void	SetAngle(float angle) { m_fAngle = angle; }
 	float	GetAngle() { return m_fAngle; }
+	void	SetDamage(float damage) { m_fDamage = damage; }
+	float	GetDamage() { return m_fDamage; }
 
 	void	SetOwnerPawn(weak_ptr<Pawn> owner) { m_ownerPawn = owner; }
 	weak_ptr<Pawn> GetOwnerPawn() { return m_ownerPawn; }
@@ -33,6 +35,7 @@ public:
 private:
 	float				m_fSpeed;
 	float				m_fAngle;
+	float				m_fDamage;
 	
 	weak_ptr<Pawn>		m_ownerPawn;
 	shared_ptr<Image>	m_imageBullet;

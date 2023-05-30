@@ -6,11 +6,15 @@
 Player::Player() : Pawn(0, 0)
 {
 	m_nLevel = 1;
+	m_nTotalScore = 0;
+	m_ePawnType = PAWN_TYPE::PLAYER;
 }
 
 Player::Player(float x, float y, int width, int height, float scale, float speed) : Pawn(x, y, width, height, scale, speed)
 {
 	m_nLevel = 1;
+	m_nTotalScore = 0;
+	m_ePawnType = PAWN_TYPE::PLAYER;
 }
 
 Player::~Player()
@@ -65,6 +69,15 @@ void Player::Render(HDC hdc)
 
 	if (m_hpBar)
 		m_hpBar->Render(hdc);
+
+	SetBkMode(hdc, TRANSPARENT);
+	SetTextColor(hdc, RGB(255, 255, 255));
+	wchar_t buffer[100];
+	swprintf(buffer, 100, L"Level : %d", m_nLevel);
+	TextOut(hdc, 20, 30, buffer, lstrlen(buffer));
+	swprintf(buffer, 100, L"Score : %d", m_nTotalScore);
+	TextOut(hdc, 20, 50, buffer, lstrlen(buffer));
+
 }
 
 void Player::Release()
@@ -74,6 +87,14 @@ void Player::Release()
 
 	if (m_hpBar)
 		m_hpBar->Release();
+}
+
+void Player::OnCollisionProcess(float score)
+{
+	m_nTotalScore += score;
+
+	if (m_nTotalScore % 10 == 0)
+		m_nLevel++;
 }
 
 void Player::CreateBullet()
@@ -87,6 +108,33 @@ void Player::CreateBullet()
 		{
 			bullet->SetOwnerPawn(weak_from_this());
 			bullet->Init();
+			bullet->SetDamage(m_fDamage);
+			GET_SINGLE(BulletManager)->CreateBullet(bullet);
+		}
+	}
+	else if (m_nLevel == 1)
+	{
+		float posX = m_fPosX;
+		float posY = m_fPosY - m_nHeight * m_fScale / 2;
+		shared_ptr<Bullet> bullet = make_shared<Bullet>(posX, posY, 0, 0, 1.0f, 300.0f);
+		if (bullet)
+		{
+			bullet->SetOwnerPawn(weak_from_this());
+			bullet->Init();
+			bullet->SetDamage(m_fDamage);
+			GET_SINGLE(BulletManager)->CreateBullet(bullet);
+		}
+	}
+	else
+	{
+		float posX = m_fPosX;
+		float posY = m_fPosY - m_nHeight * m_fScale / 2;
+		shared_ptr<Bullet> bullet = make_shared<Bullet>(posX, posY, 0, 0, 1.0f, 300.0f);
+		if (bullet)
+		{
+			bullet->SetOwnerPawn(weak_from_this());
+			bullet->Init(L"Missile01", L"Resources/Image/missile01.bmp");
+			bullet->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet);
 		}
 	}

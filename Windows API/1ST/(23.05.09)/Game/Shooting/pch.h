@@ -5,6 +5,13 @@
 
 #pragma comment(lib, "Engine.lib")
 
+enum class PAWN_TYPE
+{
+	NONE = 0,
+	PLAYER,
+	ENEMY,
+};
+
 enum class ENEMY_TYPE
 {
 	ENEMY_01 = 0,

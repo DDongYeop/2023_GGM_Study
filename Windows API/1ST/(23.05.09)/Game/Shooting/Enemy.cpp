@@ -10,6 +10,7 @@ Enemy::Enemy() : Pawn(0, 0)
 	m_fCreationTime = 1.0f;
 	m_fCurrentTime = 0.0f;
 	m_fAngle = 90.0f * PI / 180.0f;
+	m_ePawnType = PAWN_TYPE::ENEMY;
 }
 
 Enemy::Enemy(float x, float y, int width, int height, float scale, float speed, ENEMY_TYPE type) : Pawn(x, y, width, height, scale, speed)
@@ -19,6 +20,7 @@ Enemy::Enemy(float x, float y, int width, int height, float scale, float speed, 
 	m_fCreationTime = 1.0f;
 	m_fCurrentTime = 0.0f;
 	m_fAngle = 90.0f * PI / 180.0f;
+	m_ePawnType = PAWN_TYPE::ENEMY;
 }
 
 Enemy::~Enemy()
@@ -110,7 +112,14 @@ void Enemy::Release()
 		m_imageEnemy->Release();
 
 	if (m_hpBar)
-		Release();
+		m_hpBar->Release();
+}
+
+void Enemy::OnDamageProcess(float damage)
+{
+	Pawn::OnDamageProcess(damage);
+
+	GET_SINGLE(SoundManager)->Play(L"hit", 0.5f);
 }
 
 void Enemy::CreateBullet()
@@ -123,6 +132,7 @@ void Enemy::CreateBullet()
 			bullet->SetAngle(90.0f * PI / 180.0f);
 			bullet->SetOwnerPawn(weak_from_this());
 			bullet->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
+			bullet->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet);
 		}
 	}
@@ -134,6 +144,7 @@ void Enemy::CreateBullet()
 			bullet->SetAngle(90.0f * PI / 180.0f);
 			bullet->SetOwnerPawn(weak_from_this());
 			bullet->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
+			bullet->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet);
 		}
 		shared_ptr<Bullet> bullet2 = make_shared<Bullet>(m_fPosX, m_fPosY + m_nHeight);
@@ -142,6 +153,7 @@ void Enemy::CreateBullet()
 			bullet2->SetAngle(90.0f * PI / 180.0f);
 			bullet2->SetOwnerPawn(weak_from_this());
 			bullet2->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
+			bullet2->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet2);
 		}
 	}
@@ -156,6 +168,7 @@ void Enemy::CreateBullet()
 			bullet3->SetAngle(angle);
 			bullet3->SetOwnerPawn(weak_from_this());
 			bullet3->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
+			bullet3->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet3);
 		}
 	}
@@ -167,6 +180,7 @@ void Enemy::CreateBullet()
 			bullet4->SetAngle(90.0f * PI / 180.0f);
 			bullet4->SetOwnerPawn(weak_from_this());
 			bullet4->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
+			bullet4->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet4);
 		}
 		shared_ptr<Bullet> bullet5 = make_shared<Bullet>(m_fPosX, m_fPosY);
@@ -175,6 +189,7 @@ void Enemy::CreateBullet()
 			bullet5->SetAngle(105.0f * PI / 180.0f);
 			bullet5->SetOwnerPawn(weak_from_this());
 			bullet5->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
+			bullet5->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet5);
 		}
 		shared_ptr<Bullet> bullet6 = make_shared<Bullet>(m_fPosX, m_fPosY);
@@ -183,6 +198,7 @@ void Enemy::CreateBullet()
 			bullet6->SetAngle(75.0f * PI / 180.0f);
 			bullet6->SetOwnerPawn(weak_from_this());
 			bullet6->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
+			bullet6->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet6);
 		}
 	}
@@ -199,6 +215,7 @@ void Enemy::CreateBullet()
 					bullet->SetAngle(2 * PI / 10 * i);
 					bullet->SetOwnerPawn(weak_from_this());
 					bullet->Init(L"projectile05_3", L"Resources/Image/projectile05_3.bmp");
+					bullet->SetDamage(m_fDamage);
 					GET_SINGLE(BulletManager)->CreateBullet(bullet);
 				}
 			}
@@ -213,6 +230,7 @@ void Enemy::CreateBullet()
 					bullet->SetAngle(PI / 10 * i);
 					bullet->SetOwnerPawn(weak_from_this());
 					bullet->Init(L"projectile03_3", L"Resources/Image/projectile03_3.bmp");
+					bullet->SetDamage(m_fDamage);
 					GET_SINGLE(BulletManager)->CreateBullet(bullet);
 				}
 			}
@@ -230,6 +248,7 @@ void Enemy::CreateBullet()
 					bullet3->SetAngle(angle);
 					bullet3->SetOwnerPawn(weak_from_this());
 					bullet3->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
+					bullet3->SetDamage(m_fDamage);
 					GET_SINGLE(BulletManager)->CreateBullet(bullet3);
 				}
 			}

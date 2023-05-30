@@ -16,5 +16,7 @@ public:
 
 private:
 	shared_ptr<Player>	m_player;
+
+	GAME_STAGE			m_eStage;
 };
 
