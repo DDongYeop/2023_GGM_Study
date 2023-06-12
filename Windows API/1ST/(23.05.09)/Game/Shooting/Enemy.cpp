@@ -37,18 +37,22 @@ void Enemy::Init()
 		switch (m_eEnemyType)
 		{
 		case ENEMY_TYPE::ENEMY_01:
+			m_nScore = 1;
 			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Enemy01", L"Resources/Image/Enemy01.bmp");
 			break;
 		case ENEMY_TYPE::ENEMY_02:
+			m_nScore = 3; 
 			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Enemy02", L"Resources/Image/Enemy02.bmp");
 			break;
 		case ENEMY_TYPE::ENEMY_03:
+			m_nScore = 5; 
 			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Enemy03", L"Resources/Image/Enemy03.bmp");
 			break;
 		case ENEMY_TYPE::ENEMY_04:
 			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Enemy04", L"Resources/Image/Enemy04.bmp");
 			break;
 		case ENEMY_TYPE::BOSS:
+			m_nScore = 100; 
 			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Boss", L"Resources/Image/Boss.bmp");
 			break;
 		default:
@@ -66,6 +70,16 @@ void Enemy::Init()
 			m_hpBar->Init(L"Resources/Image/bar_front_green.bmp", L"Resources/Image/bar_back.bmp", m_fPosX - (m_nWidth * m_fScale) / 2, m_fPosY + (m_nHeight * m_fScale) / 2, int(m_nWidth * m_fScale), 10);
 		}
 	}
+
+	RECT rt;
+	if (!g_Engine)
+		return;
+
+	GetClientRect(g_Engine->GetWndHandle(), &rt);
+	m_fStartX = rt.left + m_nWidth;
+	m_fEndX = rt.right - m_nWidth;
+	m_fStartY = rt.top + m_nHeight;
+	m_fEndY = rt.bottom / 3;
 }
 
 void Enemy::Update(float dt)
@@ -73,12 +87,26 @@ void Enemy::Update(float dt)
 	m_fPosX += cosf(m_fAngle) * m_fSpeed * dt;
 	m_fPosY += sinf(m_fAngle) * m_fSpeed * dt;
 
-	RECT rt;
-	GetClientRect(g_Engine->GetWndHandle(), &rt);
-	rt.bottom = rt.bottom / 3;
-	if (!PtInRect(&rt, POINT{ (int)m_fPosX, (int)m_fPosY }))
+	// 몬스터의 이동 구간 제어 
+	if (m_fPosX <= m_fStartX)
 	{
-		m_fSpeed *= -1;
+		m_fPosX = m_fStartX;
+		m_fSpeed = abs(m_fSpeed);
+	}
+	else if (m_fPosX >= m_fEndX)
+	{
+		m_fPosX = m_fEndX;
+		m_fSpeed = -m_fSpeed;
+	}
+	else if (m_fPosY <= m_fStartY)
+	{
+		m_fPosY = m_fStartY;
+		m_fSpeed = abs(m_fSpeed);
+	}
+	else if (m_fPosY >= m_fEndY)
+	{
+		m_fPosY = m_fEndY;
+		m_fSpeed = -m_fSpeed;
 	}
 
 	m_fCurrentTime += dt;

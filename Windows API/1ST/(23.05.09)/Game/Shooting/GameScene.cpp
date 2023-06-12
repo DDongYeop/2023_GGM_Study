@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "BulletManager.h"
 #include "EnemyManager.h"
+#include "BackGround.h"
 
 GameScene::GameScene()
 {
@@ -17,6 +18,12 @@ void GameScene::Init()
 	srand((unsigned int)time(nullptr));
 
 	m_eStage = GAME_STAGE::STAGE_01;
+
+	int nWidth = g_Engine->GetWidth();
+	int nHeight = g_Engine->GetHeight();
+	m_scrollBG = make_shared<BackGround>(0, 0, nWidth, nHeight);
+	if (m_scrollBG)
+		m_scrollBG->Init();
 
 	m_player = make_shared<Player>(250, 600, 0, 0, .75f, 200.0f);
 	if (m_player)
@@ -35,12 +42,15 @@ void GameScene::Init()
 
 void GameScene::Update(float dt)
 {
+	if (m_scrollBG)
+		m_scrollBG->Update(dt);
+
 	if (m_player)
 	{
 		m_player->Update(dt);
 
 		if (m_player->GetHP() <= 0)
-			GET_SINGLE(SceneManager)->LoadScene(L"GameScene");
+			GET_SINGLE(SceneManager)->LoadScene(L"IntroScene");
 	}
 
 	GET_SINGLE(EnemyManager)->Update(dt);
@@ -56,6 +66,9 @@ void GameScene::Update(float dt)
 
 void GameScene::Render(HDC hdc)
 {
+	if (m_scrollBG)
+		m_scrollBG->Render(hdc);
+
 	if (m_player)
 	{
 		m_player->Render(hdc);
@@ -68,6 +81,9 @@ void GameScene::Render(HDC hdc)
 
 void GameScene::Release()
 {
+	if (m_scrollBG)
+		m_scrollBG->Release();
+
 	if (m_player)
 	{
 		m_player->Release();

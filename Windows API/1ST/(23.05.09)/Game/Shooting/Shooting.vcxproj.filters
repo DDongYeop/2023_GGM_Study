@@ -61,6 +61,12 @@
     <ClInclude Include="EnemyManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -95,6 +101,12 @@
     </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

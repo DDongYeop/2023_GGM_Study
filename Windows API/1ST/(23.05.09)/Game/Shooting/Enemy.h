@@ -38,6 +38,11 @@ private:
 	float						m_fCreationTime;
 	float						m_fCurrentTime;
 	ENEMY_TYPE					m_eEnemyType;
+	float						m_fStartType;
+	float						m_fStartX;
+	float						m_fEndX;
+	float						m_fStartY;
+	float						m_fEndY;
 
 	weak_ptr<Pawn>				m_player;
 	shared_ptr<Image>			m_imageEnemy;

@@ -2,6 +2,8 @@
 #include "Scene.h"
 
 class Player;
+class BackGround;
+
 class GameScene : public Scene
 {
 public:
@@ -16,6 +18,7 @@ public:
 
 private:
 	shared_ptr<Player>	m_player;
+	shared_ptr<BackGround> m_scrollBG;
 
 	GAME_STAGE			m_eStage;
 };

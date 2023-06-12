@@ -8,6 +8,7 @@ Player::Player() : Pawn(0, 0)
 	m_nLevel = 1;
 	m_nTotalScore = 0;
 	m_ePawnType = PAWN_TYPE::PLAYER;
+	memset(m_nLevelUp, 0, sizeof(m_nLevelUp));
 }
 
 Player::Player(float x, float y, int width, int height, float scale, float speed) : Pawn(x, y, width, height, scale, speed)
@@ -15,6 +16,7 @@ Player::Player(float x, float y, int width, int height, float scale, float speed
 	m_nLevel = 1;
 	m_nTotalScore = 0;
 	m_ePawnType = PAWN_TYPE::PLAYER;
+	memset(m_nLevelUp, 0, sizeof(m_nLevelUp));
 }
 
 Player::~Player()
@@ -38,6 +40,11 @@ void Player::Init()
 	if (m_hpBar)
 	{
 		m_hpBar->Init(L"Resources/Image/bar_front_red.bmp", L"Resources/Image/bar_back.bmp", m_fPosX - (m_nWidth * m_fScale) / 2, m_fPosY + (m_nHeight * m_fScale) / 2, int(m_nWidth * m_fScale), 10);
+	}
+
+	for (int i = 0; i < 10; ++i)
+	{
+		m_nLevelUp[i] = i * 10;
 	}
 }
 
@@ -93,8 +100,11 @@ void Player::OnCollisionProcess(float score)
 {
 	m_nTotalScore += score;
 
-	if (m_nTotalScore % 10 == 0)
+	//레벨업 코드
+	if (m_nLevel > 0 && m_nLevel < 10 && m_nTotalScore >= m_nLevelUp[m_nLevel])
+	{
 		m_nLevel++;
+	}
 }
 
 void Player::CreateBullet()
@@ -112,7 +122,7 @@ void Player::CreateBullet()
 			GET_SINGLE(BulletManager)->CreateBullet(bullet);
 		}
 	}
-	else if (m_nLevel == 1)
+	else if (m_nLevel == 2)
 	{
 		float posX = m_fPosX;
 		float posY = m_fPosY - m_nHeight * m_fScale / 2;
@@ -125,17 +135,54 @@ void Player::CreateBullet()
 			GET_SINGLE(BulletManager)->CreateBullet(bullet);
 		}
 	}
-	else
+	else if (m_nLevel == 3)
 	{
 		float posX = m_fPosX;
 		float posY = m_fPosY - m_nHeight * m_fScale / 2;
-		shared_ptr<Bullet> bullet = make_shared<Bullet>(posX, posY, 0, 0, 1.0f, 300.0f);
+		shared_ptr<Bullet> bullet = make_shared<Bullet>(posX - 10, posY, 0, 0, 1.0f, 300.0f);
+		shared_ptr<Bullet> bullet2 = make_shared<Bullet>(posX + 10, posY, 0, 0, 1.0f, 300.0f);
 		if (bullet)
 		{
 			bullet->SetOwnerPawn(weak_from_this());
 			bullet->Init(L"Missile01", L"Resources/Image/missile01.bmp");
 			bullet->SetDamage(m_fDamage);
 			GET_SINGLE(BulletManager)->CreateBullet(bullet);
+		}
+		if (bullet)
+		{
+			bullet2->SetOwnerPawn(weak_from_this());
+			bullet2->Init(L"Missile01", L"Resources/Image/missile01.bmp");
+			bullet2->SetDamage(m_fDamage);
+			GET_SINGLE(BulletManager)->CreateBullet(bullet2);
+		}
+	}
+	else
+	{
+		float posX = m_fPosX;
+		float posY = m_fPosY - m_nHeight * m_fScale / 2;
+		shared_ptr<Bullet> bullet = make_shared<Bullet>(posX - 10, posY, 0, 0, 1.0f, 300.0f);
+		shared_ptr<Bullet> bullet2 = make_shared<Bullet>(posX + 10, posY, 0, 0, 1.0f, 300.0f);
+		shared_ptr<Bullet> bullet3 = make_shared<Bullet>(posX, posY, 0, 0, 1.0f, 300.0f);
+		if (bullet)
+		{
+			bullet->SetOwnerPawn(weak_from_this());
+			bullet->Init(L"Missile01", L"Resources/Image/missile01.bmp");
+			bullet->SetDamage(m_fDamage + m_nLevel);
+			GET_SINGLE(BulletManager)->CreateBullet(bullet);
+		}
+		if (bullet)
+		{
+			bullet2->SetOwnerPawn(weak_from_this());
+			bullet2->Init(L"Missile01", L"Resources/Image/missile01.bmp");
+			bullet2->SetDamage(m_fDamage + m_nLevel);
+			GET_SINGLE(BulletManager)->CreateBullet(bullet2);
+		}
+		if (bullet3)
+		{
+			bullet3->SetOwnerPawn(weak_from_this());
+			bullet3->Init(L"Missile01", L"Resources/Image/missile01.bmp");
+			bullet3->SetDamage(m_fDamage + m_nLevel);
+			GET_SINGLE(BulletManager)->CreateBullet(bullet3);
 		}
 	}
 }

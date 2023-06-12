@@ -22,6 +22,7 @@ public:
 private:
 	int						m_nLevel;
 	int						m_nTotalScore;
+	int						m_nLevelUp[10];
 	shared_ptr<Image>		m_imagePlayer;
 	shared_ptr<ProgressBar>	m_hpBar;
 };
