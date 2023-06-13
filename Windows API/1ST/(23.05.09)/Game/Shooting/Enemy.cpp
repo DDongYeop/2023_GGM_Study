@@ -49,7 +49,16 @@ void Enemy::Init()
 			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Enemy03", L"Resources/Image/Enemy03.bmp");
 			break;
 		case ENEMY_TYPE::ENEMY_04:
+			m_nScore = 7;
 			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Enemy04", L"Resources/Image/Enemy04.bmp");
+			break;
+		case ENEMY_TYPE::ENEMY_05:
+			m_nScore = 9;
+			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Enemy05", L"Resources/Image/Enemy05.bmp");
+			break;
+		case ENEMY_TYPE::ENEMY_06:
+			m_nScore = 11;
+			m_imageEnemy = GET_SINGLE(ImageManager)->AddImage(L"Enemy06", L"Resources/Image/Enemy06.bmp");
 			break;
 		case ENEMY_TYPE::BOSS:
 			m_nScore = 100; 
@@ -230,9 +239,41 @@ void Enemy::CreateBullet()
 			GET_SINGLE(BulletManager)->CreateBullet(bullet6);
 		}
 	}
+	if (m_eEnemyType == ENEMY_TYPE::ENEMY_05)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			int index = -20 + (i * 20);
+
+			shared_ptr<Bullet> bullet = make_shared<Bullet>(m_fPosX + index, m_fPosY);
+			if (bullet)
+			{
+				bullet->SetAngle(90.0f * PI / 180.0f);
+				bullet->SetOwnerPawn(weak_from_this());
+				bullet->Init(L"missile02", L"Resources/Image/missile02.bmp");
+				bullet->SetDamage(m_fDamage);
+				GET_SINGLE(BulletManager)->CreateBullet(bullet);
+			}
+		}
+	}
+	if (m_eEnemyType == ENEMY_TYPE::ENEMY_06)
+	{
+		for (int i = 0; i < 10; ++i)
+		{
+			shared_ptr<Bullet> bullet = make_shared<Bullet>(m_fPosX, m_fPosY);
+			if (bullet)
+			{
+				bullet->SetAngle(2 * PI / 10 * i);
+				bullet->SetOwnerPawn(weak_from_this());
+				bullet->Init(L"missile02", L"Resources/Image/missile02.bmp");
+				bullet->SetDamage(m_fDamage);
+				GET_SINGLE(BulletManager)->CreateBullet(bullet);
+			}
+		}
+	}
 	else if (m_eEnemyType == ENEMY_TYPE::BOSS)
 	{
-		int nRandom = rand() % 3;
+		int nRandom = rand() % 4;
 		if (nRandom == 0)
 		{
 			for (int i = 0; i < 10; ++i)
@@ -263,7 +304,7 @@ void Enemy::CreateBullet()
 				}
 			}
 		}
-		else
+		else if (nRandom == 2)
 		{
 			auto player = m_player.lock();
 			
@@ -278,6 +319,21 @@ void Enemy::CreateBullet()
 					bullet3->Init(L"projectile04_3", L"Resources/Image/projectile04_3.bmp");
 					bullet3->SetDamage(m_fDamage);
 					GET_SINGLE(BulletManager)->CreateBullet(bullet3);
+				}
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 10; ++i)
+			{
+				shared_ptr<Bullet> bullet = make_shared<Bullet>(m_fPosX, 100 + i * 100);
+				if (bullet)
+				{
+					bullet->SetAngle(0 / 10);
+					bullet->SetOwnerPawn(weak_from_this());
+					bullet->Init(L"projectile05_3", L"Resources/Image/projectile05_3.bmp");
+					bullet->SetDamage(m_fDamage);
+					GET_SINGLE(BulletManager)->CreateBullet(bullet);
 				}
 			}
 		}

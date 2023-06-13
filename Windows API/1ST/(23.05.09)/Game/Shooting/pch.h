@@ -18,6 +18,8 @@ enum class ENEMY_TYPE
 	ENEMY_02,
 	ENEMY_03,
 	ENEMY_04,
+	ENEMY_05,
+	ENEMY_06,
 	BOSS,
 };
 
@@ -27,5 +29,8 @@ enum class GAME_STAGE
 	STAGE_02,
 	STAGE_03,
 	STAGE_04,
-	STAGE_BOSS
+	STAGE_05,
+	STAGE_06,
+	STAGE_BOSS,
+	Clear
 };

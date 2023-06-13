@@ -50,7 +50,7 @@ void GameScene::Update(float dt)
 		m_player->Update(dt);
 
 		if (m_player->GetHP() <= 0)
-			GET_SINGLE(SceneManager)->LoadScene(L"IntroScene");
+			GET_SINGLE(SceneManager)->LoadScene(L"LoseScene");
 	}
 
 	GET_SINGLE(EnemyManager)->Update(dt);

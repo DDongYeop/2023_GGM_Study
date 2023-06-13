@@ -119,6 +119,38 @@ void EnemyManager::CreateEnemy(GAME_STAGE stage)
 			}
 		}
 		break;
+	case GAME_STAGE::STAGE_05:
+		for (int i = 0; i < 4; ++i)
+		{
+			shared_ptr<Enemy> enemy = make_shared<Enemy>(100 + i * 100, 100, 0, 0, 1.0f, 50.0f, ENEMY_TYPE::ENEMY_05);
+			if (enemy)
+			{
+				enemy->SetPlayer(m_player);
+				enemy->SetMaxHP(100);
+				enemy->SetHP(100);
+				enemy->SetMaxCreation(3.0f);
+				enemy->SetAngle(90.0f * PI / 180.0f);
+				enemy->Init();
+				m_Enemies.push_back(enemy);
+			}
+		}
+		break;
+	case GAME_STAGE::STAGE_06:
+		for (int i = 0; i < 4; ++i)
+		{
+			shared_ptr<Enemy> enemy = make_shared<Enemy>(100 + i * 100, 100, 0, 0, 1.0f, 50.0f, ENEMY_TYPE::ENEMY_06);
+			if (enemy)
+			{
+				enemy->SetPlayer(m_player);
+				enemy->SetMaxHP(100);
+				enemy->SetHP(100);
+				enemy->SetMaxCreation(3.0f);
+				enemy->SetAngle(90.0f * PI / 180.0f);
+				enemy->Init();
+				m_Enemies.push_back(enemy);
+			}
+		}
+		break;
 	case GAME_STAGE::STAGE_BOSS:
 	{
 		shared_ptr<Enemy> enemy = make_shared<Enemy>(g_Engine->GetWidth()/2, 100, 0, 0, 1.0f, 50.0f, ENEMY_TYPE::BOSS);
@@ -133,6 +165,9 @@ void EnemyManager::CreateEnemy(GAME_STAGE stage)
 			m_Enemies.push_back(enemy);
 		}
 	}
+		break;
+	case GAME_STAGE::Clear:
+		GET_SINGLE(SceneManager)->LoadScene(L"ClearScene");
 		break;
 	default:
 		break;

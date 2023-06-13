@@ -67,6 +67,12 @@
     <ClInclude Include="IntroScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="ClearScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -106,6 +112,12 @@
       <Filter>Actor</Filter>
     </ClCompile>
     <ClCompile Include="IntroScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ClearScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="LoseScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
