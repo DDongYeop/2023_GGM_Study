@@ -1,0 +1,29 @@
+cd C:\Program Files\MySQL\MySQL Server 8.0\bin
+
+mysql -h localhost -u root -p
+(이후 비밀번호)
+
+CREATE SCHEMA nodejs DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;
+
+use nodejs;
+
+CREATE TABLE nodejs.users (
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(20) NOT NULL,
+age INT UNSIGNED NOT NULL,
+married TINYINT NOT NULL,
+comment TEXT NULL,
+created_at DATETIME NOT NULL DEFAULT now(),
+PRIMARY KEY(id),
+UNIQUE INDEX name_UNIQUE (name ASC))
+COMMENT = '사용자 정보'
+ENGINE = InnoDB;
+
+DESC users;
+
+INSERT INTO nodejs.users (name, age, married, comment) VALUES ('zero', 24, 0, '자기소개1');
+INSERT INTO nodejs.users (name, age, married, comment) VALUES ('nero', 32, 1, '자기소개2');
+INSERT INTO nodejs. comments (commenter, comment) VALUES (1, '안녕하세요. zero의 댓글입니다');
+
+SELECT * FROM nodejs.users;
+SELECT name, married FROM nodejs.users;

@@ -1,0 +1,20 @@
+npm init
+npm i express
+npm i -D nodemon
+
+npm uninstall 패키지명 //패키지 삭제
+
+npm login
+
+npm i morgan cookie-parser express-sessions
+npm i dotenv
+npm i body-parser
+npm i express-session
+npm i multer
+
+npm i nunjucks
+
+npm i sequelize sequelize-cli mysql2
+npm i -D nodemon 
+
+npx sequelize init
