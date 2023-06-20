@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Shooting", "Shooting\Shooting.vcxproj", "{F44AAD4E-644E-4798-9D6F-2D465F20BA81}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jumping", "Jumping\Jumping.vcxproj", "{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{F44AAD4E-644E-4798-9D6F-2D465F20BA81}.Release|x64.Build.0 = Release|x64
 		{F44AAD4E-644E-4798-9D6F-2D465F20BA81}.Release|x86.ActiveCfg = Release|Win32
 		{F44AAD4E-644E-4798-9D6F-2D465F20BA81}.Release|x86.Build.0 = Release|Win32
+		{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}.Debug|x64.ActiveCfg = Debug|x64
+		{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}.Debug|x64.Build.0 = Debug|x64
+		{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}.Debug|x86.ActiveCfg = Debug|Win32
+		{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}.Debug|x86.Build.0 = Debug|Win32
+		{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}.Release|x64.ActiveCfg = Release|x64
+		{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}.Release|x64.Build.0 = Release|x64
+		{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}.Release|x86.ActiveCfg = Release|Win32
+		{4D5E1A6D-E64B-471E-BEA5-54345B677A3F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
