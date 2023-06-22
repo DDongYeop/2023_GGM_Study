@@ -1,0 +1,3 @@
+npx sequelize db:create
+
+npm i passport passport-local bcrypt
