@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     private VisualElement _root;
 
     private EnemyHPBar _enemyHPBar;
+    private PlayerInfoSection _playerInfo;
 
     [SerializeField]
     private float _enemyBarTimer = 4f, _currentEnemyBarTimer = 0f;
@@ -34,6 +35,20 @@ public class UIManager : MonoBehaviour
         _root = _uiDocument.rootVisualElement;
         VisualElement _hpBarRoot = _root.Q("HPBarRect");
         _enemyHPBar = new EnemyHPBar(_hpBarRoot); //이 클래스가 HPbar랑 1:1로 데이터 바인딩 된다.
+
+        VisualElement playerInfoRoot = _root.Q<VisualElement>("ProfileBox");
+        _playerInfo = new PlayerInfoSection(playerInfoRoot);
+
+        SetUpPlayer();
+    }
+
+    private void SetUpPlayer()
+    {
+        AgentHealth health = GameManager.Instance.PlayerTrm.GetComponent<AgentHealth>();
+        health.OnHealthChanged += (current, max) =>
+        {
+            _playerInfo.HPScale = (float)current / max;
+        };
     }
 
     public void Subscribe(EnemyHealth health)

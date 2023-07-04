@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private PoolingListSO _initPoolList;
+    [SerializeField]
+    private GameObject _UIGameObject;
 
     private Transform _playerTrm;
     public Transform PlayerTrm
@@ -33,6 +35,12 @@ public class GameManager : MonoBehaviour
         CreatePool();
         CreateTimeController();
         CreateCameraManager();
+        ActiveUI();
+    }
+
+    private void ActiveUI()
+    {
+        _UIGameObject.SetActive(true);
     }
 
     private void CreateCameraManager()
@@ -59,7 +67,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
+    //µð¹ö±× ÄÚµå
     //[SerializeField]
     //private LayerMask _whatIsGround;
     //private void Update()

@@ -11,7 +11,8 @@ public class AgentHealth : MonoBehaviour, IDamageable
 
     public Action<int, int> OnHealthChanged;
 
-    [SerializeField] private HealthAndArmorSO _healthAndArmor;
+    [SerializeField]
+    private HealthAndArmorSO _healthAndArmor;
     private int _currentHealth;
 
     private AgentController _agentController;
@@ -24,26 +25,30 @@ public class AgentHealth : MonoBehaviour, IDamageable
     private void Start()
     {
         _currentHealth = _healthAndArmor.MaxHP;
+        OnHealthChanged?.Invoke(_currentHealth, _healthAndArmor.MaxHP);
     }
 
     public void AddHealth(int value)
     {
         _currentHealth = Mathf.Clamp(_currentHealth + value, 0, _healthAndArmor.MaxHP);
+        OnHealthChanged?.Invoke(_currentHealth, _healthAndArmor.MaxHP);
     }
 
     public void OnDamage(int damage, Vector3 point, Vector3 normal)
     {
-        if (_agentController.isDead)
-            return;
+        if (_agentController.IsDead) return;
 
-        int calcDamage = Mathf.CeilToInt(damage - (1 - _healthAndArmor.ArmorValue));
+        int calcDamage = Mathf.CeilToInt(damage * (1 - _healthAndArmor.ArmorValue));
         AddHealth(-calcDamage);
-        
-        if (_currentHealth == 0)
+
+        if(_currentHealth == 0)
+        {
             OnDeadTriggered?.Invoke();
-        else
+        }else
+        {
             _agentController.ChangeState(Core.StateType.OnHit);
-        
+        }
+        OnHealthChanged?.Invoke(_currentHealth, _healthAndArmor.MaxHP);
         OnHitTriggered?.Invoke(calcDamage, point, normal);
     }
 }

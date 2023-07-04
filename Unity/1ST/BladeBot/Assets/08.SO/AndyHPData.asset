@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a10c6c0c9915695468461321baf3d297, type: 3}
+  m_Script: {fileID: 11500000, guid: e9f369e867eff5247b9ba3416d3e7e9b, type: 3}
   m_Name: AndyHPData
   m_EditorClassIdentifier: 
-  MaxHP: 400
+  MaxHP: 100
   ArmorValue: 0.1

@@ -19,11 +19,11 @@ public class AgentAnimator : MonoBehaviour
 
     public event Action OnAnimationEndTrigger = null;
     public event Action OnAnimationEventTrigger = null;
-    public event Action OnPreAnimationEventTrigger = null; //ï¿½ï¿½ï¿½ï¿½Ã­Â¡ ï¿½Ìºï¿½Æ®
+    public event Action OnPreAnimationEventTrigger = null; //ÇÁ¸®Ã­Â¡ ÀÌº¥Æ®
 
     private Animator _animator;
     public Animator Animator => _animator;
-    //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å·
+    //ÀÌ¹ÌÁö ¸ÞÀÌÅ·
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -89,8 +89,8 @@ public class AgentAnimator : MonoBehaviour
 
     public void StopAnimation(bool value)
     {
-        _animator.speed = value ? 0 : 1; //trueï¿½ï¿½ ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ï¿½, 
-        //ï¿½Æ´Ò¶ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½
+        _animator.speed = value ? 0 : 1; //trueÀÏ ¶§ 0À¸·Î ¸¸µé¾î¼­ Á¤Áö, 
+        //¾Æ´Ò¶§ 1·Î ¸¸µé¾î¼­ ´Ù½Ã Àç»ý
     }
 
     public void SetDead()
@@ -99,8 +99,8 @@ public class AgentAnimator : MonoBehaviour
         _animator.SetTrigger(_deadTriggerHash);
     }
 
-    public void SetisHit(bool value)
+    public void SetIsHit(bool value)
     {
-        _animator.SetBool(_isHitHash, value);
+        _animator.SetBool(_isHitHash, value); 
     }
 }

@@ -1,20 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
     public static CameraManager Instance;
-    
+
     private CinemachineVirtualCamera _followCam;
     private CinemachineBasicMultiChannelPerlin _camPerlin;
 
     private float _initPower;
     private float _initTime;
     private float _currentShakeTime;
-
     public void Init(Transform cameraTrm)
     {
         _followCam = cameraTrm.GetComponent<CinemachineVirtualCamera>();
@@ -29,14 +25,14 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        if (_currentShakeTime > 0)
+        if(_currentShakeTime > 0)
         {
             _currentShakeTime -= Time.deltaTime;
 
             float ampGain = Mathf.Lerp(_initPower, 0, _currentShakeTime / _initTime);
             _camPerlin.m_AmplitudeGain = ampGain;
 
-            if (_currentShakeTime <= 0)
+            if(_currentShakeTime <= 0)
             {
                 _currentShakeTime = 0;
                 _camPerlin.m_AmplitudeGain = 0;

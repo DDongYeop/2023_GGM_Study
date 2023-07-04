@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class EnemyBeamAttack : EnemyAttack
 {
-    [SerializeField] private LayerMask _whatIsEnemy;
-    [SerializeField] private Beam _beamPrefab;
-    [SerializeField] private Transform _atkPosTrm;
+    [SerializeField]
+    private LayerMask _whatIsEnemy;
+
+    [SerializeField]
+    private Beam _beamPrefab;
+    [SerializeField]
+    private Transform _atkPosTrm;
 
     private Beam _currentBeam;
 
     public override void Attack(int damage, Vector3 targetVector)
     {
         _currentBeam.FireBeam(damage, targetVector);
-        _currentBeam = null; //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½ ï¿½ï¿½î°¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½Ì°ï¿½ nullï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.
+        _currentBeam = null; //½î°í³ª¸é ÀÚµ¿À¸·Î Ç®·Î µé¾î°¥²¨´Ï±î ÀÌ°Ç null·Î ¸¸µç´Ù.
     }
 
     public override void CancelAttack()
     {
-        if (_currentBeam != null)
-            _currentBeam?.StopBeam();
+        if(_currentBeam != null)
+            _currentBeam.StopBeam();
         _currentBeam = null;
     }
 
@@ -28,7 +32,7 @@ public class EnemyBeamAttack : EnemyAttack
         _currentBeam = PoolManager.Instance.Pop(_beamPrefab.gameObject.name) as Beam;
         _currentBeam.transform.position = _atkPosTrm.position;
         _currentBeam.SetUpLayerMask(_whatIsEnemy);
-        _currentBeam.PreCharging(); //ï¿½ï¿½ï¿½ï¿½Ã­Â¡
+        _currentBeam.PreCharging(); //ÇÁ¸®Ã­Â¡
     }
 
     private void OnDisable()

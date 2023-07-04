@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AgentMovement : MonoBehaviour
 {
-    public bool IsActiveMove = true; //í‚¤ë³´ë“œë¡œ ì´ë™í•˜ëƒ? ì•„ë‹ˆëƒ
+    public bool IsActiveMove = true; //Å°º¸µå·Î ÀÌµ¿ÇÏ³Ä? ¾Æ´Ï³Ä
 
     [SerializeField]
     private float _gravity = -9.8f;
@@ -13,8 +13,8 @@ public class AgentMovement : MonoBehaviour
     private CharacterController _characterController;
 
     private Vector3 _movementVelocity;
-    public Vector3 MovementVelocity => _movementVelocity; //í‰ë©´ì†ë„
-    private float _verticalVelocity; //ì¤‘ë ¥ì†ë„
+    public Vector3 MovementVelocity => _movementVelocity; //Æò¸é¼Óµµ
+    private float _verticalVelocity; //Áß·Â¼Óµµ
 
     private AgentAnimator _animator;
 
@@ -40,8 +40,8 @@ public class AgentMovement : MonoBehaviour
 
     private void CalculatePlayerMovement()
     {
-        //ì—¬ê¸°ê°€ í•µì‹¬
-        _animator?.SetSpeed(_inputVelocity.sqrMagnitude); //ì¶”ê°€ë¨.
+        //¿©±â°¡ ÇÙ½É
+        _animator?.SetSpeed(_inputVelocity.sqrMagnitude); //Ãß°¡µÊ.
 
         _inputVelocity.Normalize();
 
@@ -52,17 +52,17 @@ public class AgentMovement : MonoBehaviour
         if(_movementVelocity.sqrMagnitude > 0)
         {
             transform.rotation = Quaternion.LookRotation(_movementVelocity);
-            //ê°€ì•¼í•  ë°©í–¥ ë³´ê²Œ í•˜ê¸°
+            //°¡¾ßÇÒ ¹æÇâ º¸°Ô ÇÏ±â
         }
     }
 
     public void StopImmediately()
     {
         _movementVelocity = Vector3.zero;
-        _animator?.SetSpeed(_movementVelocity.sqrMagnitude); //ì¶”ê°€ë¨.
+        _animator?.SetSpeed(_movementVelocity.sqrMagnitude); //Ãß°¡µÊ.
     }
 
-    public void SetRotation(Vector3 targetPos)  //ì§€ì ì„ ë°”ë¼ë³´ëŠ” ì½”ë“œ
+    public void SetRotation(Vector3 targetPos)  //ÁöÁ¡À» ¹Ù¶óº¸´Â ÄÚµå
     {
         Vector3 dir = targetPos - transform.position;
         dir.y = 0;
@@ -72,7 +72,7 @@ public class AgentMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if(IsActiveMove)
-            CalculatePlayerMovement(); //í”Œë ˆì´ì–´ ì´ì† ê³„ì‚° (í‚¤ë³´ë“œ ì…ë ¥ì‹œì—ë§Œ 45ë„ê³„ì‚°)
+            CalculatePlayerMovement(); //ÇÃ·¹ÀÌ¾î ÀÌ¼Ó °è»ê (Å°º¸µå ÀÔ·Â½Ã¿¡¸¸ 45µµ°è»ê)
 
         if(_characterController.isGrounded == false)
         {
@@ -80,7 +80,7 @@ public class AgentMovement : MonoBehaviour
         }
         else
         {
-            //0.3ì€ í•˜ë“œì½”ë”©ëœ ê°’
+            //0.3Àº ÇÏµåÄÚµùµÈ °ª
             _verticalVelocity = _gravity * 0.3f * Time.fixedDeltaTime;
         }
 

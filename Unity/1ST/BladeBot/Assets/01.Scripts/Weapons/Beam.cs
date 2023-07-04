@@ -12,11 +12,14 @@ public class Beam : PoolableMono
     private LineRenderer _lineRenderer;
     private Light _beamLight;
 
-    [SerializeField] private float _beamLength = 10f;
+    [SerializeField]
+    private float _beamLength = 10f;
     private LayerMask _whatIsEnemy;
 
-    [SerializeField] private float _beamTime = 0.6f;
-    [SerializeField] private int _beamDamage = 5;
+    [SerializeField]
+    private float _beamTime = 0.6f;
+    [SerializeField]
+    private int _beamDamage = 5;
 
     public override void Init()
     {
@@ -44,15 +47,17 @@ public class Beam : PoolableMono
     public void PreCharging()
     {
         _beamLight.enabled = true;
-        _beamMuzzle.Play(); //ì°¨ì§•ì‹œì‘
+        _beamMuzzle.Play(); //Â÷Â¡½ÃÀÛ
     }
 
     public void FireBeam(int damage, Vector3 targetDir)
     {
-        float r = _lineRenderer.startWidth; //ë¼ì¸ì´ ê·¸ë ¤ì§€ëŠ” ì‹œì‘ ë‘ê»˜
+        float r = _lineRenderer.startWidth; //¶óÀÎÀÌ ±×·ÁÁö´Â ½ÃÀÛ µÎ²²
 
         RaycastHit hit;
-        bool isHit = Physics.SphereCast(transform.position, r, targetDir.normalized, out hit, _beamLength, _whatIsEnemy);
+        bool isHit = Physics.SphereCast(
+            transform.position, r, targetDir.normalized,
+            out hit, _beamLength, _whatIsEnemy);
 
         _lineRenderer.enabled = true;
         _lineRenderer.SetPosition(0, transform.position);
