@@ -36,6 +36,9 @@ public class EnemyController : PoolableMono
 
     private EnemyAttack _enemyAttack;
 
+    [field: SerializeField] 
+    public bool IsActive { get; set; } = false;
+
     protected virtual void Awake()
     {
         _vfxManager = GetComponent<EnemyVFXManager>();
@@ -48,7 +51,7 @@ public class EnemyController : PoolableMono
         List<CommonAIState> _states = new List<CommonAIState>();
         transform.Find("AI").GetComponentsInChildren<CommonAIState>(_states);
 
-        _states.ForEach(s => s.SetUp(transform)); //¿©±â¼­ ¼Â¾÷ÀÌ ½ÃÀÛµÇ´Â °Å
+        _states.ForEach(s => s.SetUp(transform)); //ï¿½ï¿½ï¿½â¼­ ï¿½Â¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÛµÇ´ï¿½ ï¿½ï¿½
 
         Transform anyTranTrm = transform.Find("AI/AnyTransitions");
         if(anyTranTrm != null)
@@ -57,7 +60,7 @@ public class EnemyController : PoolableMono
             _anyTransitions.ForEach(t => t.SetUp(transform));
         }
 
-        _enemyAttack = GetComponent<EnemyAttack>(); //°ø°Ý °¡Á®¿À±â
+        _enemyAttack = GetComponent<EnemyAttack>(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         _initState = _currentState;
     }
@@ -65,8 +68,8 @@ public class EnemyController : PoolableMono
     protected virtual void Start()
     {
         _targetTrm = GameManager.Instance.PlayerTrm;
-        _navMovement.SetSpeed(_enemyData.MoveSpeed); //ÀÌµ¿¼Óµµ ¼³Á¤
-        EnemyHealthCompo.SetMaxHP(_enemyData.MaxHP); //Ã¼·Â¼³Á¤
+        _navMovement.SetSpeed(_enemyData.MoveSpeed); //ï¿½Ìµï¿½ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
+        EnemyHealthCompo.SetMaxHP(_enemyData.MaxHP); //Ã¼ï¿½Â¼ï¿½ï¿½ï¿½
     }
 
     public void ChangeState(CommonAIState state)
@@ -78,7 +81,7 @@ public class EnemyController : PoolableMono
 
     protected virtual void Update()
     {
-        if (IsDead) return;
+        if (IsDead || !IsActive) return;
         _currentState?.UpdateState();
     }
 
@@ -87,22 +90,22 @@ public class EnemyController : PoolableMono
     {
         IsDead = true;
         _navMovement.StopNavigation();
-        _agentAnimator.StopAnimation(true); //¾Ö´Ï¸ÞÀÌ¼Ç Á¤Áö
+        _agentAnimator.StopAnimation(true); //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         _navMovement.KnockBack(() =>
         {
-            _agentAnimator.StopAnimation(false); //¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý ´Ù½Ã ½ÃÀÛ
-            _agentAnimator.SetDead(); //»ç¸Á¾Ö´Ï¸ÞÀÌ¼Ç Ã³¸®
+            _agentAnimator.StopAnimation(false); //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            _agentAnimator.SetDead(); //ï¿½ï¿½ï¿½ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ Ã³ï¿½ï¿½
 
             MonoFunction.Instance.AddCoroutine(() =>
             {
                 OnAfterDeathTrigger?.Invoke();
-            }, 1.5f); //1.5ÃÊÈÄ¿¡ ÇÁµå¹é ½ÇÇà
+            }, 1.5f); //1.5ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         });
     }
 
     public override void Init()
     {
-        IsDead = false;  //ÀÌ°Å Ãß°¡ 
+        IsDead = false;  //ï¿½Ì°ï¿½ ï¿½ß°ï¿½ 
         EnemyHealthCompo.SetMaxHP(EnemyData.MaxHP);
         _navMovement.ResetNavAgent();
         ChangeState(_initState);
@@ -114,7 +117,7 @@ public class EnemyController : PoolableMono
     }
 
 
-    #region °ø°Ý°ü·Ã ¸Å¼­µå
+    #region ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ ï¿½Å¼ï¿½ï¿½ï¿½
     public void AttackWeapon(int damage, Vector3 targetDir)
     {
         _enemyAttack.Attack(damage, targetDir);
