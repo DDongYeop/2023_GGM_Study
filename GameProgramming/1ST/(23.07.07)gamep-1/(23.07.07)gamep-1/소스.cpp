@@ -34,11 +34,49 @@ int Sub(int x, int y)
 class Item
 {
 public:
-	int m_itemid; // 아 
+	Item() : m_itemid(0), m_rarity(0), m_userid(0) {}
+public:
+	int m_itemid; // 아이템 아이디
+	int m_rarity; // 아이템 등급
+	int m_userid; // 아이템 주인id
 };
+
+typedef bool (SELECTOR)(Item* _item, int index);
+
+bool IsRareitem(Item* _item)
+{
+	return _item->m_rarity >= 3;
+}
+
+bool IsUserItem(Item* _item, int _userid)
+{
+	return _item->m_userid == _userid;
+}
+
+//Item* Finditem(Item _items[], int _itemcnt, int _itemid)
+Item* Finditem(Item _items[], int _itemcnt, SELECTOR* _select)
+{
+	for (int i = 0; i < _itemcnt; i++)
+	{
+		Item* item = &_items[i];
+		//어떤 조건 성립하면 return
+		if (_select(item, 2))
+			return item;
+	}
+	return nullptr;
+}
+
+// 함수객체, 람다,functional 
 
 int main()
 {
+	Item items[10];
+	items[2].m_itemid = 2;
+	items[2].m_rarity = 4;
+	//Item* selectitem = Finditem(items, 10, IsRareitem);
+	Item* selectitem = Finditem(items, 10, IsUserItem);
+	cout << selectitem->m_itemid << '\n';
+
 	/*
 	typedef int ia;
 	ia ab = 10;
@@ -63,7 +101,7 @@ int main()
 	fn = Add; // Sub로 바꾸면 SUb가 출력 된다
 
 	//두개 같은 값 출력
-	int result = fn(1, 2);
+	//int result = fn(1, 2);
 	int result2 = (*fn)(1, 2);
 	int result = Add(1, 2);
 
