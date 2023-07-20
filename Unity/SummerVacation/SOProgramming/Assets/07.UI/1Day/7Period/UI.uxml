@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: space-around; flex-direction: column;">
+        <ui:VisualElement name="Card" style="flex-grow: 0; background-color: rgb(0, 0, 0); width: 400px; height: 621px; align-items: center; justify-content: center;">
+            <ui:VisualElement name="Icon" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); width: 250px; height: 250px; margin-bottom: 59px;" />
+            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="Name" style="width: 267px; color: rgb(255, 255, 255); font-size: 28px; -unity-text-align: upper-center;" />
+            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="Type" style="width: 267px; color: rgb(255, 255, 255); font-size: 28px; -unity-text-align: upper-center;" />
+            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="Price" style="width: 267px; color: rgb(255, 255, 255); font-size: 28px; -unity-text-align: upper-center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
