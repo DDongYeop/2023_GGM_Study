@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f442401ecc24af584db8e4fe2d6c0d, type: 3}
+  m_Name: PantsType_2
+  m_EditorClassIdentifier: 
+  itemType: 3
+  getFlagStackable: 0
+  itemIcon: {fileID: 21300000, guid: 996a7d37203c34b5783c7c3ebfe4c68c, type: 3}
+  objModelPrefab: {fileID: 100022, guid: a21dffdbb678b38439d8c5954c371701, type: 3}
+  itemData:
+    item_id: 11
+    item_name: PantsType_2
+    ability:
+    - characterStack: 1
+      valStack: 0
+      min: 10
+      max: 100
+  boneNameLists:
+  - Character Pelvis
+  - Character Spine
+  - Character L Thigh
+  - Character L Calf
+  - Character L Foot
+  - Character L Toe0
+  - Character R Thigh
+  - Character R Calf
+  - Character R Foot
+  - Character R Toe0
+  itemSummery: 

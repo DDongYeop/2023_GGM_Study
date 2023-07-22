@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f442401ecc24af584db8e4fe2d6c0d, type: 3}
+  m_Name: Bread
+  m_EditorClassIdentifier: 
+  itemType: 7
+  getFlagStackable: 1
+  itemIcon: {fileID: 21300000, guid: 1a58749f555f75e48baa41893215b26e, type: 3}
+  objModelPrefab: {fileID: 0}
+  itemData:
+    item_id: 10
+    item_name: 
+    ability:
+    - characterStack: 0
+      valStack: 10
+      min: 10
+      max: 100
+  boneNameLists: []
+  itemSummery: 

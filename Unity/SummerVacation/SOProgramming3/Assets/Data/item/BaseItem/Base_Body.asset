@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f442401ecc24af584db8e4fe2d6c0d, type: 3}
+  m_Name: Base_Body
+  m_EditorClassIdentifier: 
+  itemType: 2
+  getFlagStackable: 0
+  itemIcon: {fileID: 21300000, guid: 2cffbc6f42f5e4442a9ff325d820c4c3, type: 3}
+  objModelPrefab: {fileID: 100000, guid: 0785e19d7558bf542ac3ec73faaf7709, type: 3}
+  itemData:
+    item_id: 2
+    item_name: BaseBody
+    ability:
+    - characterStack: 1
+      valStack: 0
+      min: 10
+      max: 100
+  boneNameLists:
+  - Character Spine2
+  - Character L Clavicle
+  - Character Spine1
+  - Character L UpperArm
+  - Character L Forearm
+  - Character Neck
+  - Character Head
+  - Character Spine
+  - Character L Hand
+  - Character L Finger0
+  - Character L Finger01
+  - Character L Finger1
+  - Character L Finger11
+  - Character L Finger12
+  - Character L Finger3
+  - Character L Finger2
+  - Character L Finger21
+  - Character L Finger22
+  - Character L Finger31
+  - Character L Finger32
+  - Character L Finger4
+  - Character L Finger41
+  - Character L Finger42
+  - Character L Finger02
+  - Character R Clavicle
+  - Character R UpperArm
+  - Character R Forearm
+  - Character R Hand
+  - Character R Finger0
+  - Character R Finger01
+  - Character R Finger1
+  - Character R Finger11
+  - Character R Finger12
+  - Character R Finger2
+  - Character R Finger3
+  - Character R Finger4
+  - Character R Finger21
+  - Character R Finger22
+  - Character R Finger31
+  - Character R Finger32
+  - Character R Finger41
+  - Character R Finger42
+  - Character R Finger02
+  itemSummery: 

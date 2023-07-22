@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f8bb8b4eeef94f429535c1f183c919d, type: 3}
+  m_Name: EInvnetoryObject
+  m_EditorClassIdentifier: 
+  itemDBObj: {fileID: 11400000, guid: c7fffcf8dcb3042f4bc65cd658e20506, type: 2}
+  type: 1
+  inventory:
+    InvenSlots:
+    - itemTypes: 00000000
+      item:
+        item_id: -1
+        item_name: 
+        ability: []
+      itemCnt: 0
+    - itemTypes: 01000000
+      item:
+        item_id: -1
+        item_name: Hear_1
+        ability:
+        - characterStack: 1
+          valStack: 34
+          min: 10
+          max: 100
+      itemCnt: 1
+    - itemTypes: 02000000
+      item:
+        item_id: -1
+        item_name: Legs_1
+        ability:
+        - characterStack: 1
+          valStack: 68
+          min: 10
+          max: 100
+      itemCnt: 1
+    - itemTypes: 03000000
+      item:
+        item_id: -1
+        item_name: 
+        ability: []
+      itemCnt: 0
