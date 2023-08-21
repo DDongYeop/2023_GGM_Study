@@ -1,61 +1,78 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _gravity = -9.8f;
-    [SerializeField] private float _gravityMultiplier = 1f;
-    [SerializeField] private float _jumpPower = 3f;
+    [SerializeField] private float _jumpPower = 4f;
+
+    private PlayerInput _playerInput;
+    [SerializeField] private Transform _rootTrm; //방향측정을 위한 루트
+
+    private float _gravityMultiplier = 1f;
 
     private CharacterController _characterController;
-    public bool IsGround => _characterController.isGrounded;
+    public bool IsGround
+    {
+        get => _characterController.isGrounded;
+    }
 
     private Vector2 _inputDirection;
     private Vector3 _movementVelocity;
-    public Vector3 MovementVelocity;
+    public Vector3 MovementVelocity => _movementVelocity;
     private float _verticalVelocity;
 
-    public bool ActiveMove { get; set; } = true;
-
-    private PlayerInput _playerInput;
+    //키보드로 움직이는 상태인가?
+    private bool _activeMove = true;
+    public bool ActiveMove
+    {
+        get => _activeMove;
+        set => _activeMove = value;
+    }
 
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _playerInput = GetComponent<PlayerInput>();
-        _playerInput.OnMovement += SetPlayerMovement;
+        _playerInput.OnMovement += SetMovement;
         _playerInput.OnJump += Jump;
     }
 
     private void Jump()
     {
-        if (!IsGround) return; //땅에 착지 상태가 아니면 리턴
+        if (!IsGround) return;
         _verticalVelocity += _jumpPower;
     }
 
-    private void SetPlayerMovement(Vector2 dir)
+    //요것은 PlayInput에서 구독처리 될것임.
+    public void SetMovement(Vector2 value)
     {
-        _inputDirection = dir;
+        _inputDirection = value;
     }
 
-    private void CalculateMovement()
+    private void CalculatePlayerMovement()
     {
-        _movementVelocity = new Vector3(_inputDirection.x, 0, _inputDirection.y)
-                            * (_moveSpeed * Time.fixedDeltaTime);
+        _movementVelocity = (_rootTrm.forward * _inputDirection.y + _rootTrm.right * _inputDirection.x) * (_moveSpeed * Time.fixedDeltaTime);
+    }
 
-        if (_movementVelocity.sqrMagnitude > 0)
-        {
-            transform.rotation = Quaternion.LookRotation(_movementVelocity);
-        }
+    //즉시 정지
+    public void StopImmediately()
+    {
+        _movementVelocity = Vector3.zero;
+    }
+
+    //만약 다른 스크립트에서 이동을 건드리려 한다면 사용
+    public void SetMovement(Vector3 value)
+    {
+        _movementVelocity = new Vector3(value.x, 0, value.z);
+        _verticalVelocity = value.y;
     }
 
     private void ApplyGravity()
     {
-        if (IsGround && _verticalVelocity < 0)
+        if (IsGround && _verticalVelocity < 0)  //땅에 착지 상태
         {
             _verticalVelocity = -1f;
         }
@@ -74,25 +91,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ActiveMove)
+        //키보드로 움직일때만 이렇게 움직이고
+        if (_activeMove)
         {
-            CalculateMovement();
+            CalculatePlayerMovement();
         }
-
-        ApplyGravity();
+        ApplyGravity(); //중력 적용
         Move();
     }
 
-    //요건 나중에 쓸 함수들
-    public void StopImmediately()
-    {
-        _movementVelocity = Vector3.zero;
-    }
-
-    //이건 나중에 넉백 구현할 일 있으면 쓰면 된다.
-    public void SetMovement(Vector3 value)
-    {
-        _verticalVelocity = value.y;
-        _movementVelocity = new Vector3(value.x, 0, value.z);
-    }
 }

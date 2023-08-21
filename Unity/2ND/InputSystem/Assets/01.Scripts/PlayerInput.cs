@@ -1,73 +1,38 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    private UserInputAction _inputAction;
+    private PlayerInputAction _inputAction;
+    public PlayerInputAction InputAction => _inputAction;
 
-    public Action<Vector2> OnMovement;
-    public Action OnJump;
-
-    private bool _uiMode = false;
+    [SerializeField] private GameObject _uiObject;
+    
+    public event Action<Vector2> OnMovement;
+    public Vector2 AimPosition { get; private set; }
+    public event Action OnJump;
+    public event Action OnFire;
 
     private void Awake()
     {
-        _inputAction = new UserInputAction();
+        _inputAction = new PlayerInputAction();
+
         _inputAction.Player.Enable();
-        _inputAction.Player.Jump.performed += Jump;
-
-        _inputAction.UI.Submit.performed += UIPerformPress;
-
-        #region 키변경
-        
-        
-        _inputAction.Player.Disable();
-        _inputAction.Player.Jump.PerformInteractiveRebinding()
-            .WithControlsExcluding("Mouse") // 마우스 제외
-            .WithCancelingThrough("<keyboard>/escape") //esc제외
-            .OnComplete(op =>
-            {
-                Debug.Log(op.selectedControl.name);
-                op.Dispose();
-                _inputAction.Player.Enable();
-                
-                //저장 
-                var json = _inputAction.SaveBindingOverridesAsJson(); 
-                Debug.Log(json);
-                //로드 / 어디든 저장을 해두면 된다 
-                _inputAction.LoadBindingOverridesFromJson(json);
-            })
-            .OnCancel(op =>
-            {
-                Debug.Log("취소되었습니다");
-                op.Dispose();
-                _inputAction.Player.Enable();
-            })
-            .Start();
-        
-        
-        // 여러개 있는 Movement 같은경우 Index 사용
-        // .WithTargetBinding(Index)
-
-        #endregion
+        _inputAction.Player.Jump.performed += JumpHandle;
+        _inputAction.Player.Fire.performed += FireHandle;
     }
 
-    private void Update()
+    private void FireHandle(InputAction.CallbackContext context)
     {
-        Vector2 inputDir = _inputAction.Player.Movement.ReadValue<Vector2>();
-        OnMovement?.Invoke(inputDir);
+        OnFire?.Invoke();
+    }
 
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            _inputAction.Disable();
-            if (_uiMode)
-                _inputAction.UI.Enable();
-            else
-                _inputAction.Player.Enable();
-            _uiMode = !_uiMode;
-        }
+    private void JumpHandle(InputAction.CallbackContext context)
+    {
+        OnJump?.Invoke();
     }
     
     private void UIPerformPress(InputAction.CallbackContext context)
@@ -75,8 +40,10 @@ public class PlayerInput : MonoBehaviour
         Debug.Log("UI상태");
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    private void Update()
     {
-        OnJump?.Invoke();
+        AimPosition = _inputAction.Player.Aim.ReadValue<Vector2>();
+        Vector2 move = _inputAction.Player.Movement.ReadValue<Vector2>();
+        OnMovement?.Invoke(move);
     }
 }
