@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/09.UI/Status.uss?fileID=7433441132597879392&amp;guid=f45ac96d235c5af459602eaa51f2e089&amp;type=3#Status" />
+    <ui:VisualElement name="BackGround" style="flex-grow: 1;">
+        <ui:VisualElement name="BulletContainer" style="flex-basis: 60px; flex-direction: row; align-items: center; justify-content: center;">
+            <ui:VisualElement name="Bullet" class="bullet" />
+            <ui:VisualElement name="Bullet" class="bullet" />
+            <ui:VisualElement name="Bullet" class="bullet" />
+            <ui:VisualElement name="Bullet" class="bullet" />
+            <ui:VisualElement name="Bullet" class="bullet" />
+            <ui:VisualElement name="Bullet" class="bullet" />
+            <ui:VisualElement name="Bullet" class="bullet" />
+            <ui:VisualElement name="Bullet" class="bullet" />
+        </ui:VisualElement>
+        <ui:VisualElement name="PanelContainer" style="align-items: center; justify-content: center; font-size: 28px; -unity-font-style: bold; color: rgb(255, 255, 255); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
+            <ui:VisualElement name="Corner" style="flex-grow: 1; width: 20px; height: 20px; background-color: rgb(255, 255, 255); position: absolute; left: 50%; bottom: 0; translate: -50% 50%; rotate: 45deg;" />
+            <ui:Label tabindex="-1" text="I want go home " parse-escape-sequences="true" display-tooltip-when-elided="true" name="MessageLabel" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
