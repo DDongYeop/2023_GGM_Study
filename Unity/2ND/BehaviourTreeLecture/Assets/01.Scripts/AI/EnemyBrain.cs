@@ -9,14 +9,14 @@ public abstract class EnemyBrain : MonoBehaviour
 {
     [SerializeField] protected Transform _targetTrm;
 
-    public NavMeshAgent NavMesh { get; private set; }
+    public NavMeshAgent NavAgent { get; private set; }
 
     protected UIStatusBar _statusBar;
     protected Camera _mainCam;
 
     protected virtual void Awake()
     {
-        NavMesh = GetComponent<NavMeshAgent>();
+        NavAgent = GetComponent<NavMeshAgent>();
         _statusBar = transform.Find("Status").GetComponent<UIStatusBar>();
         _mainCam = Camera.main;
     }
