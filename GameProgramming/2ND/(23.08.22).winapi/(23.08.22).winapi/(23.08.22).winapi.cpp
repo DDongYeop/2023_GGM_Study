@@ -104,11 +104,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   int screenX = (GetSystemMetrics(SM_CXSCREEN) * 0.5f) - (WINSIZEX * 0.5f);
-   int screenY = (GetSystemMetrics(SM_CYSCREEN) * 0.5f) - (WINSIZEY * 0.5f);
+   int iResolutionx = GetSystemMetrics(SM_CXSCREEN);
+   int iResolutiony = GetSystemMetrics(SM_CYSCREEN);
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle/* 이거가 이름 바꿔주는거 L"" */, WS_OVERLAPPEDWINDOW | WS_HSCROLL,
-       screenX, screenY, WINSIZEX, WINSIZEY, nullptr, nullptr, hInstance, nullptr);
+   int iWinposx = iResolutionx / 2 - WINSIZEX / 2;
+   int iWinposy = iResolutiony / 2 - WINSIZEY / 2;
+
+   HWND hWnd = CreateWindowW(szWindowClass, szTitle/* 이거가 이름 바꿔주는거 L"" */, WS_OVERLAPPEDWINDOW,
+       iWinposx, iWinposy, WINSIZEX, WINSIZEY, nullptr, nullptr, hInstance, nullptr);
+
+   RECT rt = { iWinposx, iWinposy, iWinposx + WINSIZEX, iWinposy + WINSIZEY };
+   AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, true); //계산해주는 함수
+   MoveWindow(hWnd, iWinposx, iWinposy, rt.right - rt.left, rt.bottom - rt.top, true); //설정해주는 함수 
 
    if (!hWnd)
    {
@@ -166,7 +173,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             //Ellipse(hdc, 50, 50, 150, 150);
 
             //텍스트 출력
-            //wstring wstr = L"2강 시작";
+            //wstring wstr = L"2강 시작";5
             /*LPCWSTR;
             TextOut(hdc, 10, 10, wstr.c_str(), wstr.length());*/
             // DrawText
@@ -178,7 +185,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             /*for (int i = 0; i < 1000; ++i)
                 SetPixel(hdc, rand() % 100, rand() % 100, RGB(255, 0, 0));*/
 
-            //선 출력 
+            //연습문제 1
             /*for (int i = 0; i <= 1280; i += 1280 / 16)
             {
                 MoveToEx(hdc, i, 0, nullptr);
@@ -190,12 +197,55 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 LineTo(hdc, 1280, i);
             }*/
 
-            //연습 문제 2
-            for (int i = 100; i <= 450; i += 70)
-            {
-                 
-            }
+            //연습문제 2
 
+            //내가 쓴거
+            /*int x = 100;
+            int y = 100;
+            int index = 0;
+            for (int i = 1; i <= 25; ++i)
+            {
+                if (index % 2 == 0)
+                    Rectangle(hdc, x, y, x + 50, y + 50);
+                else
+                    Ellipse(hdc, x, y, x + 50, y + 50);
+
+                x += 70;
+                if (i % 5 == 0)
+                {
+                    x = 100;
+                    y += 70;
+                    ++index;
+                }
+            }*/
+
+            //모범 답안
+            /*for (int i = 0; i < 25; ++i)
+            {
+                int left = (i % 5 * 70) + 100;
+                int top = (i / 5 * 70) + 100;
+                if (i / 5 % 2 == 0)
+                    Rectangle(hdc, left, top, left + 50, top + 50);
+                else
+                    Ellipse(hdc, left, top, left + 50, top + 50);
+            }*/
+
+            //펜 
+            HPEN hpen = CreatePen(PS_DASHDOTDOT, 1, RGB(0, 0, 255));
+            HBRUSH hbrush = CreateSolidBrush(RGB(0, 255, 255)); // 꽉 채우기
+            SelectObject(hdc, hpen);
+            SelectObject(hdc, hbrush);
+            // InvalidateRect() << 무효화 영역 강제로 소환 
+
+            for (int i = 0; i < 25; ++i)
+            {
+                int left = (i % 5 * 70) + 100;
+                int top = (i / 5 * 70) + 100;
+                if (i / 5 % 2 == 0)
+                    Rectangle(hdc, left, top, left + 50, top + 50);
+                else
+                    Ellipse(hdc, left, top, left + 50, top + 50);
+            }
 
             EndPaint(hWnd, &ps);
         }
