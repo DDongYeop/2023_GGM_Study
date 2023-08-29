@@ -45,6 +45,9 @@
     <Image Include="(23.08.22).winapi.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="game.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="notepad.txt" />

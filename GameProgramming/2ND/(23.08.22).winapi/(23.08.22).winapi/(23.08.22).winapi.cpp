@@ -3,13 +3,18 @@
 
 #include "framework.h" // window.h << WinAPT에 iostream (안에 들어있음)
 #include "(23.08.22).winapi.h"
+#include <string>
+
+using namespace std;
 
 #define MAX_LOADSTRING 100
-#define PROGRAM_TITLE L"GAMEP" //제목 수정을 위한 define
+#define PROGRAM_TITLE L"동엽의 윈도우" //제목 수정을 위한 define
+#define WINSIZEX 1280
+#define WINSIZEY 720
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
-WCHAR szTitle[MAX_LOADSTRING]/*= PROGRAM_TITLE*/;                  // 제목 표시줄 텍스트입니다.
+WCHAR szTitle[MAX_LOADSTRING] = PROGRAM_TITLE;                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다: //전방선언 
@@ -69,16 +74,16 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
+    wcex.style          = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS/*더블클릭 감지*/;
     wcex.lpfnWndProc    = WndProc;
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MY230822WINAPI));
-    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    //wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.hbrBackground = (HBRUSH)(GetStockObject(GRAY_BRUSH));
-    //wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_MY230822WINAPI);
+    wcex.hCursor        = LoadCursor(nullptr, IDC_CROSS);
+    //wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+2);
+    wcex.hbrBackground = (HBRUSH)(GetStockObject(WHITE_BRUSH));
+    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_MY230822WINAPI);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -99,8 +104,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle/* 이거가 이름 바꿔주는거 L"" */, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+   int screenX = (GetSystemMetrics(SM_CXSCREEN) * 0.5f) - (WINSIZEX * 0.5f);
+   int screenY = (GetSystemMetrics(SM_CYSCREEN) * 0.5f) - (WINSIZEY * 0.5f);
+
+   HWND hWnd = CreateWindowW(szWindowClass, szTitle/* 이거가 이름 바꿔주는거 L"" */, WS_OVERLAPPEDWINDOW | WS_HSCROLL,
+       screenX, screenY, WINSIZEX, WINSIZEY, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -152,9 +160,43 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+            
             //사각형
-            Rectangle(hdc, 10, 10, 110, 110);
-            Ellipse(hdc, 50, 50, 150, 150);
+            //Rectangle(hdc, 10, 10, 110, 110);
+            //Ellipse(hdc, 50, 50, 150, 150);
+
+            //텍스트 출력
+            //wstring wstr = L"2강 시작";
+            /*LPCWSTR;
+            TextOut(hdc, 10, 10, wstr.c_str(), wstr.length());*/
+            // DrawText
+            /*RECT rt = {50, 50, 100, 100};
+            Rectangle(hdc, 50, 50, 100, 100);
+            DrawText(hdc, wstr.c_str(), wstr.length(), &rt, DT_CENTER | DT_NOCLIP);*/
+
+            //점 출력 
+            /*for (int i = 0; i < 1000; ++i)
+                SetPixel(hdc, rand() % 100, rand() % 100, RGB(255, 0, 0));*/
+
+            //선 출력 
+            /*for (int i = 0; i <= 1280; i += 1280 / 16)
+            {
+                MoveToEx(hdc, i, 0, nullptr);
+                LineTo(hdc, i, 720);
+            }
+            for (int i = 0; i <= 720; i += 720 / 9)
+            {
+                MoveToEx(hdc, 0, i, nullptr);
+                LineTo(hdc, 1280, i);
+            }*/
+
+            //연습 문제 2
+            for (int i = 100; i <= 450; i += 70)
+            {
+                 
+            }
+
+
             EndPaint(hWnd, &ps);
         }
         break;
@@ -163,6 +205,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         //MessageBoxA(hWnd, strArr, "DESTROY", MB_OK);
         //MessageBox(hWnd, L"X버튼 감지", L"DESTORY", MB_OK);
         PostQuitMessage(0);
+        break;
+    case WM_LBUTTONDBLCLK:
+        MessageBox(hWnd, L"마우스 왼쪽 버튼 더블 클릭", L"메세지 박스", MB_OK | MB_ICONERROR);
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);

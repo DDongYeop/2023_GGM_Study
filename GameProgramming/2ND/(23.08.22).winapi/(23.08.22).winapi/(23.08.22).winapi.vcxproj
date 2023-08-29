@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="(23.08.22).winapi.ico" />
+    <Image Include="game.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
