@@ -1,19 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BehaviourTree;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 public abstract class EnemyBrain : MonoBehaviour
 {
-    [SerializeField] protected Transform _targetTrm;
+    public Transform targetTrm;
 
     public NavMeshAgent NavAgent { get; private set; }
-
+    
     protected UIStatusBar _statusBar;
     protected Camera _mainCam;
 
+    public NodeActionCode currentCode;
+    
     protected virtual void Awake()
     {
         NavAgent = GetComponent<NavMeshAgent>();
@@ -42,4 +46,6 @@ public abstract class EnemyBrain : MonoBehaviour
         yield return new WaitForSeconds(timer);
         _statusBar.IsOn = false;
     }
+
+    public abstract void Attack();
 }

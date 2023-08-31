@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 104065062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.491}
+  m_LocalPosition: {x: 0, y: 0, z: 0.688}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 263431713}
   - component: {fileID: 263431718}
   - component: {fileID: 263431717}
+  - component: {fileID: 263431719}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -299,7 +300,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50ada2c18112054ca221ffc7a4fb7b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetTrm: {fileID: 2135987358}
+  targetTrm: {fileID: 2135987358}
+  currentCode: 0
+--- !u!114 &263431719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263431712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4b968976cf035499e6d7c3f07a89c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 4186293739119197442, guid: 1802c020171ab98448e7e640c79c600f, type: 3}
+  _firePos: {fileID: 104065063}
+  _firePower: 30
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +404,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 10, z: -20}
+  m_LocalPosition: {x: 0, y: 7.5, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -449,6 +466,7 @@ GameObject:
   - component: {fileID: 390034280}
   - component: {fileID: 390034279}
   - component: {fileID: 390034278}
+  - component: {fileID: 390034281}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -543,6 +561,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390034276}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &390034281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390034276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50fe6d2806b6466478ec59a0642cbc09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalAmmo: 50
+  maxAmmo: 8
+  currentAmmo: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,7 +1096,7 @@ Transform:
   m_GameObject: {fileID: 2135987354}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.8, y: 1, z: 0}
+  m_LocalPosition: {x: 13.8, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
