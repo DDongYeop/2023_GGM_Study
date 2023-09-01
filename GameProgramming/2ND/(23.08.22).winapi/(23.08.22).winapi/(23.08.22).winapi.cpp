@@ -140,8 +140,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    static UINT iCount = 0; 
-    static char strArr[10];
+    //static UINT iCount = 0; 
+    //static char strArr[10];
+
+    static wchar_t wstr[100];
+    static int count = 0, ranx, rany;
+    HDC hdc;
 
     switch (message)
     {
@@ -165,7 +169,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
+            hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
             
             //사각형
@@ -231,13 +235,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }*/
 
             //펜 
-            HPEN hpen = CreatePen(PS_DASHDOTDOT, 1, RGB(0, 0, 255));
-            HBRUSH hbrush = CreateSolidBrush(RGB(0, 255, 255)); // 꽉 채우기
-            SelectObject(hdc, hpen);
-            SelectObject(hdc, hbrush);
+            //HPEN hpen = CreatePen(PS_DASHDOTDOT, 1, RGB(0, 0, 255));
+            //HBRUSH hbrush = CreateSolidBrush(RGB(0, 255, 255)); // 꽉 채우기
+            //SelectObject(hdc, hpen);
+            //SelectObject(hdc, hbrush);
             // InvalidateRect() << 무효화 영역 강제로 소환 
 
-            for (int i = 0; i < 25; ++i)
+            /*for (int i = 0; i < 25; ++i)
             {
                 int left = (i % 5 * 70) + 100;
                 int top = (i / 5 * 70) + 100;
@@ -245,8 +249,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                     Rectangle(hdc, left, top, left + 50, top + 50);
                 else
                     Ellipse(hdc, left, top, left + 50, top + 50);
-            }
+            }*/
 
+            //펜과 브러시 활용 
+            /*HPEN hpen = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+            HBRUSH hbrush = CreateHatchBrush(HS_BDIAGONAL, RGB(0, 255, 255));
+            HPEN hDefPen = (HPEN)SelectObject(hdc, hpen);
+            SelectObject(hdc, hbrush);
+            Rectangle(hdc, 10, 10, 110, 110);
+            DeleteObject(hpen);
+            DeleteObject(hbrush);*/
+
+            ranx = rand() % WINSIZEX;
+            rany = rand() % WINSIZEY;
+            TextOut(hdc, ranx, rany, wstr, wcslen(wstr));
             EndPaint(hWnd, &ps);
         }
         break;
@@ -259,10 +275,35 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_LBUTTONDBLCLK:
         MessageBox(hWnd, L"마우스 왼쪽 버튼 더블 클릭", L"메세지 박스", MB_OK | MB_ICONERROR);
         break;
+    case WM_KEYDOWN:
+    {
+        switch (wParam)
+        {
+        case VK_LEFT:
+        {
+        } break;
+        default:
+            break;
+        }
+    } break;
+    case WM_CHAR: 
+    {
+        //wstring wstr = L"키 입력 감지";
+        //hdc = GetDC(hWnd);
+        /*if (wParam == VK_BACK && count > 0)
+            count--;
+        else
+            wstr[count++] = wParam;*/
+        wstr[0] = wParam;
+        wstr[1] = NULL;
+        InvalidateRect(hWnd, nullptr, false);
+        //TextOut(hdc, 0, 0, wstr, wcslen(wstr));
+        //ReleaseDC(hWnd, hdc);
+    } break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
-    ++iCount;
+    //++iCount;
     return 0;
 }
 
