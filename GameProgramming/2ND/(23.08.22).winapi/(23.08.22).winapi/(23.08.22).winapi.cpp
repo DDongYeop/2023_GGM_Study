@@ -144,11 +144,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     //static char strArr[10];
 
     static wchar_t wstr[100];
-    static int count = 0, ranx, rany;
+    static wchar_t wstr2D[10][11];
+    static int count = 0, ranx, rany, yPos, line;
+    static SIZE size;
     HDC hdc;
 
     switch (message)
     {
+    case WM_CREATE:
+        CreateCaret(hWnd, nullptr, 5, 15);
+        ShowCaret(hWnd);
+        SetDoubleClickTime(5000);
+        count = yPos = line = 0;
+        break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -167,103 +175,126 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     case WM_PAINT:
+    {
+        PAINTSTRUCT ps;
+        hdc = BeginPaint(hWnd, &ps);
+        // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
+        //사각형
+        //Rectangle(hdc, 10, 10, 110, 110);
+        //Ellipse(hdc, 50, 50, 150, 150);
+
+        //텍스트 출력
+        //wstring wstr = L"2강 시작";5
+        /*LPCWSTR;
+        TextOut(hdc, 10, 10, wstr.c_str(), wstr.length());*/
+        // DrawText
+        /*RECT rt = {50, 50, 100, 100};
+        Rectangle(hdc, 50, 50, 100, 100);
+        DrawText(hdc, wstr.c_str(), wstr.length(), &rt, DT_CENTER | DT_NOCLIP);*/
+
+        //점 출력 
+        /*for (int i = 0; i < 1000; ++i)
+            SetPixel(hdc, rand() % 100, rand() % 100, RGB(255, 0, 0));*/
+
+        //연습문제 1
+        /*for (int i = 0; i <= 1280; i += 1280 / 16)
         {
-            PAINTSTRUCT ps;
-            hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            
-            //사각형
-            //Rectangle(hdc, 10, 10, 110, 110);
-            //Ellipse(hdc, 50, 50, 150, 150);
+            MoveToEx(hdc, i, 0, nullptr);
+            LineTo(hdc, i, 720);
+        }
+        for (int i = 0; i <= 720; i += 720 / 9)
+        {
+            MoveToEx(hdc, 0, i, nullptr);
+            LineTo(hdc, 1280, i);
+        }*/
 
-            //텍스트 출력
-            //wstring wstr = L"2강 시작";5
-            /*LPCWSTR;
-            TextOut(hdc, 10, 10, wstr.c_str(), wstr.length());*/
-            // DrawText
-            /*RECT rt = {50, 50, 100, 100};
-            Rectangle(hdc, 50, 50, 100, 100);
-            DrawText(hdc, wstr.c_str(), wstr.length(), &rt, DT_CENTER | DT_NOCLIP);*/
+        //연습문제 2
 
-            //점 출력 
-            /*for (int i = 0; i < 1000; ++i)
-                SetPixel(hdc, rand() % 100, rand() % 100, RGB(255, 0, 0));*/
+        //내가 쓴거
+        /*int x = 100;
+        int y = 100;
+        int index = 0;
+        for (int i = 1; i <= 25; ++i)
+        {
+            if (index % 2 == 0)
+                Rectangle(hdc, x, y, x + 50, y + 50);
+            else
+                Ellipse(hdc, x, y, x + 50, y + 50);
 
-            //연습문제 1
-            /*for (int i = 0; i <= 1280; i += 1280 / 16)
+            x += 70;
+            if (i % 5 == 0)
             {
-                MoveToEx(hdc, i, 0, nullptr);
-                LineTo(hdc, i, 720);
+                x = 100;
+                y += 70;
+                ++index;
             }
-            for (int i = 0; i <= 720; i += 720 / 9)
-            {
-                MoveToEx(hdc, 0, i, nullptr);
-                LineTo(hdc, 1280, i);
-            }*/
+        }*/
 
-            //연습문제 2
+        //모범 답안
+        /*for (int i = 0; i < 25; ++i)
+        {
+            int left = (i % 5 * 70) + 100;
+            int top = (i / 5 * 70) + 100;
+            if (i / 5 % 2 == 0)
+                Rectangle(hdc, left, top, left + 50, top + 50);
+            else
+                Ellipse(hdc, left, top, left + 50, top + 50);
+        }*/
 
-            //내가 쓴거
-            /*int x = 100;
-            int y = 100;
-            int index = 0;
-            for (int i = 1; i <= 25; ++i)
-            {
-                if (index % 2 == 0)
-                    Rectangle(hdc, x, y, x + 50, y + 50);
-                else
-                    Ellipse(hdc, x, y, x + 50, y + 50);
+        //펜 
+        //HPEN hpen = CreatePen(PS_DASHDOTDOT, 1, RGB(0, 0, 255));
+        //HBRUSH hbrush = CreateSolidBrush(RGB(0, 255, 255)); // 꽉 채우기
+        //SelectObject(hdc, hpen);
+        //SelectObject(hdc, hbrush);
+        // InvalidateRect() << 무효화 영역 강제로 소환 
 
-                x += 70;
-                if (i % 5 == 0)
-                {
-                    x = 100;
-                    y += 70;
-                    ++index;
-                }
-            }*/
+        /*for (int i = 0; i < 25; ++i)
+        {
+            int left = (i % 5 * 70) + 100;
+            int top = (i / 5 * 70) + 100;
+            if (i / 5 % 2 == 0)
+                Rectangle(hdc, left, top, left + 50, top + 50);
+            else
+                Ellipse(hdc, left, top, left + 50, top + 50);
+        }*/
 
-            //모범 답안
-            /*for (int i = 0; i < 25; ++i)
-            {
-                int left = (i % 5 * 70) + 100;
-                int top = (i / 5 * 70) + 100;
-                if (i / 5 % 2 == 0)
-                    Rectangle(hdc, left, top, left + 50, top + 50);
-                else
-                    Ellipse(hdc, left, top, left + 50, top + 50);
-            }*/
+        //펜과 브러시 활용 
+        /*HPEN hpen = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
+        HBRUSH hbrush = CreateHatchBrush(HS_BDIAGONAL, RGB(0, 255, 255));
+        HPEN hDefPen = (HPEN)SelectObject(hdc, hpen);
+        SelectObject(hdc, hbrush);
+        Rectangle(hdc, 10, 10, 110, 110);
+        DeleteObject(hpen);
+        DeleteObject(hbrush);*/
 
-            //펜 
-            //HPEN hpen = CreatePen(PS_DASHDOTDOT, 1, RGB(0, 0, 255));
-            //HBRUSH hbrush = CreateSolidBrush(RGB(0, 255, 255)); // 꽉 채우기
-            //SelectObject(hdc, hpen);
-            //SelectObject(hdc, hbrush);
-            // InvalidateRect() << 무효화 영역 강제로 소환 
+        //ranx = rand() % WINSIZEX;
+        //rany = rand() % WINSIZEY;
+        //TextOut(hdc, ranx, rany, wstr, wcslen(wstr));
 
-            /*for (int i = 0; i < 25; ++i)
-            {
-                int left = (i % 5 * 70) + 100;
-                int top = (i / 5 * 70) + 100;
-                if (i / 5 % 2 == 0)
-                    Rectangle(hdc, left, top, left + 50, top + 50);
-                else
-                    Ellipse(hdc, left, top, left + 50, top + 50);
-            }*/
+        //TextOut(hdc, 0, yPos, wstr, wcslen(wstr));
+        
+        //폰트 적용
+        /*AddFontResource(TEXT("PF스타더스트 Bold.ttf"));
+        HFONT hFont = CreateFont(50, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("PF스타더스트 Bold"));
+        SelectObject(hdc, hFont);*/
 
-            //펜과 브러시 활용 
-            /*HPEN hpen = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
-            HBRUSH hbrush = CreateHatchBrush(HS_BDIAGONAL, RGB(0, 255, 255));
-            HPEN hDefPen = (HPEN)SelectObject(hdc, hpen);
-            SelectObject(hdc, hbrush);
-            Rectangle(hdc, 10, 10, 110, 110);
-            DeleteObject(hpen);
-            DeleteObject(hbrush);*/
+        //커서 깜빡이기
+        //GetTextExtentPoint(hdc, wstr, wcslen(wstr), &size);
+        //SetCaretPos(size.cx,0);
+        //TextOut(hdc, 0, 0, wstr, wcslen(wstr));
 
-            ranx = rand() % WINSIZEX;
-            rany = rand() % WINSIZEY;
-            TextOut(hdc, ranx, rany, wstr, wcslen(wstr));
-            EndPaint(hWnd, &ps);
+        //RECT rt = { 0,0,500,500 };
+        //DrawText(hdc, wstr, wcslen(wstr), &rt, DT_TOP | DT_LEFT | DT_WORDBREAK | DT_EDITCONTROL); // 자동으로 넘어가는거 
+
+        //RECT rt = { 0,0,500,500 };
+        //DrawText(hdc, wstr, wcslen(wstr), &rt, DT_TOP | DT_LEFT | DT_WORDBREAK | DT_EDITCONTROL); // 자동으로 넘어가는거 
+        
+        GetTextExtentPoint(hdc, wstr2D[line], wcslen(wstr2D[line]), &size);
+        SetCaretPos(size.cx, line*20);
+        for (int i = 0; i <= line; ++i)
+            TextOut(hdc, 0, i * 20, wstr2D[i], wcslen(wstr2D[i]));
+        EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
@@ -271,6 +302,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         //MessageBoxA(hWnd, strArr, "DESTROY", MB_OK);
         //MessageBox(hWnd, L"X버튼 감지", L"DESTORY", MB_OK);
         PostQuitMessage(0);
+        HideCaret(hWnd);
         break;
     case WM_LBUTTONDBLCLK:
         MessageBox(hWnd, L"마우스 왼쪽 버튼 더블 클릭", L"메세지 박스", MB_OK | MB_ICONERROR);
@@ -290,13 +322,37 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         //wstring wstr = L"키 입력 감지";
         //hdc = GetDC(hWnd);
-        /*if (wParam == VK_BACK && count > 0)
-            count--;
-        else
-            wstr[count++] = wParam;*/
-        wstr[0] = wParam;
-        wstr[1] = NULL;
-        InvalidateRect(hWnd, nullptr, false);
+        
+        // 원래 있던거
+        //if (wParam == VK_BACK && count > 0)
+        //    count--;
+        //else if (wParam == VK_ESCAPE)
+        //    count = 0;
+        ///*else if (wParam == VK_RETURN)
+        //{
+        //    count = 0;
+        //    yPos += 20;
+        //}*/
+        //else
+        //    wstr[count++] = wParam;
+        //wstr[count] = NULL;
+
+        if ((wParam == VK_RETURN || count >= 10) && line =< 9)
+        {
+            count = 0;
+            line--;
+        }
+        if (count < 10)
+            wstr2D[line][count++] = wParam;
+
+        wstr2D[line][count] = NULL;
+
+        InvalidateRect(hWnd, nullptr, true);
+        
+        //연습문제
+        /*wstr[0] = wParam;
+        wstr[1] = NULL;*/
+        //InvalidateRect(hWnd, nullptr, false);
         //TextOut(hdc, 0, 0, wstr, wcslen(wstr));
         //ReleaseDC(hWnd, hdc);
     } break;
