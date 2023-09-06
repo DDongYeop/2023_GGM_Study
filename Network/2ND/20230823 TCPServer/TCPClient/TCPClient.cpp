@@ -70,12 +70,6 @@ int __cdecl main(int argc, char** argv)
 
     cout << "Starting Client..." << endl;
 
-    // Validate the parameters;
-    if (argc != 2) {
-        printf("usage: %s server-name\n", argv[0]);
-        return 1;
-    }
-
     // Initialize Winsock
     iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
     if (iResult != 0) {
@@ -136,6 +130,8 @@ int __cdecl main(int argc, char** argv)
     //2. 자리가 없으면 "Server is Full"
     recv(client.socket, client.received_msg, DEFAULT_BUFLEN, 0);
 
+    message = client.received_msg;
+
     if (message != "Server is Full")
     {
         client.id = atoi(client.received_msg);
@@ -172,5 +168,6 @@ int __cdecl main(int argc, char** argv)
     closesocket(client.socket);
     WSACleanup();
 
+    system("pause");
     return 0;
 }
