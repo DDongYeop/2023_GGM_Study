@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "(23.09.05).winapi.h"
+#include <math.h>
 
 #define MAX_LOADSTRING 100
 
@@ -128,31 +129,54 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     static POINT ptObjscale = { 100,100 };
     static RECT rectview;
     static bool isKeydown;
+    static bool isGoing = false;
+    static bool isRect = false;
+
     switch (message)
     {
+    case WM_LBUTTONDOWN:
+    {
+        int x = LOWORD(lParam);
+        int y = HIWORD(lParam);
+        int disance = sqrt(pow(50 - x, 2) + pow(50 - y, 2));
+        if (disance < 50)
+        {
+            isRect = true;
+            InvalidateRect(hWnd, nullptr, true);
+        }
+    } break;
     case WM_CREATE:
         GetClientRect(hWnd, &rectview);
+        break;
+    case WM_TIMER:
+        if (ptObjpos.x + ptObjscale.x / 2 + 10 < rectview.right)
+            ptObjpos.x += 10;
+        InvalidateRect(hWnd, nullptr, true);
         break;
     case WM_KEYDOWN:
     {
         switch (wParam)
         {
+        case VK_RETURN:
+        {
+            isGoing = !isGoing;
+            if (isGoing)
+                SetTimer(hWnd, 1, 100, nullptr);
+            else
+                KillTimer(hWnd, 1);
+        }break;
         case VK_LEFT:
             ptObjpos.x -= 10;
             break;
             // 오른쪽키를 누르는데 밖에 못빠져나가게 해봐.
         case VK_RIGHT:
         {
-            if (ptObjpos.x + ptObjscale.x / 2 + 10 < rectview.right)
-                ptObjpos.x += 10;
+            SetTimer(hWnd, 1, 100, nullptr);
             isKeydown = true;
-            InvalidateRect(hWnd, nullptr, true);
             break;
         }
         }
-
-    }
-    break;
+    } break;
     case WM_KEYUP:
         isKeydown = false;
         InvalidateRect(hWnd, nullptr, true);
@@ -161,21 +185,28 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         PAINTSTRUCT ps;
         hdc = BeginPaint(hWnd, &ps);
-        HBRUSH hBluebrush = CreateSolidBrush(RGB(0, 0, 255));
+        /*HBRUSH hBluebrush = CreateSolidBrush(RGB(0, 0, 255));
         HBRUSH hDefaultbrush = CreateSolidBrush(RGB(255, 255, 255));
         if (isKeydown)
             SelectObject(hdc, hBluebrush);
         else
-            SelectObject(hdc, hDefaultbrush);
-        Rectangle(hdc
+            SelectObject(hdc, hDefaultbrush);*/
+        /*Rectangle(hdc, 0, 0, 600, 600);
+        Ellipse(hdc
             , ptObjpos.x - ptObjscale.x / 2
             , ptObjpos.y - ptObjscale.y / 2
             , ptObjpos.x + ptObjscale.x / 2
-            , ptObjpos.y + ptObjscale.y / 2);
+            , ptObjpos.y + ptObjscale.y / 2);*/
+
+        Ellipse(hdc, 0, 0, 100, 100);
+        if (isRect)
+            Rectangle(hdc, 0, 0, 100, 100);
+
         EndPaint(hWnd, &ps);
     }
     break;
     case WM_DESTROY:
+        KillTimer(hWnd, 1);
         PostQuitMessage(0);
         break;
     default:
