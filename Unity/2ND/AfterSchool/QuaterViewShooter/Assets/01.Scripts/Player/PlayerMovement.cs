@@ -34,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
         _inputReader.MovementEvent += SetMovement;
     }
 
+    private void OnDestroy()
+    {
+        _inputReader.MovementEvent -= SetMovement;
+    }
+
     private void SetMovement(Vector2 value)
     {
         _inputDirection = value;
