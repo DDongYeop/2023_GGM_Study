@@ -1,27 +1,45 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu (menuName = "SO/InputReader")]
+[CreateAssetMenu(menuName ="SO/InputReader")]
 public class InputReader : ScriptableObject, Controls.IPlayerActions
 {
     public event Action<Vector2> MovementEvent;
     public event Action<bool> FireEvent;
-    public Vector2 AimPostion { get; private set; }
+    public Vector2 AimPosition { get; private set; }
+
+    public event Action<bool> ArmedEvent;
+    public event Action ReloadEvent;
 
     private Controls _controls;
 
     private void OnEnable()
     {
-        if (_controls == null)
+        if(_controls == null)
         {
             _controls = new Controls();
             _controls.Player.SetCallbacks(this);
         }
         _controls.Player.Enable();
+    }
+
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        AimPosition = context.ReadValue<Vector2>();
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            FireEvent?.Invoke(true);
+        }else if(context.canceled)
+        {
+            FireEvent?.Invoke(false);
+        }
     }
 
     public void OnMovement(InputAction.CallbackContext context)
@@ -30,20 +48,17 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
         MovementEvent?.Invoke(value);
     }
 
-    public void OnFire(InputAction.CallbackContext context)
+    public void OnReload(InputAction.CallbackContext context)
     {
         if (context.performed)
-        {
-            FireEvent?.Invoke(true);
-        }
-        else if (context.canceled)
-        {
-            FireEvent?.Invoke(false);
-        }
+            ReloadEvent?.Invoke();
     }
 
-    public void OnAim(InputAction.CallbackContext context)
+    public void OnArmed(InputAction.CallbackContext context)
     {
-        AimPostion = context.ReadValue<Vector2>();
+        if(context.performed)
+            ArmedEvent?.Invoke(true);
+        else if(context.canceled)
+            ArmedEvent?.Invoke(false);
     }
 }
