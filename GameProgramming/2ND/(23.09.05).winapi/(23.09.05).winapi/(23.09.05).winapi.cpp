@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "(23.09.05).winapi.h"
 #include <math.h>
+#include <string>
 
 #define MAX_LOADSTRING 100
 
@@ -128,30 +129,53 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     static POINT ptObjpos = { 500,500 };
     static POINT ptObjscale = { 100,100 };
     static RECT rectview;
+
+    static float textPosX = 100, textPosY = 100;
+    static float namePosX = 0, namePosY = 0;
+
+    static std::wstring ggmStr = L"겜마고";
+    static std::wstring nameStr = L"경동엽";
+
     static bool isKeydown;
     static bool isGoing = false;
-    static bool isRect = false;
+    static bool isNamePrint = false;
 
     switch (message)
     {
     case WM_LBUTTONDOWN:
     {
-        int x = LOWORD(lParam);
+        /*int x = LOWORD(lParam);
         int y = HIWORD(lParam);
         int disance = sqrt(pow(50 - x, 2) + pow(50 - y, 2));
         if (disance < 50)
         {
             isRect = true;
             InvalidateRect(hWnd, nullptr, true);
-        }
+        }*/
+        namePosX = LOWORD(lParam);
+        namePosY = HIWORD(lParam);
+        isNamePrint = true;
+        InvalidateRect(hWnd, nullptr, true);
+        SetTimer(hWnd, 1, 100, nullptr);
     } break;
+    case WM_LBUTTONUP:
+        isNamePrint = false;
+        InvalidateRect(hWnd, nullptr, true);
+        break;
     case WM_CREATE:
         GetClientRect(hWnd, &rectview);
         break;
     case WM_TIMER:
-        if (ptObjpos.x + ptObjscale.x / 2 + 10 < rectview.right)
+        /*if (ptObjpos.x + ptObjscale.x / 2 + 10 < rectview.right)
             ptObjpos.x += 10;
-        InvalidateRect(hWnd, nullptr, true);
+        InvalidateRect(hWnd, nullptr, true);*/
+
+        if (isNamePrint)
+        {
+            textPosX += (namePosX - textPosX) / 100.f;
+            textPosY += (namePosY - textPosY) / 100.f;
+            InvalidateRect(hWnd, nullptr, true);
+        }
         break;
     case WM_KEYDOWN:
     {
@@ -159,21 +183,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
         case VK_RETURN:
         {
-            isGoing = !isGoing;
+            /*isGoing = !isGoing;
             if (isGoing)
                 SetTimer(hWnd, 1, 100, nullptr);
             else
-                KillTimer(hWnd, 1);
+                KillTimer(hWnd, 1);*/
         }break;
         case VK_LEFT:
-            ptObjpos.x -= 10;
+            //ptObjpos.x -= 10;
             break;
             // 오른쪽키를 누르는데 밖에 못빠져나가게 해봐.
         case VK_RIGHT:
         {
-            SetTimer(hWnd, 1, 100, nullptr);
+            /*SetTimer(hWnd, 1, 100, nullptr);
             isKeydown = true;
-            break;
+            break;*/
         }
         }
     } break;
@@ -198,9 +222,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             , ptObjpos.x + ptObjscale.x / 2
             , ptObjpos.y + ptObjscale.y / 2);*/
 
-        Ellipse(hdc, 0, 0, 100, 100);
+        /*Ellipse(hdc, 0, 0, 100, 100);
         if (isRect)
-            Rectangle(hdc, 0, 0, 100, 100);
+            Rectangle(hdc, 0, 0, 100, 100);*/
+        
+        TextOut(hdc, textPosX, textPosY, ggmStr.c_str(), ggmStr.length());
+
+        if(isNamePrint)
+            TextOut(hdc, namePosX, namePosY, nameStr.c_str(), nameStr.length());
 
         EndPaint(hWnd, &ps);
     }
