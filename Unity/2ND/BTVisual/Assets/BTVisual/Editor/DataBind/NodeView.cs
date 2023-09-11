@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -11,6 +11,7 @@ namespace BTVisual
 
         public Port input; //입력노드
         public Port output; //출력노드
+        public Action<NodeView> OnNodeSelected;
 
         public NodeView(Node node)
         {
@@ -28,7 +29,7 @@ namespace BTVisual
 
         private void CreteInputPorts()
         {
-            if (node is CompositeNode)
+            if (node is ActionNode)
             {
                 input = InstantiatePort(Orientation.Horizontal, Direction.Input, Port.Capacity.Single, typeof(bool));
             }
@@ -50,17 +51,27 @@ namespace BTVisual
 
         private void CreteOutputPorts()
         {
-            if (node is CompositeNode)
+            if (node is ActionNode)
             {
-                
+                //아무것도 안함
             }
             else if (node is CompositeNode)
             {
-                
+                output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Multi, typeof(bool));   
             }
             else if (node is DecoratorNode)
             {
-                
+                output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
+            }
+            else if (node is RootNode)
+            {
+                output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
+            }
+
+            if (output != null)
+            {
+                output.portName = "";
+                outputContainer.Add(output);
             }
         }
 
@@ -69,6 +80,12 @@ namespace BTVisual
             base.SetPosition(newPos);
             node.position.x = newPos.xMin;
             node.position.y = newPos.yMin;
+        }
+
+        public override void OnSelected()
+        {
+            base.OnSelected();
+            OnNodeSelected?.Invoke(this);
         }
     }
 }

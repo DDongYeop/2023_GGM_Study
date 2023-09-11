@@ -1,6 +1,7 @@
 using System;
 using BTVisual;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -18,6 +19,17 @@ public class BTEditor : EditorWindow
         wnd.titleContent = new GUIContent("BTEditor");
     }
 
+    [OnOpenAsset]
+    public static bool OnOpenAsset(int instanceId, int line)
+    {
+        if (Selection.activeObject is BehaviourTree)
+        {
+            OpenWindow();
+            return true;
+        }
+        return false;
+    }
+    
     public void CreateGUI()
     {
         VisualElement root = rootVisualElement;
@@ -31,8 +43,15 @@ public class BTEditor : EditorWindow
 
         _treeView = root.Q<BehaviourTreeView>("tree-view");
         _inspectorView = root.Q<InspectorView>("inspector-view");
+
+        _treeView.OnNodeSelected += OnSelectionNodeChanged;
         
         OnSelectionChange(); //강제로 호출해서 
+    }
+
+    private void OnSelectionNodeChanged(NodeView nv)
+    {
+        _inspectorView.UpdateSelection(nv);
     }
 
     private void OnSelectionChange()
