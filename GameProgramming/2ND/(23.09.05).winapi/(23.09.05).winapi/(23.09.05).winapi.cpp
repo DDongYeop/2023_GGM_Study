@@ -132,6 +132,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     static float textPosX = 100, textPosY = 100;
     static float namePosX = 0, namePosY = 0;
+    static float mousePosX = 0, mousePosY = 0;
 
     static std::wstring ggmStr = L"겜마고";
     static std::wstring nameStr = L"경동엽";
@@ -139,9 +140,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     static bool isKeydown;
     static bool isGoing = false;
     static bool isNamePrint = false;
+    static bool isclick = false;
 
     switch (message)
     {
+    case WM_SIZE:
+        GetClientRect(hWnd, &rectview);
+        break;
+    case WM_CREATE:
+        GetClientRect(hWnd, &rectview);
+        break;
     case WM_LBUTTONDOWN:
     {
         /*int x = LOWORD(lParam);
@@ -152,30 +160,58 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             isRect = true;
             InvalidateRect(hWnd, nullptr, true);
         }*/
-        namePosX = LOWORD(lParam);
+
+        //겜프 과제
+        /*namePosX = LOWORD(lParam);
         namePosY = HIWORD(lParam);
         isNamePrint = true;
         InvalidateRect(hWnd, nullptr, true);
-        SetTimer(hWnd, 1, 100, nullptr);
+        SetTimer(hWnd, 1, 100, nullptr);*/
+
+        //2-3-5
+        /*mousePosX = LOWORD(lParam);
+        mousePosY = HIWORD(lParam);
+        isclick = true;*/
+        //InvalidateRect(hWnd, nullptr, true);
     } break;
-    case WM_LBUTTONUP:
-        isNamePrint = false;
-        InvalidateRect(hWnd, nullptr, true);
+    case WM_LBUTTONDBLCLK:
+    {
+        //2-3-5
+        //InvalidateRect(hWnd, nullptr, true);
+    }break;
+    case WM_MOUSEMOVE:
+        //2-3-5
+        //2-3-5
+        /*if (isclick)
+        {
+            hdc = GetDC(hWnd);
+            MoveToEx(hdc, mousePosX, mousePosY, nullptr);
+            mousePosX = LOWORD(lParam);
+            mousePosY = HIWORD(lParam);
+            LineTo(hdc, mousePosX, mousePosY);
+            ReleaseDC(hWnd, hdc);
+        }*/
         break;
-    case WM_CREATE:
-        GetClientRect(hWnd, &rectview);
+    case WM_LBUTTONUP:
+        //겜프 과제
+        /*isNamePrint = false;
+        InvalidateRect(hWnd, nullptr, true);*/
+
+        //2-3-7
+        isclick = false;
         break;
     case WM_TIMER:
         /*if (ptObjpos.x + ptObjscale.x / 2 + 10 < rectview.right)
             ptObjpos.x += 10;
         InvalidateRect(hWnd, nullptr, true);*/
 
-        if (isNamePrint)
+        //겜프 과제
+        /*if (isNamePrint)
         {
             textPosX += (namePosX - textPosX) / 100.f;
             textPosY += (namePosY - textPosY) / 100.f;
             InvalidateRect(hWnd, nullptr, true);
-        }
+        }*/
         break;
     case WM_KEYDOWN:
     {
@@ -202,8 +238,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
     } break;
     case WM_KEYUP:
-        isKeydown = false;
-        InvalidateRect(hWnd, nullptr, true);
+        //겜프 과제
+        /*isKeydown = false;
+        InvalidateRect(hWnd, nullptr, true);*/
         break;
     case WM_PAINT:
     {
@@ -226,10 +263,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         if (isRect)
             Rectangle(hdc, 0, 0, 100, 100);*/
         
-        TextOut(hdc, textPosX, textPosY, ggmStr.c_str(), ggmStr.length());
-
+        //겜프 과제
+        /*TextOut(hdc, textPosX, textPosY, ggmStr.c_str(), ggmStr.length());
         if(isNamePrint)
-            TextOut(hdc, namePosX, namePosY, nameStr.c_str(), nameStr.length());
+            TextOut(hdc, namePosX, namePosY, nameStr.c_str(), nameStr.length());*/
+
+        //2-3-5
+        //SetPixel(hdc, mousePosX, mousePosY, RGB(255, 255, 255));
+
+        //2-3-6
+        std::wstring wstr = L"겜프 재밋당";
+        TextOut(hdc, rectview.right / 2, rectview.bottom / 2, wstr.c_str(), wstr.length());
 
         EndPaint(hWnd, &ps);
     }
