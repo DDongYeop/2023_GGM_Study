@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "20230913 TreadLifeCS", "20230913 TreadLifeCS\20230913 TreadLifeCS.csproj", "{A2EEE065-C49A-46E8-ACC4-F138EB892772}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendDataCS", "SendDataCS\SendDataCS.csproj", "{45281ABC-0923-43C7-982E-48F0543F3E3A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2EEE065-C49A-46E8-ACC4-F138EB892772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2EEE065-C49A-46E8-ACC4-F138EB892772}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2EEE065-C49A-46E8-ACC4-F138EB892772}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2EEE065-C49A-46E8-ACC4-F138EB892772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45281ABC-0923-43C7-982E-48F0543F3E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45281ABC-0923-43C7-982E-48F0543F3E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45281ABC-0923-43C7-982E-48F0543F3E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45281ABC-0923-43C7-982E-48F0543F3E3A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67847B28-8E8E-4A6D-A816-951D16643B7E}
+	EndGlobalSection
+EndGlobal
