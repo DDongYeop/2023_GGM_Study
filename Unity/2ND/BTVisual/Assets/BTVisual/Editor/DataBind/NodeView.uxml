@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/BTVisual/Editor/DataBind/NodeView.uss?fileID=7433441132597879392&amp;guid=1342b55f88da6ea49b74b6bb076adf94&amp;type=3#NodeView" />
+    <ui:VisualElement name="node-border">
+        <ui:VisualElement name="contents">
+            <ui:VisualElement name="top">
+                <ui:VisualElement name="input" />
+                <ui:VisualElement name="divider" class="vertical" />
+                <ui:VisualElement name="title">
+                    <ui:Label name="title-label" text="SequenceNode" class="unity-text-element unity-label" />
+                    <ui:VisualElement name="title-button-container">
+                        <ui:VisualElement name="collapse-button">
+                            <ui:VisualElement name="icon" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="description" />
+                <ui:VisualElement name="divider" class="horizontal" />
+                <ui:VisualElement name="output" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="selection-border" picking-mode="Ignore" />
+</ui:UXML>

@@ -15,9 +15,9 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: b3fc5f7eab73bdd4abef412ef948453a
-  position: {x: 152, y: 227.5}
-  message: 
---- !u!114 &-4988172004218494240
+  position: {x: 189, y: 516}
+  message: Hello World
+--- !u!114 &-602183061647684791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -26,14 +26,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ec0b2492d13c7c499576f814bdb3d63, type: 3}
-  m_Name: DebugNode
+  m_Script: {fileID: 11500000, guid: 17d6784464ba778459587f08e16c6e69, type: 3}
+  m_Name: RootNode
   m_EditorClassIdentifier: 
   state: 0
   started: 0
-  guid: 23c8129a1f3a01b4d94cca302b9c93ad
-  position: {x: 152, y: 151}
-  message: 
+  guid: 2f90110445377df4e88217553cbbda30
+  position: {x: 88.86041, y: 154.43471}
+  child: {fileID: 1125401778965312111}
+--- !u!114 &-542140772838166503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f0364ea5979af428d6aca4d443e415, type: 3}
+  m_Name: WaitNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d33948dff5492064ba087097ffd77994
+  position: {x: 0.8604698, y: 516.4347}
+  duration: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,13 +63,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf61e6a393c23b45be31c138ec8dac0, type: 3}
   m_Name: Sample
   m_EditorClassIdentifier: 
-  rootNode: {fileID: 0}
+  rootNode: {fileID: -602183061647684791}
   treeState: 0
   nodes:
-  - {fileID: -4988172004218494240}
+  - {fileID: -602183061647684791}
   - {fileID: 4526710089413755579}
   - {fileID: 1125401778965312111}
   - {fileID: -7853252933382036575}
+  - {fileID: -542140772838166503}
 --- !u!114 &1125401778965312111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +86,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 93ca27cbe787f8a4fba1b1c09beee2d2
-  position: {x: -194, y: 189}
+  position: {x: 88.86041, y: 263.43466}
   child: {fileID: 4526710089413755579}
 --- !u!114 &4526710089413755579
 MonoBehaviour:
@@ -85,7 +103,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 7879cd922a556d84e82137733cb257c3
-  position: {x: -61, y: 189}
+  position: {x: 89.86038, y: 375.43466}
   children:
-  - {fileID: -4988172004218494240}
   - {fileID: -7853252933382036575}
+  - {fileID: -542140772838166503}

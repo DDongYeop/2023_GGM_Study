@@ -1,0 +1,112 @@
+#node-border {
+    background-color: rgb(106, 106, 106);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(51, 51, 51);
+    border-right-color: rgb(51, 51, 51);
+    border-top-color: rgb(51, 51, 51);
+    border-bottom-color: rgb(51, 51, 51);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#selection-border {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-left-color: rgb(47, 105, 255);
+    border-right-color: rgb(47, 105, 255);
+    border-top-color: rgb(47, 105, 255);
+    border-bottom-color: rgb(47, 105, 255);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#input {
+    align-items: center;
+}
+
+#output {
+    align-items: center;
+}
+
+:hover > #selection-border {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}
+
+:selected > #selection-border {
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}
+
+:hover:selected > #selection-border {
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.node {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    min-width: 150px;
+}
+
+#title {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#divider {
+    min-height: 1px;
+    background-color: rgb(140, 140, 140);
+}
+
+.action #input {
+    background-color: rgb(47, 80, 237);
+}
+
+.root #input {
+    background-color: rgb(237, 69, 47);
+    min-height: 24px;
+}
+
+.composite #input {
+    background-color: rgb(241, 148, 31);
+}
+
+.decorator #input {
+    background-color: rgb(245, 235, 34);
+}
+
+#title > #title-label {
+    font-size: 17px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-center;
+}
+
+#description {
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    padding-right: 5px;
+    padding-bottom: 5px;
+}

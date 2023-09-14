@@ -22,7 +22,11 @@ namespace BTVisual
             UnityEngine.Object.DestroyImmediate(_editor);
             _editor = Editor.CreateEditor(nv.node); //유니티 기본 인스펙터뷰 만들어줌
 
-            var container = new IMGUIContainer(() => _editor.OnInspectorGUI()); //엔진 공부 하려면 "IMGUI"배워라 
+            var container = new IMGUIContainer(() =>
+            {
+                if (_editor.target)
+                    _editor.OnInspectorGUI();
+            }); //엔진 공부 하려면 "IMGUI"배워라 
             
             Add(container);
         }

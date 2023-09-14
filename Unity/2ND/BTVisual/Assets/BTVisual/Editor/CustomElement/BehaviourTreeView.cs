@@ -27,6 +27,14 @@ namespace BTVisual
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
+
+            Undo.undoRedoPerformed += OnUndoRedoHandle;
+        }
+
+        private void OnUndoRedoHandle()
+        {
+            PopulateView(_tree);
+            AssetDatabase.SaveAssets();
         }
 
         public void PopulateView(BehaviourTree tree)
@@ -40,7 +48,7 @@ namespace BTVisual
 
             if (_tree.rootNode == null)
             {
-                _tree.rootNode = CreateNode(typeof(RootNode)) as RootNode;
+                _tree.rootNode = tree.CreateNode(typeof(RootNode)) as RootNode;
                 EditorUtility.SetDirty(_tree);
                 AssetDatabase.SaveAssets();
             }
@@ -110,16 +118,15 @@ namespace BTVisual
             AddElement(nv);
         }
 
-        private Node CreateNode(Type t)
+        private void CreateNode(Type t)
         {
             Node node = _tree.CreateNode(t);
             CreateNodeView(node);
-            return node;
         }
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
         {
-            if (_tree == null && AssetDatabase.CanOpenAssetInEditor(_tree.GetInstanceID())) 
+            if (_tree == null/* && AssetDatabase.CanOpenAssetInEditor(_tree.GetInstanceID())*/) 
             {
                 evt.StopPropagation(); //이벤트 전파금지 걸고
                 return;
