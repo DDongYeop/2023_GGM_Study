@@ -4,9 +4,12 @@
 #include "framework.h"
 #include "(23.09.12).winapi.h"
 #include <vector>
-#include <time.h> 
+#include <time.h>
+#include <algorithm> 
 
 #define MAX_LOADSTRING 100
+#define WINSIZEX 1280
+#define WINSIZEY 720
 #define RECT_RENDER(posx, posy, scalex, scaley) Rectangle(hdc, posx-scalex/2, posy-scaley/2, posx+scalex/2, posy+scaley/2)
 #define RECT_MAKE(posx, posy, scalex, scaley) {posx-scalex/2, posy-scaley/2, posx+scalex/2, posy+scaley/2}
 
@@ -102,7 +105,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, WINSIZEX, WINSIZEY, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -141,8 +144,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     static RECT rectview;
     static std::vector<tObjInfo> vecObj;
-    static tObjInfo player = { {100, 100}, {100, 100} };
+    static tObjInfo player = { {600, 600}, {100, 100} };
     static float fMoveSpeed = 20.f;
+    static int iDelay = 0;
     /*static tObjInfo obj = { {500, 100}, {100, 100} };
     static MOVE_DIR eMoveDir;*/
 
@@ -156,14 +160,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_TIMER:
     {
         //내가 가진 vector에 obj 넣기
-        tObjInfo tempinfo;
-        tempinfo.pos.x = rand() % rectview.right;
-        tempinfo.pos.y = 0;
-        tempinfo.scale.x = 50;
-        tempinfo.scale.y = 50;
-        vecObj.push_back(tempinfo);
-        for (size_t i = 0; i < vecObj.size(); ++i)
-            vecObj[i].pos.y += 10;
+        if (iDelay >= 50)
+        {
+            tObjInfo tempinfo;
+            tempinfo.pos.x = rand() % rectview.right;
+            tempinfo.pos.y = 0;
+            tempinfo.scale.x = 50;
+            tempinfo.scale.y = 50;
+            vecObj.push_back(tempinfo);
+            iDelay = rand() % 50;
+        }
+        else
+            iDelay++;
+
+        std::vector<tObjInfo>::iterator iter = vecObj.begin();
+        RECT temprt, playerrt, object;
+        playerrt = RECT_MAKE(player.pos.x, player.pos.y, player.scale.x, player.scale.y);
+        for (; iter != vecObj.end();)
+        {
+            iter->pos.y += 10;
+            object = RECT_MAKE(iter->pos.x, iter->pos.y, iter->scale.x, iter->scale.y);
+            if (iter->pos.y > WINSIZEX || IntersectRect(&temprt, &playerrt, &object))
+                iter = vecObj.erase(iter);
+            else
+                ++iter;
+        }
+
         InvalidateRect(hWnd, nullptr, true);
     } break;
     case WM_KEYDOWN:
@@ -185,6 +207,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         InvalidateRect(hWnd, nullptr, true);*/
 
+        switch (wParam)
+        {
+        case 'A':
+        case VK_LEFT:
+            player.pos.x -= 10;
+            if (player.pos.x <= 0)
+                player.pos.x = 0;
+            break;
+        case 'D':
+        case VK_RIGHT:
+            player.pos.x += 10;
+            if (player.pos.x >= WINSIZEX)
+                player.pos.x = WINSIZEX;
+            break;
+        default:
+            break;
+        }
+
     } break;
     case WM_PAINT:
     {
@@ -192,11 +232,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         HDC hdc = BeginPaint(hWnd, &ps);
 
         //충돌연습
-        RECT_RENDER(player.pos.x, player.pos.y, player.scale.x, player.scale.y);
+        //RECT_RENDER(player.pos.x, player.pos.y, player.scale.x, player.scale.y);
         /*RECT_RENDER(obj.pos.x, obj.pos.y, obj.scale.x, obj.scale.y);*/
 
+        HBRUSH hGreenBrush = CreateSolidBrush(RGB(0, 255, 0));
+        HBRUSH hDefaultBrush = (HBRUSH)SelectObject(hdc, hGreenBrush);
+        RECT_RENDER(player.pos.x, player.pos.y, player.scale.x, player.scale.y);
+        SelectObject(hdc, hDefaultBrush);
         for (size_t i = 0; i < vecObj.size(); ++i)
             RECT_RENDER(vecObj[i].pos.x, vecObj[i].pos.y, vecObj[i].scale.x, vecObj[i].scale.y);
+
+        DeleteObject(hGreenBrush);
 
         EndPaint(hWnd, &ps);
     } break;
