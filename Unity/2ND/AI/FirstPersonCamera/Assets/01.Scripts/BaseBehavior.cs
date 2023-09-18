@@ -5,6 +5,7 @@ public class BaseBehavior : MonoBehaviour
     protected PluggableBehaviourController behaviourController;
     protected int behaviourCode;
     public int GetBehaviourCode => behaviourCode;
+    public bool AllowSprint;
 
     private void Awake()
     {
