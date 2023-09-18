@@ -105,6 +105,16 @@ namespace BTVisual
                     NodeView child = edge.input.node as NodeView; //자식 가져오기
                     
                     _tree.AddChild(parent.node, child.node);
+                    parent.SortChildren();
+                });
+            }
+
+            if (graphViewChange.movedElements != null)
+            {
+                nodes.ForEach(n =>
+                {
+                    var view = n as NodeView;
+                    view?.SortChildren();
                 });
             }
             
@@ -118,9 +128,10 @@ namespace BTVisual
             AddElement(nv);
         }
 
-        private void CreateNode(Type t)
+        private void CreateNode(Type t, Vector2 pos)
         {
             Node node = _tree.CreateNode(t);
+            node.position = pos;
             CreateNodeView(node);
         }
 
@@ -132,25 +143,27 @@ namespace BTVisual
                 return;
             }
             
+            Vector2 nodePosition = this.ChangeCoordinatesTo(contentViewContainer, evt.localMousePosition);
+            
             {
                 var types = TypeCache.GetTypesDerivedFrom<ActionNode>();
                 foreach(var t in types)
                 {
-                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t); });
+                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t, nodePosition); });
                 }
             }
             {
                 var types = TypeCache.GetTypesDerivedFrom<CompositeNode>();
                 foreach(var t in types)
                 {
-                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t); });
+                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t, nodePosition); });
                 }
             }
             {
                 var types = TypeCache.GetTypesDerivedFrom<DecoratorNode>();
                 foreach(var t in types)
                 {
-                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t); });
+                    evt.menu.AppendAction($"[{t.BaseType.Name}] / {t.Name}", (a) => { CreateNode(t, nodePosition); });
                 }
             }
         }
@@ -162,6 +175,15 @@ namespace BTVisual
             return ports.ToList()
                 .Where(x => x.direction != startPort.direction && x.node != startPort.node)
                 .ToList();
+        }
+
+        public void UpdateNodeState()
+        {
+            nodes.ForEach(n =>
+            {
+                var nodeView = n as NodeView;
+                nodeView?.UpdateState();
+            });
         }
     }
 }

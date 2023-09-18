@@ -15,7 +15,15 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: b3fc5f7eab73bdd4abef412ef948453a
-  position: {x: 189, y: 516}
+  position: {x: 184, y: 516}
+  blackBoard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0, z: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+  brain: {fileID: 0}
+  description: 
   message: Hello World
 --- !u!114 &-602183061647684791
 MonoBehaviour:
@@ -32,7 +40,15 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 2f90110445377df4e88217553cbbda30
-  position: {x: 88.86041, y: 154.43471}
+  position: {x: 90, y: 154}
+  blackBoard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0, z: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+  brain: {fileID: 0}
+  description: "\uB8E8\uD2B8 \uB178\uB4DC\uC785\uB2C8\uB2E4."
   child: {fileID: 1125401778965312111}
 --- !u!114 &-542140772838166503
 MonoBehaviour:
@@ -50,6 +66,14 @@ MonoBehaviour:
   started: 0
   guid: d33948dff5492064ba087097ffd77994
   position: {x: 0.8604698, y: 516.4347}
+  blackBoard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0, z: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+  brain: {fileID: 0}
+  description: 
   duration: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -65,6 +89,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rootNode: {fileID: -602183061647684791}
   treeState: 0
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0, z: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
   nodes:
   - {fileID: -602183061647684791}
   - {fileID: 4526710089413755579}
@@ -86,7 +116,15 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 93ca27cbe787f8a4fba1b1c09beee2d2
-  position: {x: 88.86041, y: 263.43466}
+  position: {x: 90, y: 263}
+  blackBoard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0, z: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+  brain: {fileID: 0}
+  description: 
   child: {fileID: 4526710089413755579}
 --- !u!114 &4526710089413755579
 MonoBehaviour:
@@ -103,7 +141,15 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 7879cd922a556d84e82137733cb257c3
-  position: {x: 89.86038, y: 375.43466}
+  position: {x: 90, y: 372}
+  blackBoard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+    lastSpotPosition: {x: 0, y: 0, z: 0}
+    whatIsEnemy:
+      serializedVersion: 2
+      m_Bits: 0
+  brain: {fileID: 0}
+  description: 
   children:
-  - {fileID: -7853252933382036575}
   - {fileID: -542140772838166503}
+  - {fileID: -7853252933382036575}

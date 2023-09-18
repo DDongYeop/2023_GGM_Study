@@ -10,7 +10,17 @@ namespace BTVisual
         public Node rootNode;
         public Node.State treeState = Node.State.RUNNING;
 
-        public List<Node> nodes = new List<Node>(); 
+        public BlackBoard blackboard = new BlackBoard(); 
+        public List<Node> nodes = new List<Node>();
+
+        public void Bind(EnemyBrain brain)
+        {
+            Traverse(rootNode, n =>
+            {
+                n.blackBoard = blackboard;
+                n.brain = brain;
+            });
+        }
 
         public Node.State Update()
         {
@@ -32,7 +42,9 @@ namespace BTVisual
             Undo.RecordObject(this, "BT(CreateNode");
             nodes.Add(node);
             
-            AssetDatabase.AddObjectToAsset(node, this);
+            if (!Application.isPlaying)
+                AssetDatabase.AddObjectToAsset(node, this);
+            
             Undo.RegisterCreatedObjectUndo(node, "BT(CreateNode)");
             AssetDatabase.SaveAssets();
 

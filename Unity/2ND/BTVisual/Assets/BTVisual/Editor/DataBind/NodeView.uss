@@ -110,3 +110,27 @@
     padding-right: 5px;
     padding-bottom: 5px;
 }
+
+#node-State {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    height: 100%;
+}
+
+.running #node-State {
+    background-color: rgb(255, 255, 0);
+}
+
+.failure #node-State {
+    background-color: rgb(255, 0, 0);
+}
+
+.success #node-State {
+    background-color: rgb(0, 0, 255);
+}

@@ -18,6 +18,10 @@ namespace BTVisual
         [HideInInspector] public bool started = false;
         [HideInInspector] public string guid;
         [HideInInspector] public Vector2 position;
+        [HideInInspector] public BlackBoard blackBoard;
+        [HideInInspector] public EnemyBrain brain;
+
+        [TextArea] public string description;
 
         public virtual Node Clone()
         {
