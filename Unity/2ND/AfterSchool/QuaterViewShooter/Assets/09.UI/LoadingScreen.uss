@@ -1,0 +1,32 @@
+#container {
+    flex-grow: 1;
+    background-color: rgb(0, 0, 0);
+    align-items: center;
+    justify-content: center;
+}
+
+#title-container {
+    min-width: 700px;
+}
+
+.txt-label {
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-align: upper-center;
+}
+
+.txt-large {
+    font-size: 70px;
+}
+
+#complete-label {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    opacity: 0;
+}
+
+#complete-label.on {
+    opacity: 1;
+}

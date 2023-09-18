@@ -9,14 +9,14 @@ public class MuzzleFlashFeedback : Feedback
     [SerializeField] private ParticleSystem _muzzleParticle;
     [SerializeField] private float _feedbackTime = 0.05f;
 
-    public override void CompletePreFeedback()
+    public override void CompletePrevFeedback()
     {
         StopAllCoroutines();
         _muzzleParticle.Stop();
         _muzzleParticle.Simulate(0);
         _flashLight.enabled = _lightDefaultState;
     }
-    
+
     public override void CreateFeedback()
     {
         _muzzleParticle.Play();

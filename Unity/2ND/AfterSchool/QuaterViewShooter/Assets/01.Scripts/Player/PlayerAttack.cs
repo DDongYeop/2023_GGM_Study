@@ -15,23 +15,24 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _armDelay = 0.15f;
     [SerializeField] private int _damage = 10;
     [SerializeField] private int _maxAmmo = 60;
-    [SerializeField] private float _reloadTime = 1f;
+    [SerializeField] private float _reloadTime = 1.0f;
 
     private bool _isReloading = false;
     private int _currentAmmo = 0;
-    
+
     public Vector3 HitPoint { get; private set; }
 
     public UnityEvent OnFire;
     public UnityEvent CannotShoot;
-    public UnityEvent<bool> OnRelaod;
+    public UnityEvent<bool> OnReload;
+
 
     private float _lastFireTime;
     private bool _isArmed;
     private bool _canReadyToFire;
     private bool _isFire;
     private Coroutine _armingCoroutine;
-    
+
     private void Awake()
     {
         _inputReader.ArmedEvent += OnHandleArm;
@@ -51,41 +52,40 @@ public class PlayerAttack : MonoBehaviour
         _isFire = value;
     }
 
-    private void Start()
-    {
-        _currentAmmo = _maxAmmo - 20;
-    }
-
     private void OnHandleReload()
     {
-        if (_currentAmmo == _maxAmmo || _isReloading)
-            return;
-
+        if (_currentAmmo == _maxAmmo || _isReloading) return;
         StartCoroutine(ReloadCoroutine());
     }
 
     private IEnumerator ReloadCoroutine()
     {
         _isReloading = true;
-        OnRelaod?.Invoke(_isReloading);
+        OnReload?.Invoke(_isReloading);
         _playerAnimator.SetReload(_isReloading);
         yield return new WaitForSeconds(_reloadTime);
 
-        _currentAmmo = _maxAmmo; //Î¶¨Î°úÎìú ÏôÑÎ£åÎêòÎ©¥ Ï±ÑÏõåÏßÄÍ∏∞
+        _currentAmmo = _maxAmmo; //∏Æ∑ŒµÂ øœ∑·µ«∏È √§øˆ¡ˆ±‚
         _isReloading = false;
-        OnRelaod?.Invoke(_isReloading);
+        OnReload?.Invoke(_isReloading);
         _playerAnimator.SetReload(_isReloading);
+
     }
+
+    private void Start()
+    {
+        _currentAmmo = _maxAmmo - 20;
+    }
+
+    
 
     private void OnHandleArm(bool value)
     {
-        if(_isReloading)
-            return;
-
+        if (_isReloading) return;
         _isArmed = value;
         _playerAnimator.SetArmed(value);
-        
-        if (_isArmed)
+
+        if(_isArmed)
         {
             _armingCoroutine = StartCoroutine(ArmingDelay());
         }
@@ -96,35 +96,37 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private IEnumerator ArmingDelay()
+    IEnumerator ArmingDelay()
     {
         yield return new WaitForSeconds(_armDelay);
+        //ø©±‚¥Ÿ∞° √ﬂ∞°∑Œ ªÁøÓµÂ ¿Ã∆Â∆Æ∞∞¿∫∞≈ ≥÷æÓ¡÷∏È ¡¡¿ªµÌ.
         _canReadyToFire = true;
     }
+
 
     private void Update()
     {
         bool canFire = !_isReloading && _canReadyToFire && _isFire && _lastFireTime + _cooltime < Time.time;
 
-        if (canFire)
+        if(canFire)
         {
-            if (_currentAmmo <= 0)
+            if(_currentAmmo <= 0)
             {
                 CannotShoot?.Invoke();
                 _isFire = false;
                 return;
             }
 
-            if (Physics.Raycast(_firePos.position, _firePos.forward, out var hit, _shootRange))
+            if(Physics.Raycast(_firePos.position, _firePos.forward, out RaycastHit hit, _shootRange))
             {
                 HitPoint = hit.point;
-                //Îç∞ÎØ∏ÏßÄ Ï£ºÍ∏∞
+                //ø©±‚º≠ ¿Ã¡¶ ¿˚ø°∞‘ µ•πÃ¡ˆ∏¶ ¡÷¥¬ ∫Œ∫–¿Ã µÈæÓ∞°æﬂ «—¥Ÿ.
             }
             else
             {
                 HitPoint = _firePos.position + _firePos.forward * _shootRange;
             }
-            
+
             OnFire?.Invoke();
             _currentAmmo--;
             _lastFireTime = Time.time;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,20 +10,20 @@ public class BlinkFeedback : Feedback
     private MaterialPropertyBlock _matPropBlock;
     private int _blinkHash = Shader.PropertyToID("_Blink");
 
+
     private void Awake()
     {
         _matPropBlock = new MaterialPropertyBlock();
-        _meshRenderer.GetPropertyBlock(_matPropBlock);
+        _meshRenderer.GetPropertyBlock(_matPropBlock); //ÇØ´ç ·»´õ·¯¿¡ ºÙ¾îÀÖ´Â ¸ÅÆ¼¸®¾óÀÇ ÇÁ·ÎÆÛÆ¼ ºí·Ï
     }
 
-    public override void CompletePreFeedback()
+    public override void CompletePrevFeedback()
     {
         
     }
-    
+
     public override void CreateFeedback()
     {
-        //ë¹¤ë”±ë¹¤ë”±ê³¼ì œ 
-        // 0.2ì´ˆ í›„ì— ë‹¤ì‹œ ëŒì•„ì˜¤ê¸° 
+        //¸ÂÀ¸¸é 
     }
 }

@@ -1,31 +1,31 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FeedbackPlayer : MonoBehaviour
 {
-    private List<Feedback> _feedbackToPlayer = new List<Feedback>();
+    private List<Feedback> _feedbackToPlay = new List<Feedback>();
+
 
     private void Awake()
     {
-        GetComponents<Feedback>(_feedbackToPlayer);
+        GetComponents<Feedback>(_feedbackToPlay); //나한테 붙은 모든 피드백을 다 가져온다.
     }
 
     public void PlayFeedback()
     {
         FinishFeedback();
-        foreach (var f in _feedbackToPlayer)
+        foreach (var f in _feedbackToPlay)
         {
             f.CreateFeedback();
         }
     }
 
-    private void FinishFeedback()
+    public void FinishFeedback()
     {
-        foreach (var f in _feedbackToPlayer)
+        foreach(var f in _feedbackToPlay)
         {
-            f.CompletePreFeedback();
+            f.CompletePrevFeedback();
         }
     }
 }

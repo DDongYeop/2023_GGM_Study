@@ -1,18 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("ì°¸ì¡°ê°’ë“¤")]
+    [Header("ÂüÁ¶ °ªµé")]
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private PlayerAnimator _playerAnimator;
-    
-    [Header("ì„¤ì • ê°’ë“¤")]
+
+    [Header("¼³Á¤ °ªµé")]
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _gravity = -9.8f;
     [SerializeField] private float _gravityMultiplier = 1f;
@@ -43,20 +42,20 @@ public class PlayerMovement : MonoBehaviour
     {
         _inputDirection = value;
     }
-    
+
     private void CalculateMovement()
     {
+        //¿©±â¸¦ ¾Ë¾Æ¼­ Àß µü ¸¸µé¾îº¾½Ã´Ù.
         Vector3 move = _rotate45 * new Vector3(_inputDirection.x, 0, _inputDirection.y);
         _moveVelocity = move * (_moveSpeed * Time.fixedDeltaTime);
     }
 
     private void ApplyGravity()
     {
-        if (IsGround && _verticalVelocity < 0)
+        if(IsGround && _verticalVelocity < 0)
         {
             _verticalVelocity = -1f;
-        }
-        else
+        }else
         {
             _verticalVelocity = _gravity * _gravityMultiplier * Time.fixedDeltaTime;
         }

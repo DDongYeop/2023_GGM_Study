@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-public class SoundEffect : MonoBehaviour
+public class SoundEffect : PoolableMono
 {
     private AudioSource _audioSource;
     private float _basePitch;
@@ -28,7 +25,13 @@ public class SoundEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         _audioSource.Stop();
+
+        //Destroy(gameObject); //나중엔 풀매니징으로 변경해야해
+        PoolManager.Instance.Push(this);
+    }
+
+    public override void Init()
+    {
         
-        Destroy(gameObject);
     }
 }

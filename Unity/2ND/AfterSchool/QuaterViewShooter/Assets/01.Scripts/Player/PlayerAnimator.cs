@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    [Header("ì°¸ì¡° ë³€ìˆ˜")]
+    [Header("ÂüÁ¶ º¯¼ö")]
     [SerializeField] private Animator _animator;
     [SerializeField] private Animator _rigAnimator;
 
@@ -17,15 +16,14 @@ public class PlayerAnimator : MonoBehaviour
     private readonly int _isArmedHash = Animator.StringToHash("is_armed");
 
     private void Awake()
-    { 
-        _rigAnimator.enabled = true; //ëª…ì‹œì ìœ¼ë¡œ ë™ì‘í•˜ê²Œ 
+    {
+        _rigAnimator.enabled = true; //ÇÑ¹ø´õ ¸í½ÃÀûÀ¸·ÎÇØ¼­ µ¿ÀÛÇÏ°Ô
     }
-
     public void SetMove(bool value)
     {
         _animator.SetBool(_isMoveHash, value);
     }
-    
+
     public void SetAnimationDirection(Vector2 dir)
     {
         _animator.SetFloat(_moveXHash, dir.x);
@@ -36,11 +34,11 @@ public class PlayerAnimator : MonoBehaviour
     {
         _rigAnimator.SetBool(_isArmedHash, value);
     }
-    
+
     public void SetReload(bool value)
     {
         _animator.SetBool(_isReloadHash, value);
         _rigAnimator.SetBool(_isReloadHash, value);
-        //ë‚˜ì¤‘ì— ë¦¬ê¹…ë¶€ë¶„ ì¶”ê°€ 
+        //¿©±â´Ù°¡ ³ªÁß¿¡ ¸®±ëÂÊµµ Ãß°¡ÇÑ´Ù.
     }
 }

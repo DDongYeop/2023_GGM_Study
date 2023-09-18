@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class DrawTrailFeedback : Feedback
 {
     [SerializeField] private Transform _firePos;
-    [SerializeField] private BulletTrail _trailPrefab;
+    [SerializeField] private BulletTrail _trailPrefab; //ÀÌ°Ç ³ªÁß¿¡ AssetReference ·Î º¯°æµÈ´Ù.
     [SerializeField] private PlayerAttack _playerAttack;
     [SerializeField] private float _trailTime = 0.03f;
-    
-    public override void CreateFeedback()
+
+    public override void CompletePrevFeedback()
     {
-        //ìƒì„±í•˜ê³  ì—†ì• ê¸°
+        //»ı¼ºÇÏ°í ¾ø¾Ö¸é ±×¸¸ÀÌ¶ó ÄÄÇÃ¸®Æ® 
     }
 
-    public override void CompletePreFeedback()
+    public override void CreateFeedback()
     {
-        var trail = Instantiate(_trailPrefab, _firePos.position, quaternion.identity);
+        var trail = Instantiate(_trailPrefab, _firePos.position, Quaternion.identity);
         trail.DrawTrail(_firePos.position, _playerAttack.HitPoint, _trailTime);
     }
 }

@@ -57,8 +57,11 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
     public void OnArmed(InputAction.CallbackContext context)
     {
         if(context.performed)
+        {
             ArmedEvent?.Invoke(true);
-        else if(context.canceled)
+        }else if(context.canceled)
+        {
             ArmedEvent?.Invoke(false);
+        }
     }
 }

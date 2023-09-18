@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/09.UI/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=1624ecf99a5e0024f9267d9f54e2d459&amp;type=3#LoadingScreen" />
+    <ui:VisualElement name="container">
+        <ui:VisualElement name="title-container">
+            <ui:Label tabindex="-1" text="Game Loading ..." parse-escape-sequences="true" display-tooltip-when-elided="true" name="title-label" class="txt-label txt-large" />
+            <ui:Label tabindex="-1" text="Loading prefab 1/4" parse-escape-sequences="true" display-tooltip-when-elided="true" name="description-label" class="txt-label" />
+        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="Loading complete! Press space to continue.." parse-escape-sequences="true" display-tooltip-when-elided="true" name="complete-label" class="txt-label" />
+    </ui:VisualElement>
+</ui:UXML>

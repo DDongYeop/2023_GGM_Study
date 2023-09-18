@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletTrail : MonoBehaviour
+public class BulletTrail : PoolableMono
 {
     [SerializeField] private float _lifeTime = 0.2f;
 
@@ -16,16 +14,23 @@ public class BulletTrail : MonoBehaviour
 
     public void DrawTrail(Vector3 startPos, Vector3 endPos, float lifeTime)
     {
-        _trailRenderer.Clear(); //ëª¨ë“  ì  ì œê±°
+        _trailRenderer.Clear(); //Æ®·¹ÀÏ·»´õ·¯ »óÀÇ ¸ğµç Á¡À» Á¦°ÅÇÑ´Ù.
         _trailRenderer.AddPosition(startPos);
         transform.position = endPos;
         _trailRenderer.time = lifeTime;
+        _lifeTime = lifeTime;
         StartCoroutine(DestroyTimer());
     }
 
     private IEnumerator DestroyTimer()
     {
         yield return new WaitForSeconds(_lifeTime);
-        Destroy(gameObject); //ì°¨í›„ í’€ë©”ë‹ˆì € 
+        //Destroy(gameObject); //³ªÁß¿¡ Ç®¸Å´ÏÀú·Î ³Ö¾îÁà¾ß ÇÑ´Ù.
+        PoolManager.Instance.Push(this);
+    }
+
+    public override void Init()
+    {
+        
     }
 }

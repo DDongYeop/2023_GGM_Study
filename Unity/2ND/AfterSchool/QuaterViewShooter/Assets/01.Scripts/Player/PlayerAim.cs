@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PlayerAim : MonoBehaviour
 {
-    [Header("ì°¸ì¡° ë³€ìˆ˜")]
+    [Header("ÂüÁ¶ º¯¼ö")]
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private Transform _visualTrm;
     [SerializeField] private PlayerAnimator _playerAnimator;
     [SerializeField] private PlayerMovement _playerMovement;
 
-    [Header("ì…‹íŒ… ê°’")]
+    [Header("¼ÂÆÃ °ª")]
     [SerializeField] private LayerMask _whatIsGround;
 
     private void LateUpdate()
@@ -17,7 +17,7 @@ public class PlayerAim : MonoBehaviour
 
         Ray ray = CameraManager.MainCam.ScreenPointToRay(mousePos);
 
-        //ì—¬ê¸°ì„œ ì•Œì˜ë”± í•´ì„œ ë§ˆìš°ìŠ¤ ë°©í–¥ìœ¼ë¡œ ìºë¦­í„°ì˜ ë¹„ì¥¬ì–¼ì´ íšŒì „í•˜ê²Œ í•˜ì„¸ìš”.
+        //¿©±â¼­ ¾ËÀßµü ÇØ¼­ ¸¶¿ì½º ¹æÇâÀ¸·Î Ä³¸¯ÅÍÀÇ ºñÁê¾óÀÌ È¸ÀüÇÏ°Ô ÇÏ¼¼¿ä.
         if(Physics.Raycast(ray, out RaycastHit hitInfo, CameraManager.MainCam.farClipPlane, _whatIsGround))
         {
             Vector3 worldPos = hitInfo.point;
