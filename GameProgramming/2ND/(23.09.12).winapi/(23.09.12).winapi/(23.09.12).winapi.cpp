@@ -146,7 +146,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     static std::vector<tObjInfo> vecObj;
     static tObjInfo player = { {600, 600}, {100, 100} };
     static float fMoveSpeed = 20.f;
-    static int iDelay = 0;
+    static int iDelay = 0, Score = 0;
     /*static tObjInfo obj = { {500, 100}, {100, 100} };
     static MOVE_DIR eMoveDir;*/
 
@@ -181,7 +181,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             iter->pos.y += 10;
             object = RECT_MAKE(iter->pos.x, iter->pos.y, iter->scale.x, iter->scale.y);
             if (iter->pos.y > WINSIZEX || IntersectRect(&temprt, &playerrt, &object))
+            {
                 iter = vecObj.erase(iter);
+                ++Score;
+            }
             else
                 ++iter;
         }
@@ -241,6 +244,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         SelectObject(hdc, hDefaultBrush);
         for (size_t i = 0; i < vecObj.size(); ++i)
             RECT_RENDER(vecObj[i].pos.x, vecObj[i].pos.y, vecObj[i].scale.x, vecObj[i].scale.y);
+
+        wchar_t bufscore[32];
+        _itow_s(Score, bufscore, 10);
+        TextOut(hdc, 10, 10, bufscore, wcslen(bufscore));
 
         DeleteObject(hGreenBrush);
 
