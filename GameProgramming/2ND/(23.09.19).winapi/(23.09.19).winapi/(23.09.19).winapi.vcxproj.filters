@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{249bef67-46be-44a9-9c16-0faa74aad1f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{dc2db3ee-b0ad-44df-af1b-d9646e0cc394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\01.Header">
+      <UniqueIdentifier>{6bcd70ae-0cf6-487b-90e5-3daafadef109}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02.Core">
+      <UniqueIdentifier>{ce839d86-1f2c-45f4-a875-c0f810d4e01a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03.Manager">
+      <UniqueIdentifier>{2e192ad7-b809-483e-9549-b1d069c6a974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03.Manager\KeyManager">
+      <UniqueIdentifier>{53b113af-29ed-457e-a0d7-3dabbf445fb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03.Manager\TimeManager">
+      <UniqueIdentifier>{4090cd1e-4024-4bdb-b2b1-fa3175a09165}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="(23.09.19).winapi.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Engine\02.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Engine\01.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>Engine\03.Manager\KeyManager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="(23.09.19).winapi.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="(23.09.19).winapi.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>Engine\02.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>Engine\03.Manager\KeyManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
