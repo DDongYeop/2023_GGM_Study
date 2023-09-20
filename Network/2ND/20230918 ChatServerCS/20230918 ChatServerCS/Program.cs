@@ -100,11 +100,26 @@ namespace _20230918_ChatServerCS
             mut.ReleaseMutex();
         } //end broadcast function
 
-        public static void UserAdd(string clientName)
+        public static void UserAdd(string userName)
         {
-
+            //서버에서 보내는 브로드 캐스트 메세지
+            Broadcast(userName + "Joined", "", false);
+            Console.WriteLine(userName + " Joined Chat room");
         }
-    }
+
+        public static void UserLeft(string userName, int userID)
+        {
+            if (clientsList.ContainsKey(userID))
+            {
+                Broadcast(userName + "Left ", "", false);
+                Console.WriteLine(userName + " Left Chat room");
+                //소켓 닫기
+                TcpClient clientSocket = GetSocket(userID);
+                clientSocket.Close();
+                clientsList.Remove(userID);
+            }
+        }
+    } //end Main Class
 
     class HandleClient
     {
@@ -126,9 +141,74 @@ namespace _20230918_ChatServerCS
             ctThread.Start();
         }
 
+        //소켓 연결 상태 확인
+        bool SocketConnected(Socket s)
+        {
+            bool part1 = s.Poll(1000, SelectMode.SelectRead);
+            bool part2 = (s.Available == 0); //읽을 데이터가 없으면 part2 true
+
+            if (part1 && part2) 
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //스레드, 해당 클라한테 메세지 받음
         private void DoChat()
         {
+            byte[] bytesFrom = new byte[1024];
+            string dataFromClient = "";
+            NetworkStream networkStream = clientSocket.GetStream();
 
+            while (!noConnection)
+            {
+                try
+                {
+                    int numBytesRead;
+                    if (!SocketConnected(clientSocket.Client))
+                    {
+                        noConnection = true;
+                    }
+                    else
+                    {
+                        if (networkStream.DataAvailable)
+                        {
+                            dataFromClient = "";
+                            while(networkStream.DataAvailable)
+                            {
+                                //Recv
+                                numBytesRead = networkStream.Read(bytesFrom, 0, bytesFrom.Length);
+                                dataFromClient = Encoding.UTF8.GetString(bytesFrom, 0, numBytesRead);
+                            }
+                        }//end while
+                        int idx = dataFromClient.IndexOf('$');
+
+                        //처음 접속. 닉네임 전달
+                        if (userName == null && idx > 0)
+                        {
+                            userName = dataFromClient.Substring(0, idx);
+                            Program.UserAdd(userName);
+                        }
+                        //채팅 내용 전달
+                        else if (idx > 1)
+                        {
+                            dataFromClient = dataFromClient.Substring(0, dataFromClient.Length - 1);
+                            Console.WriteLine(userName + ": " + dataFromClient);
+                            Program.Broadcast(dataFromClient, userName, true);
+                        }
+                        else
+                        {
+                            dataFromClient = "";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    noConnection = true;
+                    Console.WriteLine("Error: " +  ex.ToString());
+                }
+            }
         }
     }
 }
