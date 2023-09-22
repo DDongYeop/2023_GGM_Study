@@ -49,6 +49,15 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>Engine\03.Manager\KeyManager</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Engine\01.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeMgr.h">
+      <Filter>Engine\03.Manager\TimeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseWindow.h">
+      <Filter>Engine\02.Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="(23.09.19).winapi.rc">
@@ -72,6 +81,12 @@
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>Engine\03.Manager\KeyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeMgr.cpp">
+      <Filter>Engine\03.Manager\TimeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseWindow.cpp">
+      <Filter>Engine\02.Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
