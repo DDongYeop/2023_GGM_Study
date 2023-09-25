@@ -60,6 +60,7 @@
             this.connect.TabIndex = 2;
             this.connect.Text = "Connet to Server";
             this.connect.UseVisualStyleBackColor = true;
+            this.connect.Click += new System.EventHandler(this.connect_Click);
             // 
             // textBox2
             // 
@@ -84,6 +85,7 @@
             this.send.TabIndex = 5;
             this.send.Text = "Send Message";
             this.send.UseVisualStyleBackColor = true;
+            this.send.Click += new System.EventHandler(this.send_Click);
             // 
             // Form1
             // 
@@ -98,6 +100,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
