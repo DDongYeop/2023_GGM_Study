@@ -7,6 +7,8 @@ public class BaseBehavior : MonoBehaviour
     public int GetBehaviourCode => behaviourCode;
     public bool AllowSprint;
 
+    public int speedFloat;
+
     private void Awake()
     {
         this.behaviourController = GetComponent<PluggableBehaviourController>();
