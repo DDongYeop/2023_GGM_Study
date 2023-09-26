@@ -2,7 +2,7 @@
 class BaseWindow
 {
 public:
-	BaseWindow();
+	BaseWindow(POINT _ptResolition);
 	~BaseWindow();
 
 	//꼭 들고 가야하는거
@@ -15,11 +15,12 @@ public:
 	void				WindowCreate();
 	void				WindowShow(int _nCmdShow);
 	void				WindowUpdate();
-	LRESULT CALLBACK    WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
+	static LRESULT CALLBACK    WndProc(HWND _hWnd, UINT _message, WPARAM _wParam, LPARAM _lParam);
 	int					MessageLoop();
 
 private:
 	HWND		m_hWnd;
 	HINSTANCE	m_hInst;
+	POINT		m_ptResolition;
 };
 

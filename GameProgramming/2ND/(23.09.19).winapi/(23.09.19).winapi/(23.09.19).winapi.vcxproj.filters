@@ -26,6 +26,9 @@
     <Filter Include="Engine\03.Manager\TimeManager">
       <UniqueIdentifier>{4090cd1e-4024-4bdb-b2b1-fa3175a09165}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04.Object">
+      <UniqueIdentifier>{1d17709b-3f5d-456b-9a9d-bfc0646e9e84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="(23.09.19).winapi.h">
@@ -58,6 +61,9 @@
     <ClInclude Include="BaseWindow.h">
       <Filter>Engine\02.Core</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Engine\04.Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="(23.09.19).winapi.rc">
@@ -87,6 +93,9 @@
     </ClCompile>
     <ClCompile Include="BaseWindow.cpp">
       <Filter>Engine\02.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Engine\04.Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,9 +4,22 @@
 //  장점 : 존재하지 않더라도 다시 생성 가능
 //  단점 : 동적으로 할당하기에 제귀를 해줘야한다.
 #include "define.h"
+#include "Object.h"
 
 class Core
 {
 	SINGLE(Core);
+public:
+	bool Init(HWND _hWnd, POINT _ptResolition);
+	void GameLoop();
+	void Release();
+private:
+	void Update();
+	void Render();
+private:
+	HWND	m_hWnd;
+	HDC		m_hDC;
+	POINT	m_ptResolition;
+	Object	m_obj;
 };
 
