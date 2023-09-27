@@ -208,7 +208,8 @@ namespace _20230918_ChatServerCS
                     noConnection = true;
                     Console.WriteLine("Error: " +  ex.ToString());
                 }
-            }
+            }//end while
+            Program.UserLeft(userName, userID);
         }
     }
 }
