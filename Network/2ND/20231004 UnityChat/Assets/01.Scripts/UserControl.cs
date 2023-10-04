@@ -9,9 +9,25 @@ public class UserControl : MonoBehaviour
     private float _currentTime = 0;
     [SerializeField] private float _moveTime;
 
+    [SerializeField] private int _maxHp = 100;
+    [SerializeField] private RectTransform _hpField;
+    private int _currentHp;
+    public int CurrentHp
+    {
+        get => _currentHp;
+        set
+        {
+            //UI update
+            _currentHp = value;
+            _hpField.localScale = new Vector3(_currentHp / (float)_maxHp, 1f, 1f);
+        }
+    }
+
     private void Awake()
     {
         _mainCam = Camera.main;
+        CurrentHp = _maxHp;
+        StartCoroutine(HpMinusCo());
     }
 
     private void Update()
@@ -47,5 +63,19 @@ public class UserControl : MonoBehaviour
 
         transform.position = pos;
         _isMoving = false;
+    }
+
+    private IEnumerator HpMinusCo()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            CurrentHp--;
+        }
+    }
+
+    public void Revive()
+    {
+        CurrentHp = _maxHp;
     }
 }
