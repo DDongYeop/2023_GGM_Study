@@ -73,9 +73,4 @@ public class UserControl : MonoBehaviour
             CurrentHp--;
         }
     }
-
-    public void Revive()
-    {
-        CurrentHp = _maxHp;
-    }
 }
