@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c2caefbab0319294e91458a0d14d40c7
+  m_SerializeEntries:
+  - m_GUID: 49b04053ea2dc49ae8eae12418134ef1
+    m_Address: Assets/06.Models/Level Art.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6bc76eedb6629574a83870562bc0c4ee
+    m_Address: Assets/06.Models/Zombie.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98cdee121d6e440de9fb99a7c24fa0da
+    m_Address: Assets/06.Models/Woman.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 39af8eb310699cb4dac88a1ce9577c85
+    m_Address: Assets/06.Models/ShellCasing.FBX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3ce9d0e14aaadbf4997d09873c4f0bfd, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 61863cec02a2c944eb4e58a3fe6830d1, type: 2}
+    - {fileID: 11400000, guid: e04a1a66071cc234bb1260343abf455c, type: 2}
