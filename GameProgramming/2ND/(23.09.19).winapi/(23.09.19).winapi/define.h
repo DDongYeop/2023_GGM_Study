@@ -14,4 +14,4 @@ public:						\
 #define WINDOW_HEIGHT	720
 #define RECT_RENDER(posx, posy, scalex, scaley, hdc) Rectangle(hdc, posx-scalex/2, posy-scaley/2, posx+scalex/2, posy+scaley/2)
 #define RECT_MAKE(posx, posy, scalex, scaley) {posx-scalex/2, posy-scaley/2, posx+scalex/2, posy+scaley/2}
-	
+#define fDT TimeMgr::GetInst()->GetDT()

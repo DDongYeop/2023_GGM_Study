@@ -4,7 +4,15 @@ class Object
 public:
 	Object();
 	~Object();
+public: //위치 크기
+	//POINT m_ptPos;
+	//POINT m_ptScale;
 public:
-	POINT m_ptPos;
-	POINT m_ptScale;
+	void SetPos(Vec2 _vPos) { m_vPos = _vPos; };
+	void SetScale(Vec2 _vScale) { m_vScale = _vScale; };
+	const Vec2& GetPos() const { return m_vPos; }
+	const Vec2& GetScale() const { return m_vScale; }
+private:
+	Vec2 m_vPos;
+	Vec2 m_vScale;
 };

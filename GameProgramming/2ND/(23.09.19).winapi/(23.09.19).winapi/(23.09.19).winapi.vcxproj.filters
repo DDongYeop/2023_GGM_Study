@@ -64,6 +64,12 @@
     <ClInclude Include="Object.h">
       <Filter>Engine\04.Object</Filter>
     </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>Engine\01.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>Engine\01.Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="(23.09.19).winapi.rc">
@@ -96,6 +102,9 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Engine\04.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec2.cpp">
+      <Filter>Engine\01.Header</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

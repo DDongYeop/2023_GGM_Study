@@ -13,12 +13,16 @@ public:
 	bool Init(HWND _hWnd, POINT _ptResolition);
 	void GameLoop();
 	void Release();
+public:
+	const HWND& GetHwnd() const { return m_hWnd; };
 private:
 	void Update();
 	void Render();
 private:
 	HWND	m_hWnd;
-	HDC		m_hDC;
+	HDC		m_hDC; //메인 DC
+	HDC		m_hbackDC; //백 버퍼 DC
+	HBITMAP m_hbackbit; //백 버퍼에 그릴 비트맵
 	POINT	m_ptResolition;
 	Object	m_obj;
 };
