@@ -18,10 +18,9 @@ private:
 	'A','S','D','F','G','H','J','K','L',
 	'Z','X','C','V','B','N','M',
 	VK_CONTROL, VK_LMENU, VK_LSHIFT, VK_SPACE,
-		VK_RETURN, VK_TAB, VK_ESCAPE };
+		VK_RETURN, VK_TAB, VK_ESCAPE, VK_LBUTTON, VK_RBUTTON };
 
 	POINT m_ptMouse;
-
 public:
 	void Init();
 	void Update();

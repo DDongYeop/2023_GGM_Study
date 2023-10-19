@@ -24,6 +24,5 @@ private:
 	HDC		m_hbackDC; //백 버퍼 DC
 	HBITMAP m_hbackbit; //백 버퍼에 그릴 비트맵
 	POINT	m_ptResolition;
-	Object	m_obj;
 };
 

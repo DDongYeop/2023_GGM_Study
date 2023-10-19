@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <algorithm>
+#include <memory>
 #include "define.h"
 #include "Vec2.h"
 #include "enums.h"

@@ -49,12 +49,12 @@ void Core::Update()
 	KeyMgr::GetInst()->Update();
 
 	Vec2 vPos = m_obj.GetPos();
-	if (KeyMgr::GetInst()->GetKey(KEY_TYPE::LEFT) == KEY_STATE::UP)
+	if (KEY_PRESS(KEY_TYPE::LEFT))
 	{
 		//m_obj.m_ptPos.x -= 1;
 		vPos.x -= 100.f * fDT;
 	}
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	if (KEY_PRESS(KEY_TYPE::RIGHT))
 	{
 		//m_obj.m_ptPos.x += 1;
 		vPos.x += 100.f * fDT;
@@ -70,6 +70,13 @@ void Core::Render()
 	Vec2 vScale = m_obj.GetScale();
 	RECT_RENDER(vPos.x, vPos.y, vScale.x, vScale.y, m_hDC);
 	//RECT_RENDER(m_obj.m_ptPos.x, m_obj.m_ptPos.y, m_obj.m_ptScale.x, m_obj.m_ptScale.y, m_hDC);
+
+	// cursor test
+	/*POINT mousepos = KeyMgr::GetInst()->GetMousePos();
+	static wchar_t mousebuf[100] = {};
+	swprintf_s(mousebuf, L"Mouse: x %d, y: %d", mousepos.x, mousepos.y);
+	TextOut(m_hbackDC, 10, 10, mousebuf, wcslen(mousebuf));*/
+
 
 	//3. ¿Å±ä´Ù
 	BitBlt(m_hDC, 0,0, m_ptResolition.x, m_ptResolition.y, m_hbackDC, 0,0, SRCCOPY);
