@@ -35,6 +35,9 @@
     <Filter Include="Engine\03.Manager\SceneMgr">
       <UniqueIdentifier>{0bece418-eba5-4cd9-93dc-95558ee2bc0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\05.Scene\MainScene">
+      <UniqueIdentifier>{a257c2f0-8762-4177-aa5e-e4f66f02a1db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="(23.09.19).winapi.h">
@@ -82,6 +85,12 @@
     <ClInclude Include="SceneMgr.h">
       <Filter>Engine\03.Manager\SceneMgr</Filter>
     </ClInclude>
+    <ClInclude Include="Game_Scene.h">
+      <Filter>Engine\05.Scene\MainScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Start_Scene.h">
+      <Filter>Engine\05.Scene\MainScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="(23.09.19).winapi.rc">
@@ -123,6 +132,12 @@
     </ClCompile>
     <ClCompile Include="SceneMgr.cpp">
       <Filter>Engine\03.Manager\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Scene.cpp">
+      <Filter>Engine\05.Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Start_Scene.cpp">
+      <Filter>Engine\05.Scene\MainScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

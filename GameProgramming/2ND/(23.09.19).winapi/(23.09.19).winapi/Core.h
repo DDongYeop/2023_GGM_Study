@@ -15,6 +15,7 @@ public:
 	void Release();
 public:
 	const HWND& GetHwnd() const { return m_hWnd; };
+	const POINT& GetResolution() const { return m_ptResolition; }
 private:
 	void Update();
 	void Render();
