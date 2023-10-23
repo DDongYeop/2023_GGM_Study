@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/08.UI/LoadingScreen/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=d0f89fb668cf50049b620e8e941aa7e8&amp;type=3#LoadingScreen" />
+    <ui:VisualElement name="container" class="container">
+        <ui:Label tabindex="-1" text="게임 에셋 로딩 중" parse-escape-sequences="true" display-tooltip-when-elided="true" name="title" class="font" />
+        <ui:VisualElement name="inner-box">
+            <ui:Label tabindex="-1" text="로딩카테고리가 여기에 표시됩니다." parse-escape-sequences="true" display-tooltip-when-elided="true" name="title-label" class="font" style="font-size: 70px;" />
+            <ui:Label tabindex="-1" text="세부카테고리가 여기에 표시됩니다. " parse-escape-sequences="true" display-tooltip-when-elided="true" name="desc-label" class="font" />
+        </ui:VisualElement>
+        <ui:VisualElement name="load-complete" class="loading-complete">
+            <ui:Label tabindex="-1" text="로딩 완료 아무키나 누르세요" parse-escape-sequences="true" display-tooltip-when-elided="true" name="complete-label" class="font" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,20 @@
+.container {
+    flex-grow: 1;
+    background-color: rgb(0, 0, 0);
+    align-items: center;
+    justify-content: center;
+}
+
+.font {
+    -unity-font-definition: initial;
+    -unity-font: url('project://database/Assets/99.Others/Font/TAEBAEK%20font.ttf?fileID=12800000&guid=94315272b35984c4d85bf282b5c61968&type=3#TAEBAEK font');
+    font-size: 40px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.72);
+}
+
+.loading-complete {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}

@@ -18,22 +18,32 @@ MonoBehaviour:
   m_GUID: c2caefbab0319294e91458a0d14d40c7
   m_SerializeEntries:
   - m_GUID: 49b04053ea2dc49ae8eae12418134ef1
-    m_Address: Assets/06.Models/Level Art.prefab
+    m_Address: Level Art
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6bc76eedb6629574a83870562bc0c4ee
-    m_Address: Assets/06.Models/Zombie.fbx
+    m_Address: Zombie
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 98cdee121d6e440de9fb99a7c24fa0da
-    m_Address: Assets/06.Models/Woman.fbx
+    m_Address: Woman
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 39af8eb310699cb4dac88a1ce9577c85
-    m_Address: Assets/06.Models/ShellCasing.FBX
+    m_Address: ShellCasing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9fdcfd40fbdaa234fb30d94036a40e5d
+    m_Address: AudioEffect
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c19c776549b575498548c63b81916f5
+    m_Address: BulletTrail
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

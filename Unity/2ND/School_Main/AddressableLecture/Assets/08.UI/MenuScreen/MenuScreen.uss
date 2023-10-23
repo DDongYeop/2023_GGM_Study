@@ -1,0 +1,38 @@
+.container {
+    flex-grow: 1;
+    background-color: rgb(0, 0, 0);
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    -unity-font: url('project://database/Assets/99.Others/Font/TAEBAEK%20font.ttf?fileID=12800000&guid=94315272b35984c4d85bf282b5c61968&type=3#TAEBAEK font');
+    -unity-font-definition: initial;
+    font-size: 50px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.74);
+    padding-top: 30px;
+    padding-right: 80px;
+    padding-bottom: 30px;
+    padding-left: 80px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(137, 137, 137);
+    -unity-text-outline-width: 1px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    transition-duration: 0.3s;
+}
+
+.btn:hover {
+    background-color: rgb(229, 229, 229);
+    color: rgb(0, 0, 0);
+}

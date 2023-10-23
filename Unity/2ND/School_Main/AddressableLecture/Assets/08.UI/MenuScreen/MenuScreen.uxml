@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/08.UI/MenuScreen/MenuScreen.uss?fileID=7433441132597879392&amp;guid=be0edc479962f4543838bc6aab5d336d&amp;type=3#MenuScreen" />
+    <ui:VisualElement name="container" class="container">
+        <ui:VisualElement name="inner-box">
+            <ui:Button text="게임 시작" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn-start" class="btn" />
+            <ui:Button text="게임 종료" parse-escape-sequences="true" display-tooltip-when-elided="true" name="btn-exit" class="btn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
