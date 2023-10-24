@@ -38,6 +38,9 @@
     <Filter Include="Engine\05.Scene\MainScene">
       <UniqueIdentifier>{a257c2f0-8762-4177-aa5e-e4f66f02a1db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04.Object\MainObject">
+      <UniqueIdentifier>{664d1545-5dbe-4daf-82fe-ae65df074be1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="(23.09.19).winapi.h">
@@ -91,6 +94,15 @@
     <ClInclude Include="Start_Scene.h">
       <Filter>Engine\05.Scene\MainScene</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Engine\04.Object\MainObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Engine\04.Object\MainObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Engine\04.Object\MainObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="(23.09.19).winapi.rc">
@@ -138,6 +150,15 @@
     </ClCompile>
     <ClCompile Include="Start_Scene.cpp">
       <Filter>Engine\05.Scene\MainScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Engine\04.Object\MainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Engine\04.Object\MainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Engine\04.Object\MainObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -58,7 +58,7 @@ void KeyMgr::Update()
 			if (m_vecKey[i].eState == KEY_STATE::PRESS || m_vecKey[i].eState == KEY_STATE::DOWN)
 				m_vecKey[i].eState = KEY_STATE::UP;
 			if (m_vecKey[i].eState == KEY_STATE::UP)
-				m_vecKey[i].eState == KEY_STATE::NONE;
+				m_vecKey[i].eState = KEY_STATE::NONE;
 		}
 
 	}

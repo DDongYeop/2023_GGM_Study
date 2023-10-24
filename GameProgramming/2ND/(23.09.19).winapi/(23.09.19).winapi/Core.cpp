@@ -20,8 +20,8 @@ bool Core::Init(HWND _hWnd, POINT _ptResolition)
 	// 2.¿¬°á
 	SelectObject(m_hbackDC, m_hbackbit);
 
-	m_obj.SetPos(Vec2({ m_ptResolition.x / 2, m_ptResolition.y / 2 }));
-	m_obj.SetScale(Vec2(150, 150));
+	//m_obj.SetPos(Vec2({ m_ptResolition.x / 2, m_ptResolition.y / 2 }));
+	//m_obj.SetScale(Vec2(150, 150));
 
 	// ======= Manager Init ======= 
 	TimeMgr::GetInst()->Init();
@@ -51,18 +51,18 @@ void Core::Update()
 	KeyMgr::GetInst()->Update();
 	SceneMgr::GetInst()->Update();
 
-	Vec2 vPos = m_obj.GetPos();
-	if (KEY_PRESS(KEY_TYPE::LEFT))
-	{
-		//m_obj.m_ptPos.x -= 1;
-		vPos.x -= 100.f * fDT;
-	}
-	if (KEY_PRESS(KEY_TYPE::RIGHT))
-	{
-		//m_obj.m_ptPos.x += 1;
-		vPos.x += 100.f * fDT;
-	}
-	m_obj.SetPos(vPos);
+	//Vec2 vPos = m_obj.GetPos();
+	//if (KEY_PRESS(KEY_TYPE::LEFT))
+	//{
+	//	//m_obj.m_ptPos.x -= 1;
+	//	vPos.x -= 100.f * fDT;
+	//}
+	//if (KEY_PRESS(KEY_TYPE::RIGHT))
+	//{
+	//	//m_obj.m_ptPos.x += 1;
+	//	vPos.x += 100.f * fDT;
+	//}
+	//m_obj.SetPos(vPos);
 }
 
 void Core::Render()
@@ -72,9 +72,9 @@ void Core::Render()
 
 	SceneMgr::GetInst()->Render(m_hbackDC);
 
-	Vec2 vPos = m_obj.GetPos();
+	/*Vec2 vPos = m_obj.GetPos();
 	Vec2 vScale = m_obj.GetScale();
-	RECT_RENDER(vPos.x, vPos.y, vScale.x, vScale.y, m_hDC);
+	RECT_RENDER(vPos.x, vPos.y, vScale.x, vScale.y, m_hDC);*/
 	//RECT_RENDER(m_obj.m_ptPos.x, m_obj.m_ptPos.y, m_obj.m_ptScale.x, m_obj.m_ptScale.y, m_hDC);
 
 	// cursor test
