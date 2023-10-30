@@ -22,8 +22,10 @@ public class MenuScreen : MonoBehaviour
         root.Q<Button>("btn-exit").RegisterCallback<ClickEvent>(HandleExitStart);
     }
 
-    private void HandleGameStart(ClickEvent evt)
+    private async void HandleGameStart(ClickEvent evt)
     {
+        //오브젝트 풀링 시작 
+        await AssetLoader.Instance.MakePooling();
         SceneManager.LoadScene(SceneList.Game);
     }
 
