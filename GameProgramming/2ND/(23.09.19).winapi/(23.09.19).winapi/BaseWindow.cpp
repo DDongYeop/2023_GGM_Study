@@ -21,7 +21,7 @@ int BaseWindow::Run(HINSTANCE _hInst, LPWSTR _lpCmdline, int _nCmdShow)
 
     if (!Core::GetInst()->Init(m_hWnd, m_ptResolition))
     {
-        MessageBox(m_hWnd, L"Core ÃÊ±âÈ­ ½ÇÆÐ", L"FAIL", MB_OK);
+        MessageBox(m_hWnd, L"Core ì´ëŸ¬ì¿µ ì €ëŸ¬ì¿µ", L"FAIL", MB_OK);
     }
 
     return MessageLoop();
@@ -34,7 +34,7 @@ ATOM BaseWindow::MyRegisterClass()
     wcex.cbSize = sizeof(WNDCLASSEX);
 
     wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = BaseWindow::WndProc; //´ÙÀ½ÁÖ¿¡ ¼³¸í 
+    wcex.lpfnWndProc = BaseWindow::WndProc; //ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ ï¿½ï¿½ï¿½ï¿½ 
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = m_hInst;
@@ -96,14 +96,14 @@ int BaseWindow::MessageLoop()
     MSG msg;
     while (true)
     {
-        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) //¸Þ¼¼Áö ÀÖÀ»¶§
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) //ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             if (msg.message == WM_QUIT)
                 break;
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-        else //¸Þ¼¼Áö ¾øÀ»¶§
+        else //ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             Core::GetInst()->GameLoop();
         }

@@ -5,6 +5,8 @@
 #include <string>
 #include <algorithm>
 #include <memory>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "define.h"
 #include "Vec2.h"
 #include "enums.h"
@@ -12,3 +14,5 @@
 using std::vector; 
 using std::map;
 using std::wstring;
+
+#pragma comment(lib, "Msimg32.lib")

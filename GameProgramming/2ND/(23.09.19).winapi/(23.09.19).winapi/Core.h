@@ -1,8 +1,8 @@
 #pragma once
-//ÇÏ³ª¸¸ ¾îµð¼­µç ¾µ ¼ö ÀÖµµ·Ï
-//1ÇÐ±â¿¡ Çß´ø ½Ì±ÛÅæ : ´ÙÀÌ³ª¹Í ½Ì±ÛÅæ = µ¿ÀûÇÒ´ç
-//  ÀåÁ¡ : Á¸ÀçÇÏÁö ¾Ê´õ¶óµµ ´Ù½Ã »ý¼º °¡´É
-//  ´ÜÁ¡ : µ¿ÀûÀ¸·Î ÇÒ´çÇÏ±â¿¡ Á¦±Í¸¦ ÇØÁà¾ßÇÑ´Ù.
+//ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ð¼­µï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½
+//1ï¿½Ð±â¿¡ ï¿½ß´ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½Ì±ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½Ò´ï¿½
+//  ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+//  ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½Ï±â¿¡ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 #include "define.h"
 #include "Object.h"
 
@@ -14,6 +14,7 @@ public:
 	void GameLoop();
 	void Release();
 public:
+	const HDC& GetMainDC() const { return m_hDC; }
 	const HWND& GetHwnd() const { return m_hWnd; };
 	const POINT& GetResolution() const { return m_ptResolition; }
 private:
@@ -21,9 +22,9 @@ private:
 	void Render();
 private:
 	HWND	m_hWnd;
-	HDC		m_hDC; //¸ÞÀÎ DC
-	HDC		m_hbackDC; //¹é ¹öÆÛ DC
-	HBITMAP m_hbackbit; //¹é ¹öÆÛ¿¡ ±×¸± ºñÆ®¸Ê
+	HDC		m_hDC; //ï¿½ï¿½ï¿½ï¿½ DC
+	HDC		m_hbackDC; //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DC
+	HBITMAP m_hbackbit; //ï¿½ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½
 	POINT	m_ptResolition;
 };
 

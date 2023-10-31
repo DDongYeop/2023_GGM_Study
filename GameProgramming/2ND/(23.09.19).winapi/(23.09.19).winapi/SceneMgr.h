@@ -13,9 +13,9 @@ public:
 public:
 	const std::shared_ptr<Scene>& GetCurScnee() const { return m_pCurScene; };
 private:
-	//½º¸¶Æ® Æ÷ÀÎÅÍ
-	std::shared_ptr<Scene> m_pCurScene; //ÇöÀç ¾À 
-	//¾ÀµéÀ» °ü¸®ÇÏ´Â ¸Ê
+	//ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	std::shared_ptr<Scene> m_pCurScene; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½
 	map<wstring, std::shared_ptr<Scene>> m_mapScenes;
 };
 

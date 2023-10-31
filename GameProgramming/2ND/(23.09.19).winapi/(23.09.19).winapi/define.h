@@ -13,6 +13,7 @@ public:						\
 #define WINDOW_WIDTH	1280	
 #define WINDOW_HEIGHT	720
 #define RECT_RENDER(posx, posy, scalex, scaley, hdc) Rectangle(hdc, posx-scalex/2, posy-scaley/2, posx+scalex/2, posy+scaley/2)
+#define ELLIPSE_RENDER(posx, posy, scalex, scaley, hdc) Ellipse(hdc, posx-scalex/2, posy-scaley/2, posx+scalex/2, posy+scaley/2)
 #define RECT_MAKE(posx, posy, scalex, scaley) {posx-scalex/2, posy-scaley/2, posx+scalex/2, posy+scaley/2}
 #define fDT TimeMgr::GetInst()->GetDT()
 #define KEY_CHECK(key, state) KeyMgr::GetInst()->GetKey(key) == state

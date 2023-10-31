@@ -3,27 +3,29 @@
 #include "TimeMgr.h"
 #include "KeyMgr.h"
 #include "SceneMgr.h"
+#include "PathMgr.h"
 
 bool Core::Init(HWND _hWnd, POINT _ptResolition)
 {
-	// ======= º¯¼ö ÃÊ±âÈ­ =======
+	// ======= ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ =======
 	m_hWnd = _hWnd;
 	m_ptResolition = _ptResolition;
 	m_hbackDC = 0;
 	m_hbackbit = 0;
 
-	//´õºí ¹öÆÛ¸µ
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û¸ï¿½
 	m_hDC = GetDC(m_hWnd);
-	// 1.»ý¼º
+	// 1.ï¿½ï¿½ï¿½ï¿½
 	m_hbackbit = CreateCompatibleBitmap(m_hDC, m_ptResolition.x, m_ptResolition.y);
 	m_hbackDC = CreateCompatibleDC(m_hDC);
-	// 2.¿¬°á
+	// 2.ï¿½ï¿½ï¿½ï¿½
 	SelectObject(m_hbackDC, m_hbackbit);
 
 	//m_obj.SetPos(Vec2({ m_ptResolition.x / 2, m_ptResolition.y / 2 }));
 	//m_obj.SetScale(Vec2(150, 150));
 
 	// ======= Manager Init ======= 
+	PathMgr::GetInst()->Init();
 	TimeMgr::GetInst()->Init();
 	KeyMgr::GetInst()->Init();
 	SceneMgr::GetInst()->Init();
@@ -40,8 +42,8 @@ void Core::GameLoop()
 void Core::Release()
 {
 	ReleaseDC(m_hWnd, m_hDC);
-	DeleteDC(m_hbackDC); //createdcÇÑ°Å Áö¿ì´Â°Å
-	DeleteObject(m_hbackbit); //createbit ÇÑ°Å Áö¿ì´Â°Å
+	DeleteDC(m_hbackDC); //createdcï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½Â°ï¿½
+	DeleteObject(m_hbackbit); //createbit ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½Â°ï¿½
 }
 
 void Core::Update()
@@ -84,6 +86,6 @@ void Core::Render()
 	TextOut(m_hbackDC, 10, 10, mousebuf, wcslen(mousebuf));*/
 
 
-	//3. ¿Å±ä´Ù
+	//3. ï¿½Å±ï¿½ï¿½
 	BitBlt(m_hDC, 0,0, m_ptResolition.x, m_ptResolition.y, m_hbackDC, 0,0, SRCCOPY);
 }

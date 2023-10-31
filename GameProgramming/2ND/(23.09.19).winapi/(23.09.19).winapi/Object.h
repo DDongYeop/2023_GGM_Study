@@ -4,7 +4,7 @@ class Object
 public:
 	Object();
 	virtual ~Object();
-public: //À§Ä¡ Å©±â
+public: //ï¿½ï¿½Ä¡ Å©ï¿½ï¿½
 	//POINT m_ptPos;
 	//POINT m_ptScale;
 public:

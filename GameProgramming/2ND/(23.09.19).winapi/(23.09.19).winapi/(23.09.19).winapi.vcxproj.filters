@@ -41,6 +41,12 @@
     <Filter Include="Engine\04.Object\MainObject">
       <UniqueIdentifier>{664d1545-5dbe-4daf-82fe-ae65df074be1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\06.Resource">
+      <UniqueIdentifier>{e2bfd524-2d83-4bc0-90ee-295fbe9ece5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03.Manager\PathMgr">
+      <UniqueIdentifier>{f99ebc3d-9427-4569-8bb6-e1949466c76c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="(23.09.19).winapi.h">
@@ -103,6 +109,15 @@
     <ClInclude Include="Bullet.h">
       <Filter>Engine\04.Object\MainObject</Filter>
     </ClInclude>
+    <ClInclude Include="Res.h">
+      <Filter>Engine\06.Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\06.Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="PathMgr.h">
+      <Filter>Engine\03.Manager\PathMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="(23.09.19).winapi.rc">
@@ -159,6 +174,15 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Engine\04.Object\MainObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Res.cpp">
+      <Filter>Engine\06.Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\06.Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="PathMgr.cpp">
+      <Filter>Engine\03.Manager\PathMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
