@@ -193,6 +193,7 @@ namespace chatServerCS202
                     if (!SocketConnected(clientSocket.Client))
                     {
                         noConnection = true;
+                        Program.UserLeft(userName, userID);
                     }
                     else
                     {
@@ -212,6 +213,7 @@ namespace chatServerCS202
                             {
                                 userName = dataFromClient.Substring(0, idx);
                                 Program.UserAdd(userName);
+                                SendUserInfo();
                             }
                             //채팅 내용 전달
                             else if(idx+1 < dataFromClient.Length)
@@ -273,6 +275,28 @@ namespace chatServerCS202
                         remain = DelectTerminator(dataFromClient.Substring(idx + 1));
                         ProcessMove(clientName, remain);
                     }
+                }
+            }
+        }
+
+        //현재 접속 중인 클라이언트 정보 보내주기
+        private void SendUserInfo()
+        {
+            StringBuilder userInfo = new StringBuilder();
+            foreach (DictionaryEntry item in clientsList)
+            {
+                HandleClient hc = (HandleClient)item.Value;
+                if (hc.clientSocket != clientSocket)
+                {
+                    userInfo.Append(hc.userName);
+                    userInfo.Append(",");
+                }
+                if (userInfo.Length > 0)
+                {
+                    byte[] sendBytes = Encoding.UTF8.GetBytes($"#UserInfo#{userInfo}{CHAR_TERMINATOR}");
+                    NetworkStream networkStream = clientSocket.GetStream();
+                    networkStream.Write(sendBytes, 0, sendBytes.Length);
+                    networkStream.Flush();
                 }
             }
         }

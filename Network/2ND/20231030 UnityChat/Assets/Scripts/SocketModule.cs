@@ -63,6 +63,7 @@ public class SocketModule : Singleton<SocketModule>
             serverStream = null;
         }
         clientSocket.Close();
+        GameManager.Instance.TextboxMessage("server", "LogOut");
     }
 
     private void getMessage()

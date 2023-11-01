@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -10,6 +12,7 @@ public class GameManager : Singleton<GameManager>
     const float ATTACK_RADIUS = 3.5f;
     const char CHAR_TERMINATOR = ';';
     const char CHAR_COMMA = ',';
+    private bool isFirst = true;
 
     private UserControl userControl;
 
@@ -17,8 +20,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private TMP_InputField Chat;
     string myID;
 
-    public GameObject prefabUser; //타 클라
-    public GameObject User; //나
+    public GameObject prefabUser; //? ???
+    public GameObject User; //??
+    public TextMeshProUGUI textBox;
 
     Dictionary<string, UserControl> remoteUsers;
     Queue<string> commandQueue;
@@ -82,7 +86,8 @@ public class GameManager : Singleton<GameManager>
         {
             Debug.Log("Process cmd = " + cmd);
             //ID
-            int nameIdx = cmd.IndexOf("$");
+            int nameIdx = cmd.IndexOf('$');
+            Debug.Log(nameIdx);
             string id = "";
             if(nameIdx > 0)
             {
@@ -90,7 +95,7 @@ public class GameManager : Singleton<GameManager>
             }
             //Command
             int cmdIdx1 = cmd.IndexOf("#");
-            if(cmdIdx1 > nameIdx)
+            //if(cmdIdx1 > nameIdx)
             {
                 int cmdIdx2 = cmd.IndexOf("#",cmdIdx1+1);
                 if(cmdIdx2 > cmdIdx1)
@@ -109,15 +114,20 @@ public class GameManager : Singleton<GameManager>
                     {
                         nextCommand = cmd.Substring(cmdIdx2 + 1);
                     }
-                    Debug.Log("command = " + command + "id = " + id + "remain = " + remain + "next = " + nextCommand);
+                    //Debug.Log("command = " + command + "id = " + id + "remain = " + remain + "next = " + nextCommand);
                     Debug.Log($"command={command} id={id} remain={remain} next={nextCommand}");
 
                     if(command == "Attack")
                     {
                         TakeDamage(remain);
                     }
+                    if (command == "UserInfo")
+                    {
+                        UserInfo(remain);
+                    }
                     if (myID.CompareTo(id) != 0)
                     {
+                        TextboxMessage(id,command);
                         switch (command)
                         {
                             case "Enter":
@@ -137,6 +147,7 @@ public class GameManager : Singleton<GameManager>
                     
                     else
                     {
+                        TextboxMessage(id,command);
                         Debug.Log("Skip");
                     }
                     cmd = nextCommand;
@@ -150,12 +161,31 @@ public class GameManager : Singleton<GameManager>
                     isMore = false;
                 }
             }
-            else
-            {
-                isMore = false;
-            }
+            //else
+            //{
+                //isMore = false;
+            //}
         }
         
+    }
+
+    private void UserInfo(string remain)
+    {
+        if (isFirst == true)
+        {
+            var strs = remain.Split(CHAR_COMMA);
+            for (int i = 0; i < strs.Length - 1; i++)
+            {
+                UserControl uc = null;
+                GameObject newUser = Instantiate(prefabUser);
+                uc = newUser.GetComponent<UserControl>();
+                uc.isRemote = true;
+                remoteUsers.Add(strs[i], uc);
+            }
+
+            isFirst = false;
+        }
+       
     }
 
     public void OnLogin()
@@ -258,6 +288,8 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-
-
+    public void TextboxMessage(string name, string content)
+    {
+        textBox.text += $"\n{name}:{content}";
+    }
 }
