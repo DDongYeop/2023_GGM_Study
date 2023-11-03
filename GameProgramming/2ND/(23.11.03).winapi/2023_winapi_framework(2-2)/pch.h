@@ -16,4 +16,4 @@ using std::vector;
 using std::map;
 using std::wstring;
 
-#pragma comment(lib, "Msimg32.lib")
+#pragma comment(lib, "Msimg32.lib")	

@@ -4,21 +4,23 @@
 #include "KeyMgr.h"
 #include "SceneMgr.h"
 #include "PathMgr.h"
+#include "ResMgr.h"
+
 bool Core::Init(HWND _hWnd, POINT _ptResolution)
 {
-	// === º¯¼ö ÃÊ±âÈ­ === 
+	// === ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ === 
 	m_hWnd = _hWnd;
 	m_ptResolution = _ptResolution;
 	m_hbackDC = 0;
 	m_hbackbit = 0;
 
-	// ´õºí¹öÆÛ¸µ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½
 	m_hDC = GetDC(m_hWnd);	
-	// 1. »ý¼º
+	// 1. ï¿½ï¿½ï¿½ï¿½
 	m_hbackbit = CreateCompatibleBitmap(m_hDC, m_ptResolution.x, m_ptResolution.y);
 	m_hbackDC = CreateCompatibleDC(m_hDC);
 
-	// 2. ¿¬°á
+	// 2. ï¿½ï¿½ï¿½ï¿½
 	SelectObject(m_hbackDC, m_hbackbit);
 
 //	m_obj.SetPos(Vec2({ m_ptResolution.x / 2, m_ptResolution.y / 2 }));
@@ -52,8 +54,9 @@ void Core::GameLoop()
 void Core::Release()
 {
 	ReleaseDC(m_hWnd, m_hDC);
-	DeleteDC(m_hbackDC); // createdc ÇÑ°Å Áö¿ì´Â°Å
-	DeleteObject(m_hbackbit); // createbit ÇÑ°Å Áö¿ì´Â°Å
+	DeleteDC(m_hbackDC); // createdc ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½Â°ï¿½
+	DeleteObject(m_hbackbit); // createbit ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½Â°ï¿½
+	ResMgr::GetInst()->Release();
 }
 
 void Core::Update()
@@ -83,7 +86,7 @@ void Core::Update()
 
 void Core::Render()
 {
-	// Ä¥ÇÑ´Ù.
+	// Ä¥ï¿½Ñ´ï¿½.
 	//Rectangle(m_hbackDC, -1,-1,m_ptResolution.x +1,m_ptResolution.y + 1);
 	PatBlt(m_hbackDC, 0, 0, m_ptResolution.x, m_ptResolution.y, WHITENESS);
 
@@ -98,7 +101,7 @@ void Core::Render()
 	//swprintf_s(mousebuf, L"Mouse: x %d, y: %d", mousepos.x, mousepos.y);
 	//TextOut(m_hbackDC, 10, 10, mousebuf, wcslen(mousebuf));
 
-	// 3. ¿Å±ä´Ù.
+	// 3. ï¿½Å±ï¿½ï¿½.
 	BitBlt(m_hDC, 0,0, m_ptResolution.x, m_ptResolution.y, 
 		m_hbackDC, 0,0, SRCCOPY);
 

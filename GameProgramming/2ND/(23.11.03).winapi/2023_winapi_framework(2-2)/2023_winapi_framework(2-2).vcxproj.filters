@@ -47,6 +47,9 @@
     <Filter Include="Engine\03. Manager\PathMgr">
       <UniqueIdentifier>{74ab55a9-9601-472c-9883-01a8f1f8413f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Manager\ResMgr">
+      <UniqueIdentifier>{8b64c6e1-2b21-4880-ba18-e8ed77ab9a16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2023_winapi_framework(2-2).h">
@@ -118,6 +121,9 @@
     <ClInclude Include="PathMgr.h">
       <Filter>Engine\03. Manager\PathMgr</Filter>
     </ClInclude>
+    <ClInclude Include="ResMgr.h">
+      <Filter>Engine\03. Manager\ResMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework(2-2).rc">
@@ -183,6 +189,9 @@
     </ClCompile>
     <ClCompile Include="PathMgr.cpp">
       <Filter>Engine\03. Manager\PathMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ResMgr.cpp">
+      <Filter>Engine\03. Manager\ResMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

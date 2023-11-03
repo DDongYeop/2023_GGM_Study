@@ -16,8 +16,8 @@ public:
         m_vDir.Normalize();
     }
 private:
-//    float m_fDir; // ÃÑ¾Ë ¹æÇâ(-1 À§, 1 ¾Æ·¡);
-    float m_fTheta; // »ï°¢ÇÔ¼ö ¹æÇâ.
+//    float m_fDir; // ï¿½Ñ¾ï¿½ ï¿½ï¿½ï¿½ï¿½(-1 ï¿½ï¿½, 1 ï¿½Æ·ï¿½);
+    float m_fTheta; // ï¿½ï°¢ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½.
     Vec2 m_vDir;
 };
 

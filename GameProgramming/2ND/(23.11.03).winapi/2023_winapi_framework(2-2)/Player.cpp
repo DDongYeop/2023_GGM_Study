@@ -7,18 +7,21 @@
 #include "Scene.h"
 #include "Texture.h"
 #include "PathMgr.h"
+#include "ResMgr.h"
+
 Player::Player()
 	: m_pTex(nullptr)
 {
-	m_pTex = new Texture;
+	/*m_pTex = new Texture;
 	wstring strFilePath = PathMgr::GetInst()->GetResPath();
 	strFilePath += L"Texture\\planem.bmp";
-	m_pTex->Load(strFilePath);
+	m_pTex->Load(strFilePath);*/
+	m_pTex = ResMgr::GetInst()->TexLoad(L"Player", L"Texture\\plane.bmp");
 }
 Player::~Player()
 {
-	if (nullptr != m_pTex)
-		delete m_pTex;
+	/*if (nullptr != m_pTex)
+		delete m_pTex;*/
 }
 void Player::Update()
 {
@@ -61,29 +64,29 @@ void Player::Render(HDC _dc)
 	Vec2 vScale = GetScale();
 	int Width = m_pTex->GetWidth();
 	int Height = m_pTex->GetHeight();
-	// 1. ±âº» ¿Å±â±â
+	// 1. ï¿½âº» ï¿½Å±ï¿½ï¿½
 	//BitBlt(_dc
 	//	,(int)(vPos.x - vScale.x /2)
 	//	,(int)(vPos.y - vScale.y /2)
 	//	, Width,Height, m_pTex->GetDC()
 	//	,0,0,SRCCOPY);
 
-	//// 2. »ö»ó °È¾î³»±â
+	//// 2. ï¿½ï¿½ï¿½ï¿½ ï¿½È¾î³»ï¿½ï¿½
 	//TransparentBlt(_dc
 	//	, (int)(vPos.x - vScale.x / 2)
 	//	, (int)(vPos.y - vScale.y / 2)
 	//	, Width, Height, m_pTex->GetDC()
 	//	, 0, 0, Width,Height, RGB(255,0,255));
 
-	//// 3. È®´ë ¹× Ãà¼Ò
+	//// 3. È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
 	//StretchBlt(_dc
 	//	, (int)(vPos.x - vScale.x / 2)
 	//	, (int)(vPos.y - vScale.y / 2)
 	//	, Width ,Height, m_pTex->GetDC()
 	//	, 0, 0, Width, Height, SRCCOPY);
 
-	// 4. È¸Àü
-	// »ï°¢ÇÔ¼ö, È¸ÀüÇà·Ä
+	// 4. È¸ï¿½ï¿½
+	// ï¿½ï°¢ï¿½Ô¼ï¿½, È¸ï¿½ï¿½ï¿½ï¿½ï¿½
 	//TransparentBlt(_dc
 	//	, (int)(vPos.x - vScale.x / 2)
 	//	, (int)(vPos.y - vScale.y / 2)
