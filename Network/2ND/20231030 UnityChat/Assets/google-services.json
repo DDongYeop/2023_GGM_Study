@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "650766854412",
+    "project_id": "network-28b62",
+    "storage_bucket": "network-28b62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650766854412:android:271dd4d89c5b1064dc8129",
+        "android_client_info": {
+          "package_name": "com.DDongYeop.Network"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5lMpdLxhidiP0ulja_iyGjotxeGe_OEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
