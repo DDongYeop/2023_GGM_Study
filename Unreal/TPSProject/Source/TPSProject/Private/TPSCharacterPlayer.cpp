@@ -13,6 +13,8 @@
 #include "Bullet.h"
 #include "Particles/ParticleSystem.h"
 #include "CharacterPlayerAnim.h"
+#include "EnemyFSM.h"
+#include "EnemyInterface.h"
 
 // Sets default values
 ATPSCharacterPlayer::ATPSCharacterPlayer()
@@ -197,8 +199,8 @@ void ATPSCharacterPlayer::BeginPlay()
 	
 	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
 
-	// 유탄총을 기본 무기로 셋팅
-	ChangeToGrenadeGun();
+	// 스나이퍼건을 기본 무기로 셋팅
+	ChangeToSniperGun();
 
 	// 스나이퍼 UI 위젯 인스턴스 생성
 	sniperUI = CreateWidget(GetWorld(), sniperUIFactory);
@@ -374,6 +376,23 @@ void ATPSCharacterPlayer::InputFire(const FInputActionValue& Value)
 				FVector force = -hitInfo.ImpactNormal * hitComp->GetMass() * 500000;
 
 				hitComp->AddForce(force);
+			}
+
+			/*
+			// 적 충돌 처리
+			auto enemy = hitInfo.GetActor()->GetDefaultSubobjectByName(TEXT("FSM"));
+			if (enemy)
+			{
+				auto enemyFSM = Cast<UEnemyFSM>(enemy);
+				if (enemyFSM)
+					enemyFSM->OnDamageProcess();
+			}
+			*/
+
+			IEnemyInterface* EnemyInterface = Cast<IEnemyInterface>(hitInfo.GetActor());
+			if (EnemyInterface)
+			{
+				EnemyInterface->OnDamageProcess();
 			}
 		}
 	}
