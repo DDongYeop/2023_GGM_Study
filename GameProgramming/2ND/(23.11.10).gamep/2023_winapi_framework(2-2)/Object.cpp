@@ -46,6 +46,18 @@ void Object::Render(HDC _dc)
 	Component_Render(_dc);
 }
 
+void Object::EnterCollision(Collider* _pOther)
+{
+}
+
+void Object::ExitCollision(Collider* _pOther)
+{
+}
+
+void Object::StayCollision(Collider* _pOther)
+{
+}
+
 void Object::Component_Render(HDC _dc)
 {
 	if (nullptr != m_pCollider)

@@ -33,13 +33,61 @@ void CollisionMgr::CollisionGroupUpdate(OBJECT_GROUP _eLeft, OBJECT_GROUP _eRigh
 			if (vecRight[j]->GetCollider() == nullptr ||
 				vecLeft[i] == vecRight[j])
 				continue;
-			vecLeft[i]->GetCollider();
-			vecRight[j]->GetCollider();
-			//if ()
+			Collider* pLeftCol = vecLeft[i]->GetCollider();
+			Collider* pRightCol = vecRight[j]->GetCollider();
+			COLLIDER_ID colID;
+			colID.left_ID = pLeftCol->GetID();
+			colID.right_ID = pRightCol->GetID();
+
+			auto iter = m_mapColInfo.find(colID.ID);
+			if (iter == m_mapColInfo.end())
 			{
-			}//충돌한다면???)
+				m_mapColInfo.insert({ colID.ID, false });
+				iter = m_mapColInfo.find(colID.ID);
+			}
+			if (IsCollision(pLeftCol, pRightCol)) //충돌하네
+			{
+				if (iter->second) //이전에도 충돌 중
+				{
+					pLeftCol->StayCollision(pRightCol);
+					pRightCol->StayCollision(pLeftCol);
+				}
+				else //이전에 충돌X
+				{
+					pLeftCol->EnterCollision(pRightCol);
+					pRightCol->EnterCollision(pLeftCol);
+				}
+
+			}
+			else //안하네
+			{
+				if (iter->second) //충돌 안함
+				{
+					pLeftCol->ExitCollision(pRightCol);
+					pRightCol->ExitCollision(pLeftCol);
+					iter->second = false;
+				}
+			}
 		}
 	}
+}
+
+bool CollisionMgr::IsCollision(Collider* _pleft, Collider* _pRight)
+{
+	//충돌검사 알고리즘
+	//AABB
+	Vec2 vLeftPos = _pleft->GetFinalPos();
+	Vec2 vRightPos = _pRight->GetFinalPos();
+	Vec2 vLeftScale = _pleft->GetScale();
+	Vec2 vRightScale = _pRight->GetScale();
+
+	if (abs(vRightPos.x - vLeftPos.x) < (vLeftScale.x + vRightScale.x) / 2.f
+		&& abs(vRightPos.y - vLeftPos.y) < (vLeftScale.y + vRightScale.y) / 2.f)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void CollisionMgr::CheckGroup(OBJECT_GROUP _eLeft, OBJECT_GROUP _eRight)
@@ -51,7 +99,7 @@ void CollisionMgr::CheckGroup(OBJECT_GROUP _eLeft, OBJECT_GROUP _eRight)
 
 	//// 비트 연산
 	// 체크가 되어있다면
-	if (m_arrCheck[Row] &= (1 << Col))
+	if (m_arrCheck[Row] & (1 << Col))
 	{
 		m_arrCheck[Row] &= ~(1 << Col);
 	}

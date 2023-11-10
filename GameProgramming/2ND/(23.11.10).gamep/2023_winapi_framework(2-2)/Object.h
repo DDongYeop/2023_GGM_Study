@@ -12,6 +12,9 @@ public:
 	virtual void Update();
 	virtual void FinalUpdate() final;
 	virtual void Render(HDC _dc);
+	virtual void EnterCollision(Collider* _pOther);
+	virtual void ExitCollision(Collider* _pOther);
+	virtual void StayCollision(Collider* _pOther);
 	void Component_Render(HDC _dc);
 public:
 	void SetPos(Vec2 _vPos) { m_vPos = _vPos; }
