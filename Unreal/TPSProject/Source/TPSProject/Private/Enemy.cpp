@@ -18,6 +18,12 @@ AEnemy::AEnemy()
 		GetMesh()->SetRelativeScale3D(FVector(0.84f));
 	}
 
+	static ConstructorHelpers::FClassFinder<UAnimInstance> EnemyAnimRef(TEXT("/Script/Engine.AnimBlueprint'/Game/ProjectContent/Animations/ABP_Enemy.ABP_Enemy_C'"));
+	if (EnemyAnimRef.Class)
+	{
+		GetMesh()->SetAnimInstanceClass(EnemyAnimRef.Class);
+	}
+
 	// EnemyFSM 컴포넌트 추가
 	fsm = CreateDefaultSubobject<UEnemyFSM>(TEXT("FSM"));
 }

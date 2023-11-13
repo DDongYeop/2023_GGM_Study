@@ -3,8 +3,10 @@
 
 #include "EnemyFSM.h"
 #include "Enemy.h"
+#include "EnemyAnim.h"
 #include "TPSCharacterPlayer.h"
 #include <Kismet/GameplayStatics.h>
+#include <Components/CapsuleComponent.h>
 
 // Sets default values for this component's properties
 UEnemyFSM::UEnemyFSM()
@@ -28,6 +30,8 @@ void UEnemyFSM::BeginPlay()
 	target = Cast<ATPSCharacterPlayer>(actor);
 	
 	me = Cast<AEnemy>(GetOwner());
+
+	anim = Cast<UEnemyAnim>(me->GetMesh()->GetAnimInstance());
 }
 
 
@@ -61,8 +65,21 @@ void UEnemyFSM::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 
 void UEnemyFSM::OnDamageProcess()
 {
-	if(me)
-		me->Destroy();
+	hp--;
+
+	if (hp > 0)
+	{
+		mState = EEnemyState::Damage;
+	}
+	else
+	{
+		mState = EEnemyState::Die;
+		// 캡슐 비활성화
+		me->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+
+	if (anim)
+		anim->animState = mState;
 }
 
 void UEnemyFSM::IdleState()
@@ -73,6 +90,9 @@ void UEnemyFSM::IdleState()
 	{
 		mState = EEnemyState::Move;
 		currentTime = 0;
+
+		if (anim)
+			anim->animState = mState;
 	}
 }
 
@@ -94,8 +114,13 @@ void UEnemyFSM::MoveState()
 	if (dir.Size() < attackRange)
 	{
 		mState = EEnemyState::Attack;
-
 		currentTime = attackDelayTime;
+
+		if (anim)
+		{
+			anim->animState = mState;
+			anim->bAttackPlay = true;
+		}
 	}
 }
 
@@ -106,6 +131,8 @@ void UEnemyFSM::AttackState()
 	if (currentTime > attackDelayTime)
 	{
 		// 공격하기
+		if (anim)
+			anim->bAttackPlay = true;
 
 		currentTime = 0;
 	}
@@ -114,14 +141,38 @@ void UEnemyFSM::AttackState()
 	if (distance > attackRange)
 	{
 		mState = EEnemyState::Move;
+
+		if (anim)
+			anim->animState = mState;
 	}
 }
 
 void UEnemyFSM::DamageState()
 {
+	currentTime += GetWorld()->DeltaTimeSeconds;
+
+	if (currentTime > damageDelayTime)
+	{
+		mState = EEnemyState::Idle;
+		currentTime = 0;
+
+		if (anim)
+			anim->animState = mState;
+	}
 }
 
 void UEnemyFSM::DieState()
 {
+	// 등속 운동 공식 : P = P0 + vt
+	FVector P0 = me->GetActorLocation();
+	FVector vt = FVector::DownVector * dieSpeed * GetWorld()->DeltaTimeSeconds;
+	FVector P = P0 + vt;
+	
+	me->SetActorLocation(P);
+
+	if (P.Z < -200.0f)
+	{
+		me->Destroy();
+	}
 }
 

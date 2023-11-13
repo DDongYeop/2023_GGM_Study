@@ -78,4 +78,21 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = FSM)
 	float attackDelayTime = 2.0f;
+
+// 피격 상태
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FSM)
+	int32 hp = 3;
+
+	UPROPERTY(EditAnywhere, Category = FSM)
+	float damageDelayTime = 2.0f;
+
+// 죽음 상태
+public:
+	UPROPERTY(EditAnywhere, Category = FSM)
+	float dieSpeed = 50.0f;
+
+public:
+	// 사용중인 애니메이션 블루프린트 참조 포인터
+	class UEnemyAnim* anim;
 };
