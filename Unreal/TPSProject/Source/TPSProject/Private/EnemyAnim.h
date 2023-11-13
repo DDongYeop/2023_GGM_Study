@@ -24,4 +24,8 @@ public:
 	// 공격 상태 재생여부 변수
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FSM)
 	bool bAttackPlay = false;
+
+	// 피격 애니메이션 재생 함수
+	UFUNCTION(BlueprintImplementableEvent, Category=FSMEvent)
+	void PlayDamageAnim(FName sectionName);
 };

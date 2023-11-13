@@ -70,6 +70,14 @@ void UEnemyFSM::OnDamageProcess()
 	if (hp > 0)
 	{
 		mState = EEnemyState::Damage;
+
+		// 패격 애니메이션 재생
+		int32 index = FMath::RandRange(0, 1);
+		FString sectionName = FString::Printf(TEXT("Damage"), index);
+		if (anim)
+		{
+			anim->PlayDamageAnim(FName(*sectionName));
+		}
 	}
 	else
 	{
