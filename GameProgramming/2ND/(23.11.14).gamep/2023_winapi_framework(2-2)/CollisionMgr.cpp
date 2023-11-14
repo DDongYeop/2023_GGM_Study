@@ -55,8 +55,18 @@ void CollisionMgr::CollisionGroupUpdate(OBJECT_GROUP _eLeft, OBJECT_GROUP _eRigh
 				// 이전에도 충돌 중
 				if (iter->second)
 				{
-					pLeftCol->StayCollision(pRightCol);
-					pRightCol->StayCollision(pLeftCol);
+					//둘중 하나가 삭제 예정이면
+					if (vecLeft[i]->GetIsDead() || vecRight[j]->GetIsDead())
+					{
+						pLeftCol->ExitCollision(pRightCol);
+						pRightCol->ExitCollision(pLeftCol);
+						iter->second = false;
+					}
+					else
+					{
+						pLeftCol->StayCollision(pRightCol);
+						pRightCol->StayCollision(pLeftCol);
+					}
 				}
 				// 이전에 충돌x
 				else

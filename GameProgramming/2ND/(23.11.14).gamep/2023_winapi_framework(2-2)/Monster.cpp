@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "Monster.h"
 #include "TimeMgr.h"
+#include "Collider.h"
+#include "Object.h"
+#include "EventMgr.h"
+
 Monster::Monster()
 	: m_fSpeed(100.f)
 	, m_fMaxDis(50.f)
@@ -29,4 +33,24 @@ void Monster::Update()
 		vCurPos.x += fDist * m_fDir;
 	}
 	SetPos(vCurPos);
+}
+
+void Monster::EnterCollision(Collider* _pOther)
+{
+	const Object* pOtherObj = _pOther->GetObj();
+	if (pOtherObj->GetName() == L"Player_Bullet")
+	{
+		//삭제처리
+		m_iHp--;
+		if (m_iHp <= 0)
+			EventMgr::GetInst()->DeleteObject(this);
+	}
+}
+
+void Monster::ExitCollision(Collider* _pOther)
+{
+}
+
+void Monster::StayCollision(Collider* _pOther)
+{
 }

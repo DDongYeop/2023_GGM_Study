@@ -24,6 +24,7 @@ public:
 	const Vec2& GetFinalPos() const 
 	{ return m_vFinalPos; }
 	const UINT& GetID() const { return m_ID; }
+	const Object* GetObj() const { return m_pOwner; }
 private:
 	UINT m_check;
 	UINT m_ID; // 충돌체 ID값

@@ -9,6 +9,7 @@
 #include "PathMgr.h"
 #include "ResMgr.h"
 #include "Collider.h"
+#include "Animator.h"
 Player::Player()
 	: m_pTex(nullptr)
 {
@@ -16,10 +17,12 @@ Player::Player()
 	//wstring strFilePath = PathMgr::GetInst()->GetResPath();
 	//strFilePath += L"Texture\\plane.bmp";
 	//m_pTex->Load(strFilePath);
-	m_pTex = ResMgr::GetInst()->TexLoad(L"Player", L"Texture\\plane.bmp");
+	m_pTex = ResMgr::GetInst()->TexLoad(L"Player", L"Texture\\jiwoo.bmp");
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(20.f,30.f));
 	//GetCollider()->SetOffSetPos(Vec2(50.f,0.f));
+	GetAnimator()->CreateAnim(L"Jiwoo_Front", m_pTex, Vec2(0, 150), Vec2(50, 50), Vec2(50, 0), 5, 1);
+	GetAnimator()->PlayAnim(L"Jiwoo_Front", true);
 }
 Player::~Player()
 {
@@ -42,9 +45,14 @@ void Player::Update()
 		//		m_obj.m_ptPos.x += 1;
 		vPos.x += 100.f * fDT;
 	}
+	if (KEY_PRESS(KEY_TYPE::DOWN))
+		vPos.y += 100.f * fDT;
+	if (KEY_PRESS(KEY_TYPE::UP))
+		vPos.y -= 100.f * fDT;
 	if (KEY_DOWN(KEY_TYPE::SPACE))
 		CreateBullet();
 	SetPos(vPos);
+	GetAnimator()->Update();
 }
 
 void Player::CreateBullet()
@@ -57,22 +65,22 @@ void Player::CreateBullet()
 //	pBullet->SetDir(M_PI / 4 * 7);
 //	pBullet->SetDir(120* M_PI / 180);
 	pBullet->SetDir(Vec2(-10.f,-15.f));
-
+	pBullet->SetName(L"Player_Bullet");
 	SceneMgr::GetInst()->GetCurScene()->AddObject(pBullet, OBJECT_GROUP::BULLET);
 }
 
 void Player::Render(HDC _dc)
 {
-	Vec2 vPos = GetPos();
-	Vec2 vScale = GetScale();
-	int Width = m_pTex->GetWidth();
-	int Height = m_pTex->GetHeight();
-	// 1. 기본 옮기기
-	BitBlt(_dc
-		,(int)(vPos.x - vScale.x /2)
-		,(int)(vPos.y - vScale.y /2)
-		, Width,Height, m_pTex->GetDC()
-		,0,0,SRCCOPY);
+	//Vec2 vPos = GetPos();
+	//Vec2 vScale = GetScale();
+	//int Width = m_pTex->GetWidth();
+	//int Height = m_pTex->GetHeight();
+	//// 1. 기본 옮기기
+	//BitBlt(_dc
+	//	,(int)(vPos.x - vScale.x /2)
+	//	,(int)(vPos.y - vScale.y /2)
+	//	, Width,Height, m_pTex->GetDC()
+	//	,0,0,SRCCOPY);
 
 	//// 2. 색상 걷어내기
 	//TransparentBlt(_dc

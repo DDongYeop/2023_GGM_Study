@@ -148,6 +148,12 @@
     <ClInclude Include="EventMgr.h">
       <Filter>Engine\03. Manager\EventMgr</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Engine\07. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Engine\07. Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2023_winapi_framework(2-2).rc">
@@ -228,6 +234,12 @@
     </ClCompile>
     <ClCompile Include="EventMgr.cpp">
       <Filter>Engine\03. Manager\EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Engine\07. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Engine\07. Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

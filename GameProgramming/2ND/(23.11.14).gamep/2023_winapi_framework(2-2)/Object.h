@@ -1,5 +1,6 @@
 #pragma once
 class Collider;
+class Animator;
 class Object
 {
 public:
@@ -23,11 +24,23 @@ public:
 	const Vec2& GetScale() const { return m_vScale; }
 	Collider* GetCollider() const 
 	{ return m_pCollider; }
+	Animator* GetAnimator() const
+	{return m_pAnimator;}
+	const wstring& GetName() const{ return m_strName; }
+	void SetName(wstring _name) { m_strName = _name; }
+	const bool& GetIsDead() const{ return m_IsAlive; }
+private:
+	void SetDead() { m_IsAlive = false; }
+	friend class EventMgr;
 public:
 	void CreateCollider();
+	void CreateAnimator();
 private:
 	Vec2 m_vPos; // 위치
 	Vec2 m_vScale; // 크기
 	Collider* m_pCollider;
+	wstring m_strName; //이름
+	bool m_IsAlive;
+	Animator* m_pAnimator;
 };
 
