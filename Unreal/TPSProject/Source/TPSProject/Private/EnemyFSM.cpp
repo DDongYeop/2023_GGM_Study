@@ -81,6 +81,9 @@ void UEnemyFSM::OnDamageProcess()
 		mState = EEnemyState::Die;
 		// 캡슐 비활성화
 		me->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+		if (anim)
+			anim->PlayDamageAnim(TEXT("Die"));
 	}
 
 	if (anim)
@@ -168,6 +171,9 @@ void UEnemyFSM::DamageState()
 
 void UEnemyFSM::DieState()
 {
+	if (anim && anim->bAttackPlay == false)
+		return;
+
 	// 등속 운동 공식 : P = P0 + vt
 	FVector P0 = me->GetActorLocation();
 	FVector vt = FVector::DownVector * dieSpeed * GetWorld()->DeltaTimeSeconds;
