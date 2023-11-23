@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background1
+    uniqueID: 2395252159
+    locked: 0
+  - name: Background2
+    uniqueID: 3351704691
+    locked: 0
+  - name: CameraSortingTarget
+    uniqueID: 3124429853
+    locked: 0
+  - name: Player
+    uniqueID: 1675313107
+    locked: 0
