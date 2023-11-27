@@ -25,9 +25,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FSM)
 	bool bAttackPlay = false;
 
-	//죽음 상태 애니메이션 종료 여부
+	// 죽음 상태 애니메이션 종료 여부
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = FSM)
-	bool bDieBone = false;
+	bool bDieDone = false;
 
 	UFUNCTION(BlueprintCallable, Category=FSMEvent)
 	void OnEndAttackAnimation();

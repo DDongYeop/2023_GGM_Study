@@ -43,6 +43,8 @@ public:
 public:
 	void OnDamageProcess();
 
+	bool GetRandomPositionNavMesh(FVector centerLocation, float radius, FVector& dest);
+
 public:
 	// 대기 상태
 	void IdleState();
@@ -95,4 +97,10 @@ public:
 public:
 	// 사용중인 애니메이션 블루프린트 참조 포인터
 	class UEnemyAnim* anim;
+
+	// enemy를 소유하고 있는 AIController
+	UPROPERTY()
+	class AAIController* ai;
+
+	FVector randomPos;
 };

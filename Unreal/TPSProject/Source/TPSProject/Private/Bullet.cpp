@@ -2,6 +2,7 @@
 
 
 #include "Bullet.h"
+#include "EnemyInterface.h"
 #include <Components/SphereComponent.h>
 #include <GameFramework/ProjectileMovementComponent.h>
 
@@ -17,6 +18,8 @@ ABullet::ABullet()
 	{
 		collisionComp->SetCollisionProfileName(TEXT("BlockAll"));
 		collisionComp->SetSphereRadius(13);
+		collisionComp->OnComponentHit.AddDynamic(this, &ABullet::OnHit);
+
 		RootComponent = collisionComp;
 	}
 
@@ -70,5 +73,18 @@ void ABullet::Tick(float DeltaTime)
 void ABullet::Die()
 {
 	Destroy();
+}
+
+void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherActor != this)
+	{
+		IEnemyInterface* DamageInterface = Cast<IEnemyInterface>(OtherActor);
+		if (DamageInterface)
+		{
+			DamageInterface->OnDamageProcess();
+			Die();
+		}
+	}
 }
 

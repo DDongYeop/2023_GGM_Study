@@ -4,6 +4,8 @@
 #include "EnemyFSM.h"
 #include "Enemy.h"
 #include "EnemyAnim.h"
+#include <AIController.h>
+#include <NavigationSystem.h>
 #include "TPSCharacterPlayer.h"
 #include <Kismet/GameplayStatics.h>
 #include <Components/CapsuleComponent.h>
@@ -32,6 +34,8 @@ void UEnemyFSM::BeginPlay()
 	me = Cast<AEnemy>(GetOwner());
 
 	anim = Cast<UEnemyAnim>(me->GetMesh()->GetAnimInstance());
+
+	ai = Cast<AAIController>(me->GetController());
 }
 
 
@@ -90,6 +94,15 @@ void UEnemyFSM::OnDamageProcess()
 		anim->animState = mState;
 }
 
+bool UEnemyFSM::GetRandomPositionNavMesh(FVector centerLocation, float radius, FVector& dest)
+{
+	auto ns = UNavigationSystemV1::GetNavigationSystem(GetWorld());
+	FNavLocation loc;
+	bool result = ns->GetRandomReachablePointInRadius(centerLocation, radius, loc);
+	dest = loc;
+	return result;
+}
+
 void UEnemyFSM::IdleState()
 {
 	currentTime += GetWorld()->DeltaTimeSeconds;
@@ -101,6 +114,9 @@ void UEnemyFSM::IdleState()
 
 		if (anim)
 			anim->animState = mState;
+
+		//최초로 랜덤한 위치 값
+		GetRandomPositionNavMesh(me->GetActorLocation(), 500, randomPos);
 	}
 }
 
@@ -116,11 +132,43 @@ void UEnemyFSM::MoveState()
 	FVector dir = dest - me->GetActorLocation();
 
 	// 이동
-	me->AddMovementInput(dir.GetSafeNormal());
+	//me->AddMovementInput(dir.GetSafeNormal());
+	//ai->MoveToLocation(dest);
+
+	auto ns = UNavigationSystemV1::GetNavigationSystem(GetWorld());
+
+	//목적지 길찾기 경로 데이터 검색
+	FPathFindingQuery query;
+	FAIMoveRequest req;
+
+	req.SetAcceptanceRadius(3);
+	req.SetGoalLocation(dest);
+
+	//길찾기를 위한 쿼리 생성
+	ai->BuildPathfindingQuery(req, query);
+
+	//길찾기 결과 가져오기
+	FPathFindingResult result = ns->FindPathSync(query);
+
+	//목적지까지의 길찾기 성공 여부 확인
+	if (result.Result == ENavigationQueryResult::Success)
+	{
+		ai->MoveToLocation(dest);
+	}
+	else
+	{
+		auto re = ai->MoveToLocation(randomPos);
+		if (re == EPathFollowingRequestResult::AlreadyAtGoal)
+		{
+			GetRandomPositionNavMesh(me->GetActorLocation(), 500, randomPos);
+		}
+	}
 
 	// 타겟과 거리가 가까워 지면
 	if (dir.Size() < attackRange)
 	{
+		ai->StopMovement();
+
 		mState = EEnemyState::Attack;
 		currentTime = attackDelayTime;
 
@@ -152,6 +200,8 @@ void UEnemyFSM::AttackState()
 
 		if (anim)
 			anim->animState = mState;
+
+		GetRandomPositionNavMesh(me->GetActorLocation(), 500, randomPos);
 	}
 }
 
@@ -171,7 +221,7 @@ void UEnemyFSM::DamageState()
 
 void UEnemyFSM::DieState()
 {
-	if (anim && anim->bAttackPlay == false)
+	if (anim && anim->bDieDone == false)
 		return;
 
 	// 등속 운동 공식 : P = P0 + vt
