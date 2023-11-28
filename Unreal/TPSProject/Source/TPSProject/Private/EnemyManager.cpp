@@ -3,6 +3,8 @@
 
 #include "EnemyManager.h"
 #include "Enemy.h"
+#include "EngineUtils.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 AEnemyManager::AEnemyManager()
@@ -21,6 +23,8 @@ void AEnemyManager::BeginPlay()
 
 	//Timer 알림 등록
 	GetWorld()->GetTimerManager().SetTimer(spawnTimerHandle, this, &AEnemyManager::CreateEnemy, createTime);
+
+	FindSpawnPoints();
 }
 
 // Called every frame
@@ -40,4 +44,29 @@ void AEnemyManager::CreateEnemy()
 	//다시 랜덤 시간 후에 CreateEnemy 호출
 	float createTime = FMath::RandRange(minTime, maxTIme);
 	GetWorld()->GetTimerManager().SetTimer(spawnTimerHandle, this, &AEnemyManager::CreateEnemy, createTime);
+}
+
+void AEnemyManager::FindSpawnPoints()
+{
+	/*for (TActorIterator<AActor> it(GetWorld()); it; ++it)
+	{
+		AActor* spawn = *it;
+
+		if (spawn->GetName().Contains(TEXT("BP_SpawnPoint")))
+		{
+			spawnPoints.Add(spawn);
+		}
+	}*/
+
+	TArray<AActor*> allActors;
+
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass(), allActors);
+
+	for (auto spawn : allActors)
+	{
+		if (spawn->GetName().Contains(TEXT("BP_SpawnPoint")))
+		{
+			spawnPoints.Add(spawn);
+		}
+	}
 }

@@ -160,7 +160,14 @@ void UEnemyFSM::MoveState()
 		auto re = ai->MoveToLocation(randomPos);
 		if (re == EPathFollowingRequestResult::AlreadyAtGoal)
 		{
-			GetRandomPositionNavMesh(me->GetActorLocation(), 500, randomPos);
+			//GetRandomPositionNavMesh(me->GetActorLocation(), 500, randomPos);
+			mState = EEnemyState::Idle;
+			currentTime = 0;
+
+			if (anim)
+			{
+				anim->animState = mState;
+			}
 		}
 	}
 

@@ -199,6 +199,9 @@ void ATPSCharacterPlayer::BeginPlay()
 	
 	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
 
+	// 체력 설정
+	hp = initalHp;
+
 	// 스나이퍼건을 기본 무기로 셋팅
 	ChangeToSniperGun();
 
@@ -455,3 +458,13 @@ void ATPSCharacterPlayer::SniperAim(const FInputActionValue& Value)
 	}
 }
 
+void ATPSCharacterPlayer::OnHitEvent()
+{
+	UE_LOG(LogTemp, Log, TEXT("Damaged!"));
+
+	hp--;
+	if (hp <= 0)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Player is dead!"));
+	}
+}

@@ -98,6 +98,20 @@ public:
 	// 스나이퍼가 조준중인지 여부
 	bool bSniperAim = false;
 
+// 체력
+public:
+	// 현재 체력
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Health)
+	int32 hp;
+
+	// 초기 체력
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Health)
+	int32 initalHp = 10;
+
+public:
+	UFUNCTION(BlueprintCallable, Category = Health)
+	void OnHitEvent();
+
 #pragma region /* Input */
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
