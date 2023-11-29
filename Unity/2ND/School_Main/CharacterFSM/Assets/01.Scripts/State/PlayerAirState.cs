@@ -19,6 +19,9 @@ public class PlayerAirState : PlayerState
         float xInput = _player.PlayerInput.XInput;
         if (Mathf.Abs(xInput) > 0.05f)
             _player.SetVelocity(_player.moveSpeed * 0.8f * xInput, _rigidbody.velocity.y);
+        
+        if (_player.IsWallDetected())
+            _stateMachine.ChangeState(PlayerStateEnum.WallSlide);
     }
 
     public override void Exit()

@@ -1693,7 +1693,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_60
+      name: WallSlide_0
       rect:
         serializedVersion: 2
         x: 0
@@ -1714,7 +1714,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_61
+      name: WallSlide_1
       rect:
         serializedVersion: 2
         x: 69
@@ -1735,7 +1735,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_62
+      name: WallSlide_2
       rect:
         serializedVersion: 2
         x: 138
@@ -2546,6 +2546,9 @@ TextureImporter:
       Move_5: -6179113146597259875
       Move_6: -7195227389596926799
       Move_7: -7083850147136336687
+      WallSlide_0: 709901728315876072
+      WallSlide_1: -5647377392427310024
+      WallSlide_2: -5110843521143403644
       Warrior_Sheet-Effect_14: -7879541775824577086
       Warrior_Sheet-Effect_15: -6442761953431332421
       Warrior_Sheet-Effect_16: -7823500323640422531
@@ -2586,9 +2589,6 @@ TextureImporter:
       Warrior_Sheet-Effect_57: -1765949524758486658
       Warrior_Sheet-Effect_58: -1406694122392401829
       Warrior_Sheet-Effect_59: 3914160388638673933
-      Warrior_Sheet-Effect_60: 709901728315876072
-      Warrior_Sheet-Effect_61: -5647377392427310024
-      Warrior_Sheet-Effect_62: -5110843521143403644
       Warrior_Sheet-Effect_63: -8626763743991069669
       Warrior_Sheet-Effect_64: -8669300221853394086
       Warrior_Sheet-Effect_65: -8606690382453196554
