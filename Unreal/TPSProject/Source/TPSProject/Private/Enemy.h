@@ -34,4 +34,11 @@ public:
 	// 적 FSM 컴포넌트 클래스
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = FSMComp)
 	TObjectPtr<class UEnemyFSM> fsm;
+
+	// 바운더리 영역
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	class USphereCOmponent* sphereComponent;
+
+	UPROPERTY(EditAnywhere, Category = Radius)
+	float detectRadisu = 800;
 };

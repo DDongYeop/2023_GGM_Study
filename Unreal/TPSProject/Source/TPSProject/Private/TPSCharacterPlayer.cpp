@@ -421,6 +421,8 @@ void ATPSCharacterPlayer::ChangeToGrenadeGun()
 		gunMeshComp->SetVisibility(true);
 	if (sniperMeshComp)
 		sniperMeshComp->SetVisibility(false);
+
+	OnUsingGrenade(bUsingGrenadeGun);
 }
 
 void ATPSCharacterPlayer::ChangeToSniperGun()
@@ -430,6 +432,8 @@ void ATPSCharacterPlayer::ChangeToSniperGun()
 		gunMeshComp->SetVisibility(false);
 	if (sniperMeshComp)
 		sniperMeshComp->SetVisibility(true);
+
+	OnUsingGrenade(bUsingGrenadeGun);
 }
 
 void ATPSCharacterPlayer::SniperAim(const FInputActionValue& Value)
@@ -440,20 +444,20 @@ void ATPSCharacterPlayer::SniperAim(const FInputActionValue& Value)
 	bool SniperAim = Value.Get<bool>();
 	if (SniperAim)
 	{
-		if (sniperUI)
+		if (IsValid(sniperUI))
 			sniperUI->AddToViewport();
-		if (crosshairUI)
+		if (IsValid(crosshairUI))
 			crosshairUI->RemoveFromParent();
-		if (tpsCamComp)
+		if (IsValid(tpsCamComp))
 			tpsCamComp->SetFieldOfView(45.0f);
 	}
 	else
 	{
-		if (sniperUI)
+		if (IsValid(sniperUI))
 			sniperUI->RemoveFromParent();
-		if (crosshairUI)
+		if (IsValid(crosshairUI))
 			crosshairUI->AddToViewport();
-		if (tpsCamComp)
+		if (IsValid(tpsCamComp))
 			tpsCamComp->SetFieldOfView(90.0f);
 	}
 }

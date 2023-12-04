@@ -27,6 +27,8 @@ AEnemy::AEnemy()
 	// EnemyFSM 컴포넌트 추가
 	fsm = CreateDefaultSubobject<UEnemyFSM>(TEXT("FSM"));
 
+	sphereComponent = CreateDefaultSubObject<USphereCOmponent>(TEXT("SphereComponent"));
+
 	// 월드에 배치되거나 스폰될 때 자동으로 AIController부터 Proccess 될 수 있도록 설정
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }

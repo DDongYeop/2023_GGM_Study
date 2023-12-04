@@ -112,6 +112,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Health)
 	void OnHitEvent();
 
+	UFUNCTION(BlueprintImplementableEvent, Category = Health)
+	void OnUsingGrenade(bool isGrenade);
+
 #pragma region /* Input */
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
