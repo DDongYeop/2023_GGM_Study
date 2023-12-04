@@ -10,6 +10,7 @@ public class InputReader : ScriptableObject,IPlayerActions
 {
     public event Action JumpEvent;
     public event Action DashEvent;
+    public event Action AttackEvent;
     
     public float XInput { get; private set; }
     public float YInput { get; private set; }
@@ -37,6 +38,12 @@ public class InputReader : ScriptableObject,IPlayerActions
     {
         if (context.performed)
             DashEvent?.Invoke();
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            AttackEvent?.Invoke();
     }
 
     public void OnXMovement(InputAction.CallbackContext context)

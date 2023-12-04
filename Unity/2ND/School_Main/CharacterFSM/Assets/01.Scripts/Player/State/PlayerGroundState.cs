@@ -12,6 +12,7 @@ public class PlayerGroundState : PlayerState
     {
         base.Enter();
         _player.PlayerInput.JumpEvent += HandleJumpInput;
+        _player.PlayerInput.AttackEvent += HandleAttackInput;
     }
 
     public override void UpdateState()
@@ -23,6 +24,7 @@ public class PlayerGroundState : PlayerState
     {
         base.Exit();
         _player.PlayerInput.JumpEvent -= HandleJumpInput;
+        _player.PlayerInput.AttackEvent -= HandleAttackInput;
     }
 
     #region 입력처리 핸들러
@@ -31,6 +33,12 @@ public class PlayerGroundState : PlayerState
     {
         if (_player.IsGroundDetected())
             _stateMachine.ChangeState(PlayerStateEnum.Jump);
+    }
+
+    private void HandleAttackInput()
+    {
+        if (_player.IsGroundDetected())
+            _stateMachine.ChangeState(PlayerStateEnum.PrimaryAttack);
     }
 
     #endregion

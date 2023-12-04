@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //상태를 기반으로 플레이어를 만들꺼니깐 PlayerState라는 클래스 하나 만들고 Move와 Idle을 만든다 
 public class Player : MonoBehaviour
@@ -30,9 +31,16 @@ public class Player : MonoBehaviour
     public Rigidbody2D RigidbodyCompo { get; private set; }
     public CapsuleCollider2D ColliderCompo { get; private set; }
 
+    [field: SerializeField] public PlayerStat Stat { get; private set; }
+    
     #endregion
 
     public int FacingDirection { get; private set; } = 1; //오: 1, 왼: -1
+    
+    [Header("attack info")]
+    public float attackSpeed;
+    public Vector2[] attackMovement;
+    
     protected bool _facingRight = true;
 
     public virtual void Awake()
@@ -52,6 +60,9 @@ public class Player : MonoBehaviour
             PlayerState newState = Activator.CreateInstance(t, this, StateMachine, typeName) as PlayerState;
             StateMachine.AddState(state, newState);
         }
+
+        Stat = Instantiate(Stat);
+        Stat.SetOwner(this);
     }
 
     private void OnEnable()
@@ -63,6 +74,21 @@ public class Player : MonoBehaviour
     {
         PlayerInput.DashEvent -= HandleDashInput;
     }
+
+    #region 딜레이 코루틴
+
+    public Coroutine StartDelayCall(float delayTime, Action Callback)
+    {
+        return StartCoroutine(DelayCallCoroutine(delayTime, Callback));
+    }
+
+    private IEnumerator DelayCallCoroutine(float delayTime, Action Callback)
+    {
+        yield return new WaitForSeconds(delayTime);
+        Callback?.Invoke();
+    }
+
+    #endregion
 
     #region 키입력 핸들러
     
@@ -82,6 +108,9 @@ public class Player : MonoBehaviour
     protected void Update()
     {
         StateMachine.CurrentState.UpdateState();
+        
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+            Stat.IncreaseStatBy(10, 5f, Stat.GetStatByType(StatType.strength));
     }
 
     #region 속도 제어
@@ -132,6 +161,11 @@ public class Player : MonoBehaviour
     public virtual bool IsWallDetected() => Physics2D.Raycast(_wallChecker.position, Vector2.right * FacingDirection, _wallCheckDistance, _whatIsGround);
 
     #endregion
+    
+    public void AnimationFinishTrigger()
+    {
+        StateMachine.CurrentState.AnimationFinishTrigger();
+    }
     
 #if UNITY_EDITOR
     protected virtual void OnDrawGizmos()

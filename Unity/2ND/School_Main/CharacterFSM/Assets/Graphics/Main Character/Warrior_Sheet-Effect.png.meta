@@ -727,7 +727,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_14
+      name: Attack_1_0
       rect:
         serializedVersion: 2
         x: 138
@@ -748,7 +748,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_15
+      name: Attack_1_1
       rect:
         serializedVersion: 2
         x: 207
@@ -769,7 +769,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_16
+      name: Attack_1_2
       rect:
         serializedVersion: 2
         x: 276
@@ -790,7 +790,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_17
+      name: Attack_1_3
       rect:
         serializedVersion: 2
         x: 345
@@ -811,7 +811,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_18
+      name: Attack_1_4
       rect:
         serializedVersion: 2
         x: 0
@@ -832,7 +832,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_19
+      name: Attack_1_5
       rect:
         serializedVersion: 2
         x: 69
@@ -853,7 +853,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_20
+      name: Attack_1_6
       rect:
         serializedVersion: 2
         x: 138
@@ -874,7 +874,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_21
+      name: Attack_1_7
       rect:
         serializedVersion: 2
         x: 207
@@ -895,7 +895,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_22
+      name: Attack_1_8
       rect:
         serializedVersion: 2
         x: 276
@@ -916,7 +916,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_23
+      name: Attack_2_1
       rect:
         serializedVersion: 2
         x: 345
@@ -937,11 +937,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_24
+      name: Attack_2_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 528
+        x: 1
+        y: 527
         width: 69
         height: 44
       alignment: 0
@@ -958,7 +958,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_25
+      name: Attack_2_3
       rect:
         serializedVersion: 2
         x: 69
@@ -2050,7 +2050,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_77
+      name: Attack_3_0
       rect:
         serializedVersion: 2
         x: 345
@@ -2071,11 +2071,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_78
+      name: Attack_3_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 132
+        y: 133
         width: 69
         height: 44
       alignment: 0
@@ -2092,7 +2092,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_79
+      name: Attack_3_2
       rect:
         serializedVersion: 2
         x: 69
@@ -2113,7 +2113,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_80
+      name: Attack_3_3
       rect:
         serializedVersion: 2
         x: 138
@@ -2134,7 +2134,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_81
+      name: Attack_3_4
       rect:
         serializedVersion: 2
         x: 207
@@ -2155,7 +2155,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_82
+      name: Attack_3_5
       rect:
         serializedVersion: 2
         x: 276
@@ -2176,7 +2176,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Warrior_Sheet-Effect_83
+      name: Attack_3_6
       rect:
         serializedVersion: 2
         x: 345
@@ -2522,6 +2522,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Attack_1_0: 8629003983396144442
+      Attack_1_1: -6211648682532063752
+      Attack_1_2: 4804923502247703499
+      Attack_1_3: -6253208296904073923
+      Attack_1_4: -381468241496348146
+      Attack_1_5: -2164224423321271568
+      Attack_1_6: 7378919880078719499
+      Attack_1_7: -50406204238961237
+      Attack_1_8: -381468241496348146
+      Attack_2_1: -2164224423321271568
+      Attack_2_2: 7378919880078719499
+      Attack_2_3: -50406204238961237
+      Attack_3_0: -848416997838638187
+      Attack_3_1: -1594377132886445991
+      Attack_3_2: -7939720171757009327
+      Attack_3_3: 4278741268874708782
+      Attack_3_4: -5551026827497223419
+      Attack_3_5: -2437237654950474820
+      Attack_3_6: -5853263684127566195
       Dash_0: 8874842850510428824
       Dash_1: -1175057978942713942
       Dash_2: 8396084745013482390
@@ -2549,78 +2568,59 @@ TextureImporter:
       WallSlide_0: 709901728315876072
       WallSlide_1: -5647377392427310024
       WallSlide_2: -5110843521143403644
-      Warrior_Sheet-Effect_14: -7879541775824577086
-      Warrior_Sheet-Effect_15: -6442761953431332421
-      Warrior_Sheet-Effect_16: -7823500323640422531
-      Warrior_Sheet-Effect_17: 3272844186751121127
-      Warrior_Sheet-Effect_18: 8629003983396144442
-      Warrior_Sheet-Effect_19: -6211648682532063752
-      Warrior_Sheet-Effect_20: 4804923502247703499
-      Warrior_Sheet-Effect_21: -6253208296904073923
-      Warrior_Sheet-Effect_22: -381468241496348146
-      Warrior_Sheet-Effect_23: -2164224423321271568
-      Warrior_Sheet-Effect_24: 7378919880078719499
-      Warrior_Sheet-Effect_25: -50406204238961237
-      Warrior_Sheet-Effect_26: 2833012263988642564
-      Warrior_Sheet-Effect_27: 1619122817114066791
-      Warrior_Sheet-Effect_28: -3728085103066422436
-      Warrior_Sheet-Effect_29: 5309330118571133426
-      Warrior_Sheet-Effect_30: 2138419889203400846
-      Warrior_Sheet-Effect_31: -3793288683446833867
-      Warrior_Sheet-Effect_32: 7809884292531708377
-      Warrior_Sheet-Effect_33: 8758733799639075308
-      Warrior_Sheet-Effect_34: 4273360486593703493
-      Warrior_Sheet-Effect_35: 8740081516789230483
-      Warrior_Sheet-Effect_36: 4245071895355107723
-      Warrior_Sheet-Effect_37: 8207571220096118977
-      Warrior_Sheet-Effect_38: 7910466545735013580
-      Warrior_Sheet-Effect_39: -4360246032673291897
-      Warrior_Sheet-Effect_40: -6130774247032492815
-      Warrior_Sheet-Effect_44: 3578844115799939244
-      Warrior_Sheet-Effect_45: -8346973252730123848
-      Warrior_Sheet-Effect_49: 4778756267546337206
-      Warrior_Sheet-Effect_50: -5417263232604538632
-      Warrior_Sheet-Effect_51: -8179423753346160949
-      Warrior_Sheet-Effect_52: -1605837713619785204
-      Warrior_Sheet-Effect_53: 8858915403469927737
-      Warrior_Sheet-Effect_54: 5335032761891035287
-      Warrior_Sheet-Effect_55: 8562263981820643917
-      Warrior_Sheet-Effect_56: 7739141928638578783
-      Warrior_Sheet-Effect_57: -1765949524758486658
-      Warrior_Sheet-Effect_58: -1406694122392401829
-      Warrior_Sheet-Effect_59: 3914160388638673933
-      Warrior_Sheet-Effect_63: -8626763743991069669
-      Warrior_Sheet-Effect_64: -8669300221853394086
-      Warrior_Sheet-Effect_65: -8606690382453196554
-      Warrior_Sheet-Effect_66: -1003838945947052602
-      Warrior_Sheet-Effect_67: 1786230212584650817
-      Warrior_Sheet-Effect_68: 2896272659956946786
-      Warrior_Sheet-Effect_73: 8048201136183370311
-      Warrior_Sheet-Effect_74: -5008098951225157325
-      Warrior_Sheet-Effect_75: 3500951761227251082
-      Warrior_Sheet-Effect_76: -848416997838638187
-      Warrior_Sheet-Effect_77: -1594377132886445991
-      Warrior_Sheet-Effect_78: -7939720171757009327
-      Warrior_Sheet-Effect_79: 4278741268874708782
-      Warrior_Sheet-Effect_80: -5551026827497223419
-      Warrior_Sheet-Effect_81: -2437237654950474820
-      Warrior_Sheet-Effect_82: -5853263684127566195
-      Warrior_Sheet-Effect_83: 806391716420303315
-      Warrior_Sheet-Effect_84: -7703501868747715773
-      Warrior_Sheet-Effect_85: -5742998253431553049
-      Warrior_Sheet-Effect_86: 1550331120443448429
-      Warrior_Sheet-Effect_87: -3380132617870049673
-      Warrior_Sheet-Effect_88: -6656010539272679822
-      Warrior_Sheet-Effect_89: -6761883565659206456
-      Warrior_Sheet-Effect_90: -2106872485169043283
-      Warrior_Sheet-Effect_91: -5691269341329648135
-      Warrior_Sheet-Effect_92: -8491356359149837760
-      Warrior_Sheet-Effect_93: -4479905760731915366
-      Warrior_Sheet-Effect_94: -7781806043594523482
-      Warrior_Sheet-Effect_95: -2493374651010981141
-      Warrior_Sheet-Effect_96: -7685447711378399537
-      Warrior_Sheet-Effect_97: 787512443710130017
-      Warrior_Sheet-Effect_98: 2127461698910248042
+      Warrior_Sheet-Effect_26: 2138419889203400846
+      Warrior_Sheet-Effect_27: -3793288683446833867
+      Warrior_Sheet-Effect_28: 7809884292531708377
+      Warrior_Sheet-Effect_29: 8758733799639075308
+      Warrior_Sheet-Effect_30: 4273360486593703493
+      Warrior_Sheet-Effect_31: 8740081516789230483
+      Warrior_Sheet-Effect_32: 4245071895355107723
+      Warrior_Sheet-Effect_33: 8207571220096118977
+      Warrior_Sheet-Effect_34: 7910466545735013580
+      Warrior_Sheet-Effect_35: -4360246032673291897
+      Warrior_Sheet-Effect_36: -6130774247032492815
+      Warrior_Sheet-Effect_37: 3578844115799939244
+      Warrior_Sheet-Effect_38: -8346973252730123848
+      Warrior_Sheet-Effect_39: 4778756267546337206
+      Warrior_Sheet-Effect_40: -5417263232604538632
+      Warrior_Sheet-Effect_44: -8179423753346160949
+      Warrior_Sheet-Effect_45: -1605837713619785204
+      Warrior_Sheet-Effect_49: 8858915403469927737
+      Warrior_Sheet-Effect_50: 5335032761891035287
+      Warrior_Sheet-Effect_51: 8562263981820643917
+      Warrior_Sheet-Effect_52: 7739141928638578783
+      Warrior_Sheet-Effect_53: -1765949524758486658
+      Warrior_Sheet-Effect_54: -1406694122392401829
+      Warrior_Sheet-Effect_55: 3914160388638673933
+      Warrior_Sheet-Effect_56: -8626763743991069669
+      Warrior_Sheet-Effect_57: -8669300221853394086
+      Warrior_Sheet-Effect_58: -8606690382453196554
+      Warrior_Sheet-Effect_59: -1003838945947052602
+      Warrior_Sheet-Effect_63: 1786230212584650817
+      Warrior_Sheet-Effect_64: 2896272659956946786
+      Warrior_Sheet-Effect_65: 8048201136183370311
+      Warrior_Sheet-Effect_66: -5008098951225157325
+      Warrior_Sheet-Effect_67: 3500951761227251082
+      Warrior_Sheet-Effect_68: -848416997838638187
+      Warrior_Sheet-Effect_73: -1594377132886445991
+      Warrior_Sheet-Effect_74: -7939720171757009327
+      Warrior_Sheet-Effect_75: 4278741268874708782
+      Warrior_Sheet-Effect_76: -5551026827497223419
+      Warrior_Sheet-Effect_84: -6656010539272679822
+      Warrior_Sheet-Effect_85: -6761883565659206456
+      Warrior_Sheet-Effect_86: -2106872485169043283
+      Warrior_Sheet-Effect_87: -5691269341329648135
+      Warrior_Sheet-Effect_88: -8491356359149837760
+      Warrior_Sheet-Effect_89: -4479905760731915366
+      Warrior_Sheet-Effect_90: -7781806043594523482
+      Warrior_Sheet-Effect_91: -2493374651010981141
+      Warrior_Sheet-Effect_92: -7685447711378399537
+      Warrior_Sheet-Effect_93: 787512443710130017
+      Warrior_Sheet-Effect_94: 2127461698910248042
+      Warrior_Sheet-Effect_95: -7879541775824577086
+      Warrior_Sheet-Effect_96: -6442761953431332421
+      Warrior_Sheet-Effect_97: -7823500323640422531
+      Warrior_Sheet-Effect_98: 3272844186751121127
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

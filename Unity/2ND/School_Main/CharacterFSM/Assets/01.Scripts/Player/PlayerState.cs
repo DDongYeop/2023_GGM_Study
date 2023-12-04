@@ -11,6 +11,8 @@ public class PlayerState
     protected int _animBoolHash;
     protected readonly int _yVelocityHash = Animator.StringToHash("y_velocity");
 
+    protected bool _triggerCalled;
+
     public PlayerState(Player player, PlayerStateMachine stateMachine, string animationBoolName)
     {
         _player = player;
@@ -21,6 +23,7 @@ public class PlayerState
 
     public virtual void Enter()
     {
+        _triggerCalled = false;
         _player.AnimatorCompo.SetBool(_animBoolHash, true);
     }
     
@@ -32,5 +35,10 @@ public class PlayerState
     public virtual void Exit()
     {
         _player.AnimatorCompo.SetBool(_animBoolHash, false);
+    }
+
+    public void AnimationFinishTrigger()
+    {
+        _triggerCalled = true;
     }
 }
