@@ -21,5 +21,11 @@
     <ClCompile Include="15489 - 파스칼의 삼각형.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="1463 - 1로 만들기.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="2294 - 동전 2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
