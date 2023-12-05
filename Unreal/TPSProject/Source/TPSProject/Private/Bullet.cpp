@@ -82,7 +82,8 @@ void ABullet::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrim
 		IEnemyInterface* DamageInterface = Cast<IEnemyInterface>(OtherActor);
 		if (DamageInterface)
 		{
-			DamageInterface->OnDamageProcess();
+			AActor* parent = GetOwner();
+			DamageInterface->OnDamageProcess(parent);
 			Die();
 		}
 	}

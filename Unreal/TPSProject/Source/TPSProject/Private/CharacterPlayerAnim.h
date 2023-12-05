@@ -25,6 +25,9 @@ public:
 	// 공격 애니메이션 재생 함수
 	void PlayAttackAnim();
 
+	// 피격 애니메이션 재생 함수
+	void PlayHitAnim();
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = PlayerAnim)
 	float speed = 0;
@@ -38,4 +41,7 @@ public:
 public:
 	UPROPERTY(VisibleAnywhere, Category = PlayerAnim)
 	TObjectPtr<class UAnimMontage> attackAnimMontage;
+
+	UPROPERTY(VisibleAnywhere, Category = PlayerAnim)
+	TObjectPtr<class UAnimMontage> hitAnimMontage;
 };

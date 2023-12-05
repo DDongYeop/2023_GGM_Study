@@ -12,6 +12,12 @@ UCharacterPlayerAnim::UCharacterPlayerAnim()
 	{
 		attackAnimMontage = AttackAnimMontageRef.Object;
 	}
+
+	static ConstructorHelpers::FObjectFinder<UAnimMontage> HitAnimMontageRef(TEXT("/Script/Engine.AnimMontage'/Game/ProjectContent/Animations/PlayerHitMontage.PlayerHitMontage'"));
+	if (HitAnimMontageRef.Object)
+	{
+		hitAnimMontage = HitAnimMontageRef.Object;
+	}
 }
 
 void UCharacterPlayerAnim::NativeUpdateAnimation(float DeltaSeconds)
@@ -42,4 +48,18 @@ void UCharacterPlayerAnim::NativeUpdateAnimation(float DeltaSeconds)
 void UCharacterPlayerAnim::PlayAttackAnim()
 {
 	Montage_Play(attackAnimMontage);
+}
+
+void UCharacterPlayerAnim::PlayHitAnim()
+{
+	int32 index = FMath::RandRange(1, 4);
+	FString sectionName = FString::Printf(TEXT("PlayerHit%d"), index);
+
+	APawn* ownerPawn = TryGetPawnOwner();
+
+	ATPSCharacterPlayer* player = Cast<ATPSCharacterPlayer>(ownerPawn);
+	if (player)
+	{
+		player->PlayAnimMontage(hitAnimMontage, 1.0f, FName(*sectionName));
+	}
 }

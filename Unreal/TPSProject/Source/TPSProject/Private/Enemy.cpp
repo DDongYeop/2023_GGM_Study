@@ -3,6 +3,8 @@
 
 #include "Enemy.h"
 #include "EnemyFSM.h"
+#include "TPSCharacterPlayer.h"
+#include <Components/SphereComponent.h>
 
 // Sets default values
 AEnemy::AEnemy()
@@ -27,9 +29,18 @@ AEnemy::AEnemy()
 	// EnemyFSM 컴포넌트 추가
 	fsm = CreateDefaultSubobject<UEnemyFSM>(TEXT("FSM"));
 
-	sphereComponent = CreateDefaultSubObject<USphereCOmponent>(TEXT("SphereComponent"));
+	sphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
+	if (sphereComponent)
+	{
+		sphereComponent->SetupAttachment(RootComponent);
+		sphereComponent->SetCollisionProfileName(TEXT("TargetOverlap"));
+		sphereComponent->SetSphereRadius(detectRadius);
 
-	// 월드에 배치되거나 스폰될 때 자동으로 AIController부터 Proccess 될 수 있도록 설정
+		sphereComponent->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::MyBeginOverlap);
+		sphereComponent->OnComponentEndOverlap.AddDynamic(this, &AEnemy::MyEndOverlap);
+	}
+
+	// 월드에 배치되거나 스폰될 때 자동으로 AIController부터 Prossess 될 수 있도록 설정
 	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
@@ -54,11 +65,41 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
-void AEnemy::OnDamageProcess()
+void AEnemy::OnDamageProcess(AActor* AttackActor)
 {
 	if (fsm)
 	{
 		fsm->OnDamageProcess();
+
+		ATPSCharacterPlayer* target = Cast<ATPSCharacterPlayer>(AttackActor);
+		if (target)
+		{
+			fsm->target = target;
+		}
+	}
+}
+
+void AEnemy::MyBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	ATPSCharacterPlayer* target = Cast<ATPSCharacterPlayer>(OtherActor);
+
+	if (target)
+	{
+		if (fsm)
+			fsm->target = target;
+
+		DrawDebugSphere(GetWorld(), GetActorLocation(), detectRadius, 16, FColor::Red, false, 2.0f);
+	}
+}
+
+void AEnemy::MyEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	ATPSCharacterPlayer* target = Cast<ATPSCharacterPlayer>(OtherActor);
+
+	if (target)
+	{
+		if (fsm)
+			fsm->target = nullptr;
 	}
 }
 

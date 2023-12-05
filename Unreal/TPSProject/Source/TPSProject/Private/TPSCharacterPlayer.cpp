@@ -197,10 +197,10 @@ void ATPSCharacterPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
-
 	// 체력 설정
-	hp = initalHp;
+	hp = initialHp;
+
+	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
 
 	// 스나이퍼건을 기본 무기로 셋팅
 	ChangeToSniperGun();
@@ -343,8 +343,11 @@ void ATPSCharacterPlayer::InputFire(const FInputActionValue& Value)
 	if (bUsingGrenadeGun)
 	{
 		// 발사체 생성
+		FActorSpawnParameters params;
+		params.Owner = this;
+
 		FTransform firePosition = gunMeshComp->GetSocketTransform(TEXT("FirePosition"));
-		GetWorld()->SpawnActor<ABullet>(bulletFactory, firePosition);
+		GetWorld()->SpawnActor<ABullet>(bulletFactory, firePosition, params);
 	}
 	else
 	{
@@ -395,7 +398,7 @@ void ATPSCharacterPlayer::InputFire(const FInputActionValue& Value)
 			IEnemyInterface* EnemyInterface = Cast<IEnemyInterface>(hitInfo.GetActor());
 			if (EnemyInterface)
 			{
-				EnemyInterface->OnDamageProcess();
+				EnemyInterface->OnDamageProcess(this);
 			}
 		}
 	}
@@ -448,7 +451,7 @@ void ATPSCharacterPlayer::SniperAim(const FInputActionValue& Value)
 			sniperUI->AddToViewport();
 		if (IsValid(crosshairUI))
 			crosshairUI->RemoveFromParent();
-		if (IsValid(tpsCamComp))
+		if (tpsCamComp)
 			tpsCamComp->SetFieldOfView(45.0f);
 	}
 	else
@@ -457,7 +460,7 @@ void ATPSCharacterPlayer::SniperAim(const FInputActionValue& Value)
 			sniperUI->RemoveFromParent();
 		if (IsValid(crosshairUI))
 			crosshairUI->AddToViewport();
-		if (IsValid(tpsCamComp))
+		if (tpsCamComp)
 			tpsCamComp->SetFieldOfView(90.0f);
 	}
 }
@@ -467,8 +470,15 @@ void ATPSCharacterPlayer::OnHitEvent()
 	UE_LOG(LogTemp, Log, TEXT("Damaged!"));
 
 	hp--;
+	auto anim = Cast<UCharacterPlayerAnim>(GetMesh()->GetAnimInstance());
+	if (anim)
+	{
+		anim->PlayHitAnim();
+	}
+
 	if (hp <= 0)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Player is dead!"));
 	}
 }
+

@@ -28,7 +28,15 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
-	virtual void OnDamageProcess() override;
+	virtual void OnDamageProcess(AActor* AttackActor) override;
+
+public:
+	UFUNCTION()
+	void MyBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void MyEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
 
 public:
 	// 적 FSM 컴포넌트 클래스
@@ -37,8 +45,8 @@ public:
 
 	// 바운더리 영역
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	class USphereCOmponent* sphereComponent;
+	class USphereComponent* sphereComponent;
 
 	UPROPERTY(EditAnywhere, Category = Radius)
-	float detectRadisu = 800;
+	float detectRadius = 800;
 };

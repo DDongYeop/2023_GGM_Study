@@ -106,7 +106,7 @@ public:
 
 	// 초기 체력
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Health)
-	int32 initalHp = 10;
+	int32 initialHp = 10;
 
 public:
 	UFUNCTION(BlueprintCallable, Category = Health)

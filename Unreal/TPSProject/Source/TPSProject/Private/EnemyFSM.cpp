@@ -29,7 +29,7 @@ void UEnemyFSM::BeginPlay()
 	// ...
 	auto actor = UGameplayStatics::GetActorOfClass(GetWorld(), ATPSCharacterPlayer::StaticClass());
 
-	target = Cast<ATPSCharacterPlayer>(actor);
+	target = nullptr;
 	
 	me = Cast<AEnemy>(GetOwner());
 
@@ -92,6 +92,8 @@ void UEnemyFSM::OnDamageProcess()
 
 	if (anim)
 		anim->animState = mState;
+
+	ai->StopMovement();
 }
 
 bool UEnemyFSM::GetRandomPositionNavMesh(FVector centerLocation, float radius, FVector& dest)
@@ -115,76 +117,88 @@ void UEnemyFSM::IdleState()
 		if (anim)
 			anim->animState = mState;
 
-		//최초로 랜덤한 위치 값
+		// 최초의 랜덤한 위치 값
 		GetRandomPositionNavMesh(me->GetActorLocation(), 500, randomPos);
 	}
 }
 
 void UEnemyFSM::MoveState()
 {
-	if (target == nullptr || me == nullptr)
-		return;
-
-	// 타겟의 목적지
-	FVector dest = target->GetActorLocation();
-
-	// 방향
-	FVector dir = dest - me->GetActorLocation();
-
-	// 이동
-	//me->AddMovementInput(dir.GetSafeNormal());
-	//ai->MoveToLocation(dest);
-
-	auto ns = UNavigationSystemV1::GetNavigationSystem(GetWorld());
-
-	//목적지 길찾기 경로 데이터 검색
-	FPathFindingQuery query;
-	FAIMoveRequest req;
-
-	req.SetAcceptanceRadius(3);
-	req.SetGoalLocation(dest);
-
-	//길찾기를 위한 쿼리 생성
-	ai->BuildPathfindingQuery(req, query);
-
-	//길찾기 결과 가져오기
-	FPathFindingResult result = ns->FindPathSync(query);
-
-	//목적지까지의 길찾기 성공 여부 확인
-	if (result.Result == ENavigationQueryResult::Success)
+	if (target == nullptr)
 	{
-		ai->MoveToLocation(dest);
-	}
-	else
-	{
-		auto re = ai->MoveToLocation(randomPos);
-		if (re == EPathFollowingRequestResult::AlreadyAtGoal)
+		if (ai == nullptr)
+			return;
+
+		auto result = ai->MoveToLocation(randomPos);
+
+		if (result == EPathFollowingRequestResult::AlreadyAtGoal)
 		{
-			//GetRandomPositionNavMesh(me->GetActorLocation(), 500, randomPos);
 			mState = EEnemyState::Idle;
 			currentTime = 0;
 
 			if (anim)
-			{
 				anim->animState = mState;
+		}
+	}
+	else
+	{
+		// 타겟의 목적지
+		FVector dest = target->GetActorLocation();
+
+		// 방향
+		FVector dir = dest - me->GetActorLocation();
+
+		auto ns = UNavigationSystemV1::GetNavigationSystem(GetWorld());
+
+		// 목적지 길찾기 경로 데이터 검색
+		FPathFindingQuery query;
+		FAIMoveRequest req;
+
+		req.SetAcceptanceRadius(3);
+		req.SetGoalLocation(dest);
+
+		// 길찾기를 위한 쿼리 생성
+		ai->BuildPathfindingQuery(req, query);
+
+		// 길찾기 결과 가져오기
+		FPathFindingResult result = ns->FindPathSync(query);
+
+		// 목적지까지의 길찾기 성공 여부 확인
+		if (result.Result == ENavigationQueryResult::Success)
+		{
+			ai->MoveToLocation(dest);
+		}
+		else
+		{
+			auto re = ai->MoveToLocation(randomPos);
+
+			if (re == EPathFollowingRequestResult::AlreadyAtGoal)
+			{
+				mState = EEnemyState::Idle;
+				currentTime = 0;
+
+				if (anim)
+				{
+					anim->animState = mState;
+				}
 			}
 		}
-	}
 
-	// 타겟과 거리가 가까워 지면
-	if (dir.Size() < attackRange)
-	{
-		ai->StopMovement();
-
-		mState = EEnemyState::Attack;
-		currentTime = attackDelayTime;
-
-		if (anim)
+		// 타겟과 거리가 가까워 지면
+		if (dir.Size() < attackRange)
 		{
-			anim->animState = mState;
-			anim->bAttackPlay = true;
+			ai->StopMovement();
+
+			mState = EEnemyState::Attack;
+			currentTime = attackDelayTime;
+
+			if (anim)
+			{
+				anim->animState = mState;
+				anim->bAttackPlay = true;
+			}
 		}
-	}
+	}	
 }
 
 void UEnemyFSM::AttackState()

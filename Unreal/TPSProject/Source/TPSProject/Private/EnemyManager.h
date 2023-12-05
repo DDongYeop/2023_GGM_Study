@@ -24,29 +24,29 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 public:
-	//랜덤 시간 간격 (최소값)
+	// 랜덤 시간 간격 (최소값)
 	UPROPERTY(EditAnywhere, Category = SpawnSettings)
 	float minTime = 1.0f;
 
-	//랜덤 시간 간격 (최대값)
+	// 랜덤 시간 간격 (최대값)
 	UPROPERTY(EditAnywhere, Category = SpawnSettings)
-	float maxTIme = 3.0f;
+	float maxTime = 3.0f;
 
-	// 스폰할 위치
+	// 스폰할 위치 배열
 	UPROPERTY(EditAnywhere, Category = SpawnSettings)
 	TArray<class AActor*> spawnPoints;
 
-	//Enemy 타입의 블루프린트 할당 변수
+	// Enemy 타입의 블루프린트 할당 변수
 	UPROPERTY(EditAnywhere, Category = SpawnSettings)
 	TSubclassOf<class AEnemy> enemyFactory;
 
-	//스폰을 위한 알람 타이머
+	// 스폰을 위한 알람 타이머
 	FTimerHandle spawnTimerHandle;
 
 public:
-	//적 생성 함수
+	// 적 생성 함수
 	void CreateEnemy();
 
-	//동적으로 스폰할 위치 찾아 할당하는 함수
+	// 동적으로 스폰할 위치 찾아 할당하는 함수
 	void FindSpawnPoints();
 };
