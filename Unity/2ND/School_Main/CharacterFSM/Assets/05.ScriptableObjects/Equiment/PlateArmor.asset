@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c360bb4191c99746a77fe01832e99e4, type: 3}
+  m_Name: PlateArmor
+  m_EditorClassIdentifier: 
+  equipmentType: 0
+  itemEffectDescription: "\uC544\uBB34\uD2BC \uCCA0\uAC70\uAC80"
+  itemType: 0
+  itemName: 
+  itemIcon: {fileID: 1177355493, guid: 6f71b490c1ea13b4fb2c6efe2896301b, type: 3}
+  strength: 0
+  agility: 0
+  intelligence: 0
+  vitality: 0
+  maxHealth: 0
+  armor: 0
+  evasion: 0
+  magicResistance: 0
+  damage: 0
+  criticalChance: 0
+  criticalDamage: 0
+  fireDamage: 0
+  ignitePercent: 0
+  iceDamage: 0
+  chillPercent: 0
+  thunderDamage: 0
+  shockPercent: 0

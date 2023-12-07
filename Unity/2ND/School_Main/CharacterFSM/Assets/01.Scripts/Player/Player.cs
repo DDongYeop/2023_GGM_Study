@@ -109,8 +109,8 @@ public class Player : MonoBehaviour
     {
         StateMachine.CurrentState.UpdateState();
         
-        if (Keyboard.current.pKey.wasPressedThisFrame)
-            Stat.IncreaseStatBy(10, 5f, Stat.GetStatByType(StatType.strength));
+        /*if (Keyboard.current.pKey.wasPressedThisFrame)
+            Stat.IncreaseStatBy(10, 5f, Stat.GetStatByType(StatType.strength));*/
     }
 
     #region 속도 제어
