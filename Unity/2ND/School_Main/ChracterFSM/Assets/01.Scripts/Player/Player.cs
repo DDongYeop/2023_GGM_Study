@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// »óÅÂ¸¦ ±â¹ÝÀ¸·Î ÇÃ·¹ÀÌ¾î¸¦ ¸¸µé²¨´Ï±î PlayerState¶ó´Â
-// Å¬·¡½º¸¦ ÇÏ³ª ¸¸µé°í ±×°É »ó¼Ó¹Þ¾Æ¼­ Move¿Í IdleÀ» ¸¸µé°Çµ¥
-// ÀÌ°É ¸®ÇÃ·º¼ÇÀ¸·Î ÇÑ²¨¹ø¿¡ ºÒ·¯¿Ã²¨¾ß.
+// ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½é²¨ï¿½Ï±ï¿½ PlayerStateï¿½ï¿½ï¿½
+// Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×°ï¿½ ï¿½ï¿½Ó¹Þ¾Æ¼ï¿½ Moveï¿½ï¿½ Idleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Çµï¿½
+// ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Ã²ï¿½ï¿½ï¿½.
 public class Player : MonoBehaviour
 {
     [Header("Setting values")]
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
     [SerializeField] private InputReader _inputReader;
     public InputReader PlayerInput => _inputReader;
 
-    #region Compnent ¿µ¿ª
+    #region Compnent ï¿½ï¿½ï¿½ï¿½
     public Animator AnimatorCompo { get; private set; }
     public Rigidbody2D RigidbodyCompo { get; private set; }
     public CapsuleCollider2D ColliderCompo { get; private set; }
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerStat Stat { get; private set; }
     #endregion
 
-    public int FacingDirection { get; private set; } = 1; // ¿À¸¥ÂÊÀÌ 1, ¿ÞÂÊÀÌ -1
+    public int FacingDirection { get; private set; } = 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1
 
     [Header("attack info")]
     public float attackSpeed;
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         PlayerInput.DashEvent -= HandleDashInput;
     }
 
-    #region µô·¹ÀÌ ÄÚ·çÆ¾ ÄÚµå
+    #region ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½Úµï¿½
     public Coroutine StartDelayCall(float delayTime, Action Callback)
     {
         return StartCoroutine(DelayCallCoroutine(delayTime, Callback));
@@ -89,10 +89,13 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    #region Å° ÀÔ·Â ÇÚµé·¯µé
+    #region Å° ï¿½Ô·ï¿½ ï¿½Úµé·¯ï¿½ï¿½
     private void HandleDashInput()
     {
-        StateMachine.ChangeState(PlayerStateEnum.Dash);
+        DashSkill skill = SkillManager.Instance.GetSkill<DashSkill>();
+        
+        if (skill != null && skill.AttemptUseSkill())
+            StateMachine.ChangeState(PlayerStateEnum.Dash);
     }
     #endregion
 
@@ -105,14 +108,14 @@ public class Player : MonoBehaviour
     {
         StateMachine.CurrentState.UpdateState();
 
-        //µð¹ö±× ÄÚµå
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
         //if(Keyboard.current.pKey.wasPressedThisFrame)
         //{
         //    Stat.IncreaseStatBy(10, 5f, Stat.GetStatByType(StatType.strength));
         //}
     }
 
-    #region ¼Óµµ Á¦¾î
+    #region ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SetVelocity(float x, float y, bool doNotFlip = false)
     {
         RigidbodyCompo.velocity = new Vector2(x, y);
@@ -135,7 +138,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    #region ÇÃ¸³ Á¦¾î
+    #region ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void FlipController(float x)
     {
         bool goToRight = x > 0 && !_facingRight;
@@ -154,7 +157,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    #region Ãæµ¹ Ã¼Å© ºÎºÐ
+    #region ï¿½æµ¹ Ã¼Å© ï¿½Îºï¿½
     public virtual bool IsGroundDected() =>
         Physics2D.Raycast(_groundChecker.position, Vector2.down, _groundCheckDistance, _whatIsGround);
 
