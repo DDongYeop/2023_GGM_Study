@@ -479,6 +479,12 @@ void ATPSCharacterPlayer::OnHitEvent()
 	if (hp <= 0)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Player is dead!"));
+		OnGameOver();
 	}
+}
+
+void ATPSCharacterPlayer::OnGameOver_Implementation()
+{
+	UGameplayStatics::SetGamePaused(GetWorld(), true);
 }
 

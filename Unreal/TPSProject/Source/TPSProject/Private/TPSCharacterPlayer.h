@@ -115,6 +115,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = Health)
 	void OnUsingGrenade(bool isGrenade);
 
+	UFUNCTION(BlueprintNativeEvent, Category = Health)
+	void OnGameOver();
+
 #pragma region /* Input */
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
