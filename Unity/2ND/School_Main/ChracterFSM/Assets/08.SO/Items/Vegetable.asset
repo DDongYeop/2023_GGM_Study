@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4257272dc6e4f524c9352cfa50d59e75, type: 3}
+  m_Name: Vegetable
+  m_EditorClassIdentifier: 
+  itemType: 0
+  itemName: Vegetable
+  itemIcon: {fileID: 1555568971, guid: 5d6a6ac1b8d76b14aaf58de8494bbe3d, type: 3}

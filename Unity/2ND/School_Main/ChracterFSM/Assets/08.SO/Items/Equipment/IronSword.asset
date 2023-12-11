@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f58ec16c386a1c43a6db8ada12c6969, type: 3}
+  m_Name: IronSword
+  m_EditorClassIdentifier: 
+  itemType: 1
+  itemName: Iron Sword
+  itemIcon: {fileID: 295229533, guid: 5d6a6ac1b8d76b14aaf58de8494bbe3d, type: 3}
+  equipmentType: 0
+  itemEffectDescription: "\uC544\uBB34\uD2BC \uCCA0\uAC80"
+  strength: 5
+  agility: 0
+  intelligence: 0
+  vitality: 0
+  maxHealth: 0
+  armor: 0
+  evasion: 0
+  magicResistance: 0
+  damage: 10
+  criticalChance: 0
+  criticalDamage: 0
+  fireDamage: 0
+  ignitePercent: 0
+  iceDamage: 0
+  chillPercent: 0
+  thunderDamage: 0
+  shockPercent: 0
