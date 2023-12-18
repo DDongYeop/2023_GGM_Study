@@ -6,19 +6,20 @@ using UnityEngine;
 
 public class Inventory : MonoSingleton<Inventory>
 {
-    public List<InventoryItem> stash; //???????
+    public List<InventoryItem> stash; //¿‚≈€√¢∞Ì
     public Dictionary<ItemDataSO, InventoryItem> stashDictionary;
 
-    public List<InventoryItem> inven; //??? ???
+    public List<InventoryItem> inven; //¿Â∫Ò √¢∞Ì
     public Dictionary<ItemDataSO, InventoryItem> invenDictionary;
 
     public List<InventoryItem> equipments;
     public Dictionary<ItemDataEquipmentSO, InventoryItem> equipmentDictionary;
 
+
     [Header("Inventory UI")]
     [SerializeField] private Transform _stashSlotParent;
     [SerializeField] private Transform _invenSlotParent;
-    [SerializeField] private Transform _equipmentSLotParent;
+    [SerializeField] private Transform _equipmentSlotParent;
 
     private ItemSlotUI[] _stashItemSlots;
     private ItemSlotUI[] _invenItemSlots;
@@ -37,7 +38,7 @@ public class Inventory : MonoSingleton<Inventory>
 
         equipments = new List<InventoryItem>();
         equipmentDictionary = new Dictionary<ItemDataEquipmentSO, InventoryItem>();
-        _equipmentSlots = _equipmentSLotParent.GetComponentsInChildren<EquipmentSlotUI>();
+        _equipmentSlots = _equipmentSlotParent.GetComponentsInChildren<EquipmentSlotUI>();
     }
 
     private void Start()
@@ -48,14 +49,13 @@ public class Inventory : MonoSingleton<Inventory>
     public void UpdateSlotUI()
     {
         #region equipment window cleanup
-
-        for (int i = 0; i < _equipmentSlots.Length; ++i)
+        for(int i = 0; i < _equipmentSlots.Length; ++i)
         {
             EquipmentSlotUI currentSlot = _equipmentSlots[i];
-            //Ìï¥ÎãπÏä¨Î°ùÏóê Ïû•Ï∞©Ìï† Ïû•ÎπÑÎ•º ÎÇ¥Í∞Ä ListÏóê ÎÑ£Ïñ¥ ÎíÄÎäîÏßÄ
-            ItemDataEquipmentSO slotEquipment = equipmentDictionary.Keys.ToList().Find(x => x.equipmentType == currentSlot.slotType);
-
-            if (slotEquipment != null)
+            //«ÿ¥Á ΩΩ∑‘ø° ¿Â¬¯«“ ¿Â∫Ò∏¶ ≥ª∞° Listø° ∫∏¿Ø«œ∞Ì ¿÷¥¬¡ˆ∏¶ √£¥¬∞«µ•
+            ItemDataEquipmentSO slotEquipment = equipmentDictionary.Keys.ToList().Find(
+                                            x => x.equipmentType == currentSlot.slotType);
+            if(slotEquipment != null)
             {
                 currentSlot.UpdateSlot(equipmentDictionary[slotEquipment]);
             }
@@ -64,11 +64,11 @@ public class Inventory : MonoSingleton<Inventory>
                 currentSlot.CleanUpSlot();
             }
         }
-
         #endregion
-        
+
+
         #region clean up slots
-        
+
         for (int i = 0; i < _stashItemSlots.Length; ++i)
         {
             _stashItemSlots[i].CleanUpSlot();
@@ -80,6 +80,7 @@ public class Inventory : MonoSingleton<Inventory>
         }
 
         #endregion
+
 
         #region redraw slots
         for (int i = 0; i < stash.Count; ++i)
@@ -110,8 +111,21 @@ public class Inventory : MonoSingleton<Inventory>
     
     public void RemoveItem(ItemDataSO item, int count = 1)
     {
-        //??????? ??? item?? ????????? ?????? 
-        if(stashDictionary.TryGetValue(item, out InventoryItem stashItem))
+        //¿Â∫Ò√¢∞Ìø° «ÿ¥Á item¿Ã ¡∏¿Á«œ¥¬¡ˆ ∞ÀªÁ«ÿº≠ 
+        if (invenDictionary.TryGetValue(item, out InventoryItem inventoryItem))
+        {
+            if (inventoryItem.stackSize <= count)
+            {
+                inven.Remove(inventoryItem);
+                invenDictionary.Remove(item);
+            }
+            else
+            {
+                inventoryItem.RemoveStack(count);
+            }
+        }
+        
+        if (stashDictionary.TryGetValue(item, out InventoryItem stashItem))
         {
             if(stashItem.stackSize <= count)
             {
@@ -123,28 +137,16 @@ public class Inventory : MonoSingleton<Inventory>
                 stashItem.RemoveStack(count);
             }
         }
-        else if(invenDictionary.TryGetValue(item, out InventoryItem inventoryItem))
-        {
-            if(inventoryItem.stackSize <= count)
-            {
-                inven.Remove(inventoryItem);
-                invenDictionary.Remove(item);
-            }
-            else
-            {
-                inventoryItem.RemoveStack(count);
-            }
-        }
 
         UpdateSlotUI(); 
     }
 
     private void AddToInventory(ItemDataSO item)
     {
-        //??? ??? ???????? ?Œ∫????? ???? ????? ?√∏??? ????? ???? ???? ??????
+        //¿ÃπÃ «ÿ¥Á æ∆¿Ã≈€¿Ã ¿Œ∫•≈‰∏ÆªÛø° ¿÷¥Ÿ∏È ºˆƒ°∏¶ ø√∏Æ∞Ì ±◊∑∏¡ˆ æ ¥Ÿ∏È ªı∑Œ µÓ∑œ«œ∞Ì
         if (invenDictionary.TryGetValue(item, out InventoryItem inventoryItem))
         {
-            inventoryItem.AddStack(); //???? ??? ????
+            inventoryItem.AddStack(); //Ω∫≈√ «œ≥™ ¡ı∞°
         }
         else
         {
@@ -157,10 +159,10 @@ public class Inventory : MonoSingleton<Inventory>
 
     private void AddToStash(ItemDataSO item)
     {
-        //??? ??? ???????? ?Œ∫????? ???? ????? ?√∏??? ????? ???? ???? ??????
+        //¿ÃπÃ «ÿ¥Á æ∆¿Ã≈€¿Ã ¿Œ∫•≈‰∏ÆªÛø° ¿÷¥Ÿ∏È ºˆƒ°∏¶ ø√∏Æ∞Ì ±◊∑∏¡ˆ æ ¥Ÿ∏È ªı∑Œ µÓ∑œ«œ∞Ì
         if(stashDictionary.TryGetValue(item, out InventoryItem inventoryItem))
         {
-            inventoryItem.AddStack(); //???? ??? ????
+            inventoryItem.AddStack(); //Ω∫≈√ «œ≥™ ¡ı∞°
         }
         else
         {
@@ -174,23 +176,27 @@ public class Inventory : MonoSingleton<Inventory>
     {
         ItemDataEquipmentSO newEquipItem = item as ItemDataEquipmentSO;
 
-        if (newEquipItem == null)
+        if(newEquipItem == null)
         {
             Debug.Log("can not equip!");
             return;
         }
 
         InventoryItem newItem = new InventoryItem(newEquipItem);
-        
-        ItemDataEquipmentSO oldEquipment = GetEquipmentByType(newEquipItem.equipmentType);
 
-        if (oldEquipment != null)
+        //«ÿ¥Á ƒ≠ø° ¥Ÿ∏•¿Â∫Ò∞° ¿Â¬¯µ«æÓ ¿÷¥¬¡ˆ∏¶ √º≈©«ÿæﬂ«œ∞Ì 
+        ItemDataEquipmentSO oldEquipment = GetEquipmentByType(newEquipItem.equipmentType);
+        //ø©±‚¥Ÿ∞° ±◊ ∑Œ¡˜ ¿€º∫«œ∞Ì
+
+        if(oldEquipment != null)
+        {
             UnEquipItem(oldEquipment);
-        
+        }
+
         equipments.Add(newItem);
         equipmentDictionary.Add(newEquipItem, newItem);
-        newEquipItem.AddModifiers();
-        
+        newEquipItem.AddModifiers(); //«ÿ¥Á ¿Â∫Ò¿« ¥…∑¬ƒ°∏¶ «√∑π¿ÃæÓ Ω∫≈›ø° π›øµ
+
         RemoveItem(item);
         UpdateSlotUI();
     }
@@ -199,34 +205,28 @@ public class Inventory : MonoSingleton<Inventory>
     {
         ItemDataEquipmentSO equipItem = null;
 
-        foreach (var pair in equipmentDictionary)
+        foreach(var pair in equipmentDictionary)
         {
-            if (pair.Key.equipmentType == type)
+            if(pair.Key.equipmentType == type)
             {
                 equipItem = pair.Key;
                 break;
             }
         }
-        
+
         return equipItem;
     }
 
     public void UnEquipItem(ItemDataEquipmentSO oldEquipment)
     {
-        //ÎÑêÏ≤¥ÌÅ¨
         if (oldEquipment == null) return;
-
-        //equiDicÏóêÏÑú Ï°¥Ïû¨ ÌôïÏù∏
-        if (equipmentDictionary.TryGetValue(oldEquipment, out InventoryItem invenItem))
+        // equipmentDictionaryø°º≠ ±◊≥‡ºÆ¿Ã ¡∏¿Á«œ¥¬¡ˆ √º≈©«œ∞Ì
+        if(equipmentDictionary.TryGetValue(oldEquipment, out InventoryItem invenItem))
         {
-            //Ï°¥Ïû¨ÌïòÎ©¥ equipmentÏóêÏÑú ÏûëÏÑ∏, ÎîïÏÖîÎÑàÎ¶¨ ÏÇ≠Ï†ú
             equipments.Remove(invenItem);
             equipmentDictionary.Remove(oldEquipment);
-            
-            //removemodifiers
             oldEquipment.RemoveModifiers();
-            
-            //additem 
+
             AddItem(oldEquipment);
         }
     }

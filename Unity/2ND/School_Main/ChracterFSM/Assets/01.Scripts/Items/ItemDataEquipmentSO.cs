@@ -20,18 +20,18 @@ public class ItemDataEquipmentSO : ItemDataSO
 
     [TextArea] public string itemEffectDescription;
 
-    #region ìŠ¤í…Ÿ ì„ ì–¸ë¶€
+    #region ½ºÅİ ¼±¾ğºÎ
     [Header("Major stat")]
-    public int strength; // 1í¬ì¸íŠ¸ë‹¹ ë°ë¯¸ì§€ ì¦ê°€, í¬ì¦ë€ 1%
-    public int agility; // 1í¬ì¸íŠ¸ë‹¹ íšŒí”¼ 1%, í¬ë¦¬í‹°ì»¬ 1%
-    public int intelligence; // 1í¬ì¸íŠ¸ë‹¹ ë§ˆë²•ë°ë¯¸ì§€ 1ì¦ê°€, ë§ˆë²•ì €í•­ 3ì¦ê°€, ë„íŠ¸ ë°ë¯¸ì§€ì— ì§€ëŠ¥ì˜ 10% ì¦ë€(ì§€ëŠ¥10ë‹¹ ë„íŠ¸ë€ 10í¼ ì¦ê°€)
-    public int vitality; // 1í¬ì¸íŠ¸ë‹¹ ì²´ë ¥ 5ì¦ê°€.
+    public int strength; // 1Æ÷ÀÎÆ®´ç µ¥¹ÌÁö Áõ°¡, Å©Áõµ© 1%
+    public int agility; // 1Æ÷ÀÎÆ®´ç È¸ÇÇ 1%, Å©¸®Æ¼ÄÃ 1%
+    public int intelligence; // 1Æ÷ÀÎÆ®´ç ¸¶¹ıµ¥¹ÌÁö 1Áõ°¡, ¸¶¹ıÀúÇ× 3Áõ°¡, µµÆ® µ¥¹ÌÁö¿¡ Áö´ÉÀÇ 10% Áõµ©(Áö´É10´ç µµÆ®µ© 10ÆÛ Áõ°¡)
+    public int vitality; // 1Æ÷ÀÎÆ®´ç Ã¼·Â 5Áõ°¡.
 
     [Header("Defensive stats")]
-    public int maxHealth; //ì²´ë ¥
-    public int armor; //ë°©ì–´ë„
-    public int evasion; //íšŒí”¼ë„
-    public int magicResistance; //ë§ˆë²•ë°©ì–´
+    public int maxHealth; //Ã¼·Â
+    public int armor; //¹æ¾îµµ
+    public int evasion; //È¸ÇÇµµ
+    public int magicResistance; //¸¶¹ı¹æ¾î
 
     [Header("Offensive stats")]
     public int damage;
@@ -86,12 +86,12 @@ public class ItemDataEquipmentSO : ItemDataSO
 
     public void RemoveModifiers()
     {
-        //ëª¨ë””íŒŒì´ì–´ ì œê±° - ë‹ˆë“¤ì´ í• êº¼ì„.
+        //¸ğµğÆÄÀÌ¾î Á¦°Å - ´ÏµéÀÌ ÇÒ²¨ÀÓ.
         PlayerStat playerStat = GameManager.Instance.Player.Stat;
 
         if (playerStat == null) return;
 
-        foreach(var pair in _fieldInfoDictionary)
+        foreach (var pair in _fieldInfoDictionary)
         {
             Stat stat = playerStat.GetStatByType(pair.Key);
             int modifyValue = (int)pair.Value.GetValue(this);

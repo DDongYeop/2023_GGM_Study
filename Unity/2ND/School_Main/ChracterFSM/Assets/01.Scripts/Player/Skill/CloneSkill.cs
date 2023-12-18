@@ -1,27 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CloneSkill : Skill
 {
-    [Header("Clone Info")] 
+    [Header("clone info")]
+    //ÇÁ¸®ÆÕ
     [SerializeField] private CloneSkillController _clonePrefab;
     [SerializeField] private bool _createCloneOnDashStart;
     [SerializeField] private bool _createCloneOnDashEnd;
-    [SerializeField] private bool _createCloneOnCounterAttack; //ê·¸ëƒ¥ ë§Œë“¤ì–´ë§Œ ë‘ê¸°
+    [SerializeField] private bool _createCloneOnCounterAttack; //ÀÌ°Ç ±×³É ¸¸µé¾î¸¸ ³õÀ»²²
 
     public float cloneDuration;
-    public float findEnemyRadius = 5f; //ì ì„ ì°¾ì•„ì„œ ì  ë°©í–¥ìœ¼ë¡œ íšŒì „
+    public float findEnemyRadius = 5f; //ÀûÀ» Ã£¾Æ¼­ Àû ¹æÇâÀ¸·Î È¸Àü
 
+    
     public void CreateClone(Transform originTrm, Vector3 offset)
     {
+        //Å¬·ĞÀ» ¸¸µé¾îÁÖ´Â°É ÇØ¾ßÇÑ´Ù.
         CloneSkillController newClone = Instantiate(_clonePrefab);
         newClone.SetUpClone(this, originTrm, offset);
+    }
+
+    public void CreateCloneOnDashStart()
+    {
+        if(_createCloneOnDashStart)
+        {
+            CreateClone(_player.transform, Vector3.zero);
+        }
     }
 
     public void CreateCloneOnDashEnd()
     {
         if (_createCloneOnDashEnd)
+        {
             CreateClone(_player.transform, Vector3.zero);
+        }
     }
 }

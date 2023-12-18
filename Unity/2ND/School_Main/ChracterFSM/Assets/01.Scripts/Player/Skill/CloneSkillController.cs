@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class CloneSkillController : MonoBehaviour
 {
@@ -8,7 +7,8 @@ public class CloneSkillController : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
 
-    private readonly int _comCounterHash = Animator.StringToHash("ComboCounter");
+
+    private readonly int _comboCounterHash = Animator.StringToHash("ComboCounter");
     private int _facingDirection = 1;
 
     private CloneSkill _skill;
@@ -21,36 +21,42 @@ public class CloneSkillController : MonoBehaviour
 
     public void SetUpClone(CloneSkill skill, Transform originTrm, Vector3 offset)
     {
-        _animator.SetInteger(_comCounterHash, Random.Range(0, _attackCategoryCount));
+        _animator.SetInteger(_comboCounterHash, Random.Range(0, _attackCategoryCount));
         _skill = skill;
-        transform.position = originTrm.position + offset; 
+        transform.position = originTrm.position + offset;
+
+        //°¡Àå ±Ù°Å¸® ÀûÀ» ¹Ù¶óº¸µµ·Ï ÇÔ¼ö¸¦ ÇÏ³ª ¸¸µéÀÚ
         FacingClosestTarget();
-        
+
+        //±×¸®°í ³¡³ª¸é »èÁ¦µÇµµ·Ï ¸¸µç´Ù.
         Sequence seq = DOTween.Sequence();
         seq.AppendInterval(_skill.cloneDuration);
         seq.Append(_spriteRenderer.DOFade(0, 0.4f));
-        seq.AppendCallback(() => Destroy(gameObject));
+        seq.AppendCallback(() =>
+        {
+            Destroy(gameObject);
+        });
     }
 
     private void FacingClosestTarget()
     {
         Transform target = _skill.FindClosestEnemy(transform, _skill.findEnemyRadius);
-        
-        //ì´ê²Œ ë„ì´ ì•„ë‹ˆë©´
-        if (target != null)
+
+        if(target != null)
         {
-            //ìž˜ ì²´í¬í•˜ê³ 
-            if (transform.position.x > target.position.x)
+            if(transform.position.x > target.position.x)
             {
-                //ë°©í–¥ íšŒì „
-                _facingDirection = -1;
+                _facingDirection = -1; //³ªÁß¿¡ °ø°Ý±îÁö µÇ°ÔÇÏ±â À§ÇØ¼­
                 transform.Rotate(0, 180, 0);
             }
         }
+        //ÀÌ°Ô ¸¸¾à ³ÎÀÌ ¾Æ´Ï¸é
+        // Àß Ã¼Å©ÇØ¼­
+        // ¾Ë¸ÂÀº ¹æÇâÀ¸·Î È¸ÀüÇÏ°Ô ÇØ¾ßÇÑ´Ù.
     }
 
     private void AnimationFinishTrigger()
     {
-        
+
     }
 }

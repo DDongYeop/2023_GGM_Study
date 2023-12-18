@@ -23,7 +23,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
             _itemImage.sprite = item.itemData.itemIcon;
 
             if (_itemAmountText == null) return;
-            
+
             if(item.stackSize > 1)
             {
                 _itemAmountText.text = item.stackSize.ToString();
@@ -39,25 +39,25 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
     {
         item = null;
         _itemImage.sprite = _emptySprite;
-        
+
         if (_itemAmountText == null) return;
         _itemAmountText.text = string.Empty;
     }
 
-    //?????? ??????? ?? 
+    //¿©±â´Ù°¡ Å¬¸¯ÇßÀ» ¶§ 
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         if (item == null) return;
 
-        if (!Keyboard.current.ctrlKey.isPressed)
+        if (item.itemData.itemType == ItemType.Equipment)
         {
+            //ÀåºñÇØÁ¦ ¶Ç´Â ÀåÂø ÂÊÀ¸·Î °¥²¨°í
+            Inventory.Instance.EquipItem(item.itemData);
             return;
         }
 
-        if (item.itemData.itemType == ItemType.Equipment)
+        if (!Keyboard.current.ctrlKey.isPressed)
         {
-            //ìž¥ë¹„ ìž¥ì°© or í•´ì œ 
-            Inventory.Instance.EquipItem(item.itemData as ItemDataEquipmentSO);
             return;
         }
 

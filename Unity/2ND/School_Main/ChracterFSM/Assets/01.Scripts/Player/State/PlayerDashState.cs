@@ -17,8 +17,8 @@ public class PlayerDashState : PlayerState
         float xInput = _player.PlayerInput.XInput;
         _dashDirection = Mathf.Abs(xInput) >= 0.05f ? xInput : _player.FacingDirection;
         _dashStartTime = Time.time;
-        
-        SkillManager.Instance.GetSkill<CloneSkill>()?.CreateCloneOnDashEnd();
+
+        SkillManager.Instance.GetSkill<CloneSkill>()?.CreateCloneOnDashStart();
     }
 
     public override void UpdateState()
@@ -38,4 +38,6 @@ public class PlayerDashState : PlayerState
         SkillManager.Instance.GetSkill<CloneSkill>()?.CreateCloneOnDashEnd();
         base.ExitState();
     }
+
+
 }

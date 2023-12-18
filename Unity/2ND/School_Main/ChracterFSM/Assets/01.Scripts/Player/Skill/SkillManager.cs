@@ -20,12 +20,12 @@ public class SkillManager : MonoSingleton<SkillManager>
         _skills = new Dictionary<Type, Skill>();
         _skillTypes = new Dictionary<PlayerSkill, Type>();
 
-        foreach (PlayerSkill skill in Enum.GetValues(typeof(PlayerSkill)))
+        foreach(PlayerSkill skill in Enum.GetValues(typeof(PlayerSkill)))
         {
             Skill skillCompo = GetComponent($"{skill.ToString()}Skill") as Skill;
             if (skillCompo != null)
             {
-                Type skillType = skillCompo.GetType();
+                Type skillType = skillCompo.GetType(); //타입을 뽑아오고
                 _skills.Add(skillType, skillCompo);
                 _skillTypes.Add(skill, skillType);
             }
@@ -35,8 +35,10 @@ public class SkillManager : MonoSingleton<SkillManager>
     public T GetSkill<T>() where T : Skill
     {
         Type t = typeof(T);
-        if (_skills.TryGetValue(t, out Skill targetSkill))
+        if(_skills.TryGetValue(t, out Skill targetSkill))
+        {
             return targetSkill as T;
+        }
         return null;
     }
 
@@ -44,11 +46,15 @@ public class SkillManager : MonoSingleton<SkillManager>
     {
         Type t = _skillTypes[enumType];
         if (_skills.TryGetValue(t, out Skill targetSkill))
+        {
             return targetSkill;
+        }
         return null;
     }
 
+
     public void UseSkillFeedback(PlayerSkill skillType)
     {
+     
     }
 }
