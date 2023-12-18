@@ -29,10 +29,20 @@ public class CrystalSkill : Skill
         if (_currentCrystal != null)
         {
             //이미 소환한 크리스탈 있으면 해줄일을 여기에 적고
+            WarpToCrystalPosition();
         }
 
         Debug.Log("Skill cooldown or locked");
         return true;
+    }
+
+    private void WarpToCrystalPosition()
+    {
+        Vector2 playerPos = _player.transform.position;
+        _player.transform.position = _currentCrystal.transform.position;
+        _currentCrystal.transform.position = playerPos;
+        
+        _currentCrystal.EndOfCrystal();
     }
 
     public override void UseSkill()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 
@@ -7,7 +8,7 @@ public delegate void CooldownNotifier(float current, float total);
 
 public abstract class Skill : MonoBehaviour
 {
-    public bool skillEnabled; //ÀÌ ½ºÅ³ÀÌ È°¼ºÈ­µÇ¾ú´Â°¡?
+    public bool skillEnabled; //ì´ ìŠ¤í‚¬ì´ í™œì„±í™”ë˜ì—ˆëŠ”ê°€?
 
     [SerializeField] protected LayerMask _whatIsEnemy;
     [SerializeField] protected float _cooldown;
@@ -15,12 +16,16 @@ public abstract class Skill : MonoBehaviour
     protected Player _player;
 
     [SerializeField] protected PlayerSkill _skillType;
+    //ë¡œìŠ¤íŠ¸
+    [SerializeField] protected int _collisionDetectCount;
+    protected Collider2D[] _collisionColliders;
 
-    public event CooldownNotifier OnCooldown; //ÄğÅ¸ÀÓÀÌ µ¹¾Æ°¥ ¶§ ¹ßÇàµÇ´Â ¸Ş½ÃÁö
+    public event CooldownNotifier OnCooldown; //ì¿¨íƒ€ì„ì´ ëŒì•„ê°ˆ ë•Œ ë°œí–‰ë˜ëŠ” ë©”ì‹œì§€
 
     protected virtual void Start()
     {
         _player = GameManager.Instance.Player;
+        _collisionColliders = new Collider2D[_collisionDetectCount];
     }
 
     protected virtual void Update()
@@ -52,7 +57,7 @@ public abstract class Skill : MonoBehaviour
 
     public virtual void UseSkill()
     {
-        //³ª ÀÌ ½ºÅ³ ½è¾î. ÇÇµå¹éÇØÁà
+        //ë‚˜ ì´ ìŠ¤í‚¬ ì¼ì–´. í”¼ë“œë°±í•´ì¤˜
         SkillManager.Instance.UseSkillFeedback(_skillType);
     }
 
@@ -60,13 +65,15 @@ public abstract class Skill : MonoBehaviour
     {
         Transform target = null;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(
-                            checkTrm.position, radius, _whatIsEnemy);
+        int cnt = Physics2D.OverlapCircle(checkTrm.position, radius, new ContactFilter2D { layerMask = _whatIsEnemy, useLayerMask = true }, _collisionColliders);
+
+        //Collider2D[] colliders = Physics2D.OverlapCircleAll(checkTrm.position, radius, _whatIsEnemy);
 
         float closestDistance = Mathf.Infinity;
 
-        foreach(Collider2D collider in colliders)
+        for (int i = 0; i < cnt; ++i)
         {
+            Collider2D collider = _collisionColliders[i];
             float distance = Vector2.Distance(checkTrm.position, collider.transform.position);
             if(distance < closestDistance)
             {

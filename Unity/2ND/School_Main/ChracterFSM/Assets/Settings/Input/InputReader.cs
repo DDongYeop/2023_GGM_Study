@@ -10,6 +10,7 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
     public event Action JumpEvent;
     public event Action DashEvent;
     public event Action AttackEvent;
+    public event Action CrystalEvent; 
     public float XInput { get; private set; }
     public float YInput { get; private set; }
 
@@ -57,6 +58,14 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
         if(context.performed)
         {
             AttackEvent?.Invoke();
+        }
+    }
+
+    public void OnCrystalSkill(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            CrystalEvent?.Invoke();
         }
     }
 }

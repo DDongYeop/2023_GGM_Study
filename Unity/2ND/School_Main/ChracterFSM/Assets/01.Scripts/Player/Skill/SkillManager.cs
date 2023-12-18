@@ -7,7 +7,7 @@ public enum PlayerSkill
 {
     Dash = 1,
     Clone = 2,
-    //Crystal = 3
+    Crystal = 3
 }
 
 public class SkillManager : MonoSingleton<SkillManager>
@@ -25,7 +25,7 @@ public class SkillManager : MonoSingleton<SkillManager>
             Skill skillCompo = GetComponent($"{skill.ToString()}Skill") as Skill;
             if (skillCompo != null)
             {
-                Type skillType = skillCompo.GetType(); //Å¸ÀÔÀ» »Ì¾Æ¿À°í
+                Type skillType = skillCompo.GetType(); //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾Æ¿ï¿½ï¿½ï¿½
                 _skills.Add(skillType, skillCompo);
                 _skillTypes.Add(skill, skillType);
             }
