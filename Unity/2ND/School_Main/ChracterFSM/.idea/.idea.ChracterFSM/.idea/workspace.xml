@@ -7,17 +7,9 @@
     <list default="true" id="0497721a-2689-4910-989c-4adddfea70f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ChracterFSM/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ChracterFSM/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Player/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CrystalSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CrystalSkill.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CrystalSkillController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CrystalSkillController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/Skill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/Skill.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/SkillManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/SkillManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Animations/Crystal/crystal_explostion.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Animations/Crystal/crystal_explostion.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/04.Animations/CrystalController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/04.Animations/CrystalController.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/Input/Controls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Input/Controls.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/Input/Controls.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Input/Controls.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/Input/InputReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Input/InputReader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Search.settings" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Search.settings" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +20,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/FileDataHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/GameData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/SaveManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/SerializableDictionary.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CloneSkill.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CloneSkillController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CrystalSkill.cs" root0="FORCE_HIGHLIGHTING" />
@@ -68,7 +63,7 @@
 }</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.14f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.15f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath D:\Dev\GitHub\2023_GGM_Study\Unity\2ND\School_Main\ChracterFSM -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="D:\Dev\GitHub\2023_GGM_Study\Unity\2ND\School_Main\ChracterFSM" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -76,7 +71,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.14f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.15f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath D:\Dev\GitHub\2023_GGM_Study\Unity\2ND\School_Main\ChracterFSM -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="D:\Dev\GitHub\2023_GGM_Study\Unity\2ND\School_Main\ChracterFSM" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -115,6 +110,7 @@
       <workItem from="1702257446872" duration="1000" />
       <workItem from="1702257621470" duration="8971000" />
       <workItem from="1702861872016" duration="5771000" />
+      <workItem from="1703134364537" duration="2849000" />
     </task>
     <servers />
   </component>

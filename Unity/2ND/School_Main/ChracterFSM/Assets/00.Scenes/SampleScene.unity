@@ -577,6 +577,8 @@ GameObject:
   m_Component:
   - component: {fileID: 295180665}
   - component: {fileID: 295180664}
+  - component: {fileID: 295180667}
+  - component: {fileID: 295180666}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -613,6 +615,34 @@ Transform:
   - {fileID: 287194851}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &295180666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295180663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd76944181c823f4f9f146d0db1489e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filename: SaveData
+  _isEncrypt: 0
+--- !u!114 &295180667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295180663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c461e1fb1a5ab0c43b15e9942f20f91a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentGold: 0
+  _currentExp: 0
 --- !u!224 &296652160 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8991943953113772921, guid: 1d0930810d15aa84a8929b6ec0982ebd, type: 3}
