@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Inventory : MonoSingleton<Inventory>
+public class Inventory : MonoSingleton<Inventory>, ISaveManager
 {
+    [SerializeField] private ItemDatabaseSO _itemDB;
     public List<InventoryItem> stash; //잡템창고
     public Dictionary<ItemDataSO, InventoryItem> stashDictionary;
 
@@ -228,6 +230,34 @@ public class Inventory : MonoSingleton<Inventory>
             oldEquipment.RemoveModifiers();
 
             AddItem(oldEquipment);
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        List<ItemDataSO> itemDB = _itemDB.itemList;
+
+        foreach (var pair in data.inventory)
+        {
+            ItemDataSO item = itemDB.Find(x => x.itemID == pair.Key);
+            if (item != null)
+            {
+                for (int i = 0; i < pair.Value; i++)
+                    AddItem(item);
+            }
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.inventory.Clear();
+        foreach (var pair in stashDictionary)
+        {
+            data.inventory.Add(pair.Key.itemID, pair.Value.stackSize);
+        }
+        foreach (var pair in invenDictionary)
+        {
+            data.inventory.Add(pair.Key.itemID, pair.Value.stackSize);
         }
     }
 }

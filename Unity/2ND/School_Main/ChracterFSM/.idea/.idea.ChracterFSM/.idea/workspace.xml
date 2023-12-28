@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0497721a-2689-4910-989c-4adddfea70f3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ChracterFSM/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ChracterFSM/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ChracterFSM/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ChracterFSM/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/FileDataHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/FileDataHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/GameData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/GameData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/SaveManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/SaveManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CloneSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CloneSkill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Items/Inventory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Items/Inventory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Items/ItemDataSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Items/ItemDataSO.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +114,7 @@
       <workItem from="1702257621470" duration="8971000" />
       <workItem from="1702861872016" duration="5771000" />
       <workItem from="1703134364537" duration="2849000" />
-      <workItem from="1703739118602" duration="5082000" />
+      <workItem from="1703739118602" duration="6425000" />
     </task>
     <servers />
   </component>
