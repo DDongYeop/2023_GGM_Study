@@ -628,7 +628,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filename: SaveData
-  _isEncrypt: 0
+  _isEncrypt: 1
+  _isBase64: 0
 --- !u!114 &295180667
 MonoBehaviour:
   m_ObjectHideFlags: 0

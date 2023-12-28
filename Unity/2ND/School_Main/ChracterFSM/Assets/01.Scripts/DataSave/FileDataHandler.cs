@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class FileDataHandler 
@@ -8,12 +9,18 @@ public class FileDataHandler
     private string _filename = "";
 
     private bool _isEncrypt;
+    private bool _isBase64;
 
-    public FileDataHandler(string directoryPath, string filename, bool isEncrypt)
+    private CryptoModule _cryptoModule;
+
+    public FileDataHandler(string directoryPath, string filename, bool isEncrypt, bool isBase64 = false)
     {
         _directoryPath = directoryPath;
         _filename = filename;
         _isEncrypt = isEncrypt;
+        _isBase64 = isBase64;
+        
+        _cryptoModule = new CryptoModule();
     }
 
     public void Save(GameData gameData)
@@ -24,6 +31,16 @@ public class FileDataHandler
             Directory.CreateDirectory(_directoryPath);
             string dataToStore = JsonUtility.ToJson(gameData, true); //인간이 보기 좋게 만들어준다.
 
+            if (_isEncrypt)
+            {
+                dataToStore = _cryptoModule.AESEncrypt256(dataToStore);
+                //dataToStore = EncryptDecryptData(dataToStore);
+            }
+            /*if (_isBase64)
+            {
+                dataToStore = Base64Process(dataToStore, false);
+            }*/
+            
             using(FileStream writeStream = new FileStream(fullPath, FileMode.Create))
             {
                 using(StreamWriter writer = new StreamWriter(writeStream))
@@ -56,6 +73,16 @@ public class FileDataHandler
                         dataToLoad = reader.ReadToEnd(); //끝까지 다 읽기
                     }
                 }
+                
+                /*if (_isBase64)
+                {
+                    dataToLoad = Base64Process(dataToLoad, false);
+                }*/
+                if (_isEncrypt)
+                {
+                    dataToLoad = _cryptoModule.Decrypt(dataToLoad);
+                    //dataToLoad = EncryptDecryptData(dataToLoad);
+                }
 
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
             }catch(Exception ex )
@@ -82,6 +109,33 @@ public class FileDataHandler
             {
                 Debug.LogError($"Error on trying to delete file {fullPath}");
             }
+        }
+    }
+
+    private string _codeWord = "ggmisgreatallthetime";
+    private string EncryptDecryptData(string data)
+    {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < data.Length; ++i)
+        {
+            builder.Append((char)(data[i] ^ _codeWord[i % _codeWord.Length]));
+        }
+
+        return builder.ToString();
+    }
+
+    private string Base64Process(string data, bool encoding)
+    {
+        if (encoding)
+        {
+            byte[] dataByteArr = Encoding.UTF8.GetBytes(data);
+            return Convert.ToBase64String(dataByteArr); //바이트 싹 끄집어와서 6비트로 쪼개고 스트링 조립
+        }
+        else
+        {
+            byte[] dataByteArr = Convert.FromBase64String(data);
+            return Encoding.UTF8.GetString(dataByteArr);
         }
     }
 }

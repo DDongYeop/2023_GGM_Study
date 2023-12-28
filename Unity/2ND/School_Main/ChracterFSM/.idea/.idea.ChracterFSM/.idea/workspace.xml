@@ -7,9 +7,10 @@
     <list default="true" id="0497721a-2689-4910-989c-4adddfea70f3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ChracterFSM/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ChracterFSM/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/00.Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/00.Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Search.settings" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Search.settings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/FileDataHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/FileDataHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/GameData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/GameData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/SaveManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/DataSave/SaveManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CloneSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/CloneSkill.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +21,8 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/CryptoModule.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/Editor/LoadItemDatabaseEditor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/FileDataHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/GameData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/DataSave/SaveManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -31,6 +34,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/DashSkill.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/Skill.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/Player/Skill/SkillManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/SO/ItemDatabaseSO.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/01.Scripts/UI/SkillCooldownIconUI.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -111,6 +115,7 @@
       <workItem from="1702257621470" duration="8971000" />
       <workItem from="1702861872016" duration="5771000" />
       <workItem from="1703134364537" duration="2849000" />
+      <workItem from="1703739118602" duration="5082000" />
     </task>
     <servers />
   </component>
